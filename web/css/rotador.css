@@ -1,0 +1,119 @@
+body {background-color: white;
+display: block;
+			}
+
+.login-link {
+color: #bfc9ca;
+display: block;
+font-size: 14px;
+margin-top: 15px;
+text-align: center;
+}
+
+.contenedor{
+
+    position:absolute;
+	width: 30%;
+	height: 15%;
+	background-color:black;
+}
+
+.youtube {
+
+position:absolute;
+z-index:2;
+height: 50px;
+margin-left: 200px;
+margin-top: 240px;
+border: none;
+}
+.instagram {
+position:absolute;
+z-index:2;
+height: 50px;
+margin-left: 400px;
+margin-top: 260px;
+border: none;
+}
+.soundcloud {
+position:absolute;
+z-index:2;
+height: 50px;
+margin-left: 605px;
+margin-top: 220px;
+border: none;
+}
+.contenedor2{
+
+    position:absolute;
+	width: 80%;
+	height: 15%;
+	background-color:black;
+	margin-left:400px;
+        z-index: 3;
+}
+
+
+h1 {
+font-family: 'Belleza', sans-serif;
+color: white;
+position: absolute;
+font-size: 64px;
+font-weight: 700;
+margin-left:140px;
+margin-top:24px;
+z-index:9;
+
+}
+
+h4 {
+color: #95A5A6;
+position: absolute;
+text-align: justify;
+
+font-size: 32px;
+font-weight: 700;
+line-height: 1.2;
+margin-left:140px;
+margin-right:450px;
+margin-top:130px;
+
+}
+
+h2 {
+color: #BDC3C7;
+font-size: 38px;
+font-weight: 700;
+margin-left:5px;
+margin-top:30px;
+
+}
+
+.facebook {
+
+position:absolute;
+z-index:3;
+margin-left: 265px;
+margin-top: 13px;
+}
+
+h5 {
+color: #95A5A6;
+position: absolute;
+text-align: center;
+
+font-size: 16px;
+font-weight: 700;
+line-height: 1.2;
+margin-left:530px;
+margin-top:51%;
+
+}
+.separador{
+
+    position:absolute;
+	height: 0px;
+	background-color: black;
+	margin-top: 48%;
+	}	
+	
