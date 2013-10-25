@@ -51,7 +51,7 @@ FB.login(function(response) {
         document.getElementById("apellidoFace").innerHTML=response.last_name;
         document.getElementById("cumpleFace").innerHTML=response.birthday;
         document.getElementById("emailFace").innerHTML=response.email;
-        document.getElementById("direccionFace").innerHTML=response.user_hometown.name;
+        document.getElementById("direccionFace").innerHTML=response.hometown.name;
         
         
  });
