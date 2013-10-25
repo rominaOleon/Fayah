@@ -13,7 +13,7 @@ FB.Event.subscribe('auth.authResponseChange', function(response)
  if (response.status === 'connected') 
  {
 alert ('conectado');
-document.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
+//document.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
  getUserInfo();
  } 
 
@@ -39,7 +39,7 @@ FB.login(function(response) {
  
  getUserInfo();
  
- },{scope: 'email,user_photos,user_videos,user_birthday'});
+ },{scope: 'email,user_photos,user_hometown,user_birthday'});
 
 }
 
@@ -51,7 +51,7 @@ FB.login(function(response) {
         document.getElementById("apellidoFace").innerHTML=response.last_name;
         document.getElementById("cumpleFace").innerHTML=response.birthday;
         document.getElementById("emailFace").innerHTML=response.email;
-        document.getElementById("direccionFace").innerHTML=response.hometown.name;
+        document.getElementById("direccionFace").innerHTML=response.user_hometown.name;
         
         
  });

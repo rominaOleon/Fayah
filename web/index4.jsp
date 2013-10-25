@@ -57,7 +57,7 @@
 
 <label id="cumpleFace" >Fecha de Nacimiento:</label><br/> 
 
-<label id="direccionFace" >Direccion:</label><br/> 
+<label id="direccionFace">Direccion:</label><br/> 
 
 <img id="img">
 
