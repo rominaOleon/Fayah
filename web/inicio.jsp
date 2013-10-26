@@ -60,7 +60,7 @@
     <div class="contenedor"> 
 
         <div class="home">
-            <img src="img/home_icon.png" alt="home icon" width="35px" />
+            <img src="img/Home_icon.png" alt="home icon" width="35px" />
         </div>
         <div class="settings">
             <img src="img/setting-icon3.png" alt="home icon" width="32px" />
@@ -89,7 +89,7 @@
 
     <div class="columnleft">
         <div class="usuariodefault">
-            <img src="img/usuariodefault.ico" alt="foto tomorrowland" width="175px" />
+            <img src="http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png" width="175px" />
         </div>
 
         <div class="photos">
@@ -117,29 +117,8 @@
         <div class="titulo">
         </div>
     </div>
-
-
-
-
-
-
-
-
     <div class="columnright2">
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>	
 </html>
