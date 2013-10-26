@@ -4,12 +4,6 @@
  */
 package negocio;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author romina
@@ -25,8 +19,23 @@ public class Usuario {
     private String usuario_privacidad;
     private AlbumList usuario_albums;
     private AmigoList usuario_amigos;
+    private String usuario_foto;
 
-    public Usuario(int id, String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad) {
+    public Usuario(){
+          this.usuario_id = 0;
+            this.usuario_username = "";
+            this.usuario_nombre = "";
+            this.usuario_apellido = "";
+            this.usuario_email = "";
+            this.usuario_fecha_nacimiento = "";
+            this.usuario_ubicacion = "";
+            this.usuario_privacidad = "";
+            this.usuario_albums = new AlbumList();
+            this.usuario_amigos = new AmigoList();
+            this.usuario_foto = "";        
+    }
+    
+    public Usuario(int id, String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad, String foto) {
             this.usuario_id = id;
             this.usuario_username = username;
             this.usuario_nombre = nombre;
@@ -37,9 +46,10 @@ public class Usuario {
             this.usuario_privacidad = privacidad;
             this.usuario_albums = new AlbumList();
             this.usuario_amigos = new AmigoList();
+            this.usuario_foto = foto;
     }
 
-    public Usuario(String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad) {
+    public Usuario(String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad,String foto) {
             this.usuario_id = 0;
             this.usuario_username = username;
             this.usuario_nombre = nombre;
@@ -50,6 +60,7 @@ public class Usuario {
             this.usuario_privacidad = privacidad;
             this.usuario_albums = new AlbumList();
             this.usuario_amigos = new AmigoList();
+            this.usuario_foto = foto;
        
     }
  
@@ -131,6 +142,14 @@ public class Usuario {
 
     public void setUsuario_amigos(AmigoList usuario_amigos) {
         this.usuario_amigos = usuario_amigos;
+    }
+
+    public String getUsuario_foto() {
+        return usuario_foto;
+    }
+
+    public void setUsuario_foto(String usuario_foto) {
+        this.usuario_foto = usuario_foto;
     }
     
     

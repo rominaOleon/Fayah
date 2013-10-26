@@ -17,20 +17,23 @@ public class IndexControlador {
 *    Si el usuario esta registrado, se procede a cargar sus datos.
 **/
     public static Usuario LogIn(String username, String nombre, String apellido,
-            String email, String fecha_nacimiento, String ubicacion) {
+            String email, String fecha_nacimiento, String ubicacion,String foto) {
+        
         Usuario usuario=null;
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
-        int x = usuariodao.UsuarioExiste(email);
-        if ((username != null) || (email.compareTo("undefined")!=0)) {
-            if (usuariodao.UsuarioExiste(email) == 0) {
-                usuario = new Usuario(username, nombre, apellido,
-                        email, fecha_nacimiento, ubicacion, "P");
-                usuariodao.InsertarUsuario(usuario);
-            } else {
-                usuariodao.ConsultarUsuario(email);
+        
+        if ((email != null) || (email.compareTo("undefined") != 0)) {
+
+                if (usuariodao.UsuarioExiste(email) == 0) {
+                    
+                    usuario = new Usuario(username, nombre, apellido,
+                            email, fecha_nacimiento, ubicacion, "P", foto);
+                    usuariodao.InsertarUsuario(usuario);
+                }
+                usuario = usuariodao.ConsultarUsuario(email);
+
             }
-   
-        }
+        
         return usuario;
     }
 }

@@ -14,22 +14,18 @@ FB.Event.subscribe('auth.authResponseChange', function(response)
  {
 getUserInfo();
      
-if (document.formularioUsuario.nombreFace.value!==''){
- document.getElementById("formularioUsuario").submit();  
-}
-
-    
+ 
 
 //document.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
 
  } 
 
 else if (response.status === 'not_authorized') {
-FLogin();
+FB.login();
 
 
   } else{
-Flogin();     
+FB.login();   
  
  }
 
@@ -77,7 +73,7 @@ FB.login(function(response) {
 function FLogout()
 
 {
-FB.logout(function(){document.location.reload();
+FB.logout(function(response){document.location.reload();
     });
 
 }

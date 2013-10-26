@@ -32,11 +32,12 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                     + usuario.getUsuario_email() + "','"
                     + usuario.getUsuario_fecha_nacimiento() + "','"
                     + usuario.getUsuario_ubicacion() + "','"
-                    + usuario.getUsuario_privacidad() + "')";
+                    + usuario.getUsuario_privacidad() + "','"
+                    + usuario.getUsuario_foto() + "')";
 
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-            connection.commit();
+          
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
@@ -66,6 +67,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             String fecha_nacimiento = "";
             String ubicacion = "";
             String privacidad = "";
+            String foto = "";
 
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("usuario_id"));
@@ -75,13 +77,14 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                 fecha_nacimiento = rs.getString("usuario_fecha_nacimiento");
                 ubicacion = rs.getString("usuario_ubicacion");
                 privacidad = rs.getString("usuario_privacidad");
+                foto = rs.getString("usuario_foto");
             }
             rs.close();
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
 
             usuario = new Usuario (id,username,nombre,apellido,email,fecha_nacimiento,
-                    ubicacion,privacidad);
+                    ubicacion,privacidad,foto);
             
             return usuario;
         } catch (SQLException ex) {
@@ -106,6 +109,10 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
+    /*            
+     *  Verifica la existencia de un usuario en la base de datos.
+     * @return int id si el usuario existe. 0 si el usuario no existe.
+     */
     public int UsuarioExiste(String email) {
         int id = 0;
         try {

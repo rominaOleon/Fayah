@@ -12,7 +12,8 @@ import negocio.Usuario;
  */
 public abstract class Util {
 
-    public static Usuario usuario = null;
+    
+    public static Usuario usuario = new Usuario();
     public static final String DRIVER_BD = "org.postgresql.Driver";
     public static final String URL_BD = "jdbc:postgresql://ec2-54-235-83-5.compute-1.amazonaws.com:5432/d90thl54rosfe3?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
     public static final String USERNAME_BD = "ezfrmsdwmxsdku";
