@@ -12,16 +12,23 @@ FB.Event.subscribe('auth.authResponseChange', function(response)
 {
  if (response.status === 'connected') 
  {
-alert ('conectado');
-//ocument.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
- getUserInfo();
+getUserInfo();
+if (document.formularioUsuario.nombreFace.value!==''){
+ document.getElementById("formularioUsuario").submit();  
+}
+
+    
+
+//document.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
+
  } 
 
 else if (response.status === 'not_authorized') {
-Flogin();
+FLogin();
 
 
   } else{
+      
  
  }
 
@@ -34,23 +41,24 @@ Flogin();
  function Flogin(){
 
 FB.login(function(response) {
-
- 
  getUserInfo();
  
  },{scope: 'email,user_photos,user_hometown,user_birthday'});
+ 
 
 }
+
 
  function getUserInfo() {
 
  FB.api('/me', function(response) {
-
-        document.getElementById('nombreFace').innerHTML=response.first_name;
-        document.getElementById("apellidoFace").innerHTML=response.last_name;
-        document.getElementById("cumpleFace").innerHTML=response.birthday;
-        document.getElementById("emailFace").innerHTML=response.email;
-        document.getElementById("direccionFace").innerHTML=response.hometown.name;
+      
+        
+        document.formularioUsuario.nombreFace.value=response.first_name;
+        document.formularioUsuario.apellidoFace.value=response.last_name;
+        document.formularioUsuario.cumpleFace.value=response.birthday;
+        document.formularioUsuario.emailFace.value=response.email;
+        document.formularioUsuario.direccionFace.value= response.hometown.name;
         
         
  });
@@ -58,16 +66,19 @@ FB.login(function(response) {
   FB.api('/me/picture?width=180&height=180', function(response) {
 
         document.getElementById("img").src= response.data.url;
-
+        document.formularioUsuario.fotoFace.value=response.data.url;
 
  });
  
+
+
 }
 
 function FLogout()
 
 {
-FB.logout(function(){document.location.reload();});
+FB.logout(function(){document.location.reload();
+    });
 
 }
 
@@ -81,3 +92,4 @@ FB.logout(function(){document.location.reload();});
  js.src = "//connect.facebook.net/en_US/all.js";
  ref.parentNode.insertBefore(js, ref);
  }(document));
+

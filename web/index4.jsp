@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE jsp>
 <html>
     <head>
@@ -35,7 +36,7 @@
 
         <SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
       
-        <SCRIPT Language=Javascript SRC="loginGoogle.js"></SCRIPT>
+        
               
   
 
@@ -45,20 +46,26 @@
 
 <div align="center">
 
+    
+
+
+
+<form name="formularioUsuario" id="formularioUsuario" method="post"  >
+<input type="text" name="nombreFace" hidden="true" > 
+<input type="text" name="apellidoFace" hidden="true" > 
+<input type="text" name="emailFace" hidden="true"  > 
+<input type="text" name="cumpleFace" hidden="true"> 
+<input type="text" name="direccionFace" hidden="true" > 
+<input type="text" name="fotoFace" hidden="true" > 
+
+</form>
+
 <button id="loginText"  onClick='Flogin();' style="visibility: visible">LogInFace</button>
 
-<div id="informacion">
 
 
-<label id="nombreFace" >Nombre </label><br/>
 
-<label id="apellidoFace" >Apellido:</label><br/>
 
-<label id="emailFace" >Email: </label><br/>
-
-<label id="cumpleFace" >Fecha de Nacimiento:</label><br/> 
-
-<label id="direccionFace">Direccion:</label><br/> 
 
 <img id="img">
 
@@ -69,13 +76,34 @@
 
 
 
-<button id="loginText"  onClick='Flogout();' style="visibility: visible">Logout Face</button>
+  <button id="loginText" type="submit"  onClick='Flogout();' style="visibility: visible">Logout Face</button>
 </div>
   
   
   
   
 </body>
+
+
+
+<%= request.getParameter("nombreFace")%>
+
+<%= request.getParameter("apellidoFace") %>
+
+<%= request.getParameter("direccionFace") %>
+<%= request.getParameter("emailFace") %>
+<%= request.getParameter("cumpleFace") %>
+<%= request.getParameter("fotoFace") %>
+
+
+<% System.out.println(request.getParameter("nombreFace"));%>
+
+<% System.out.println(request.getParameter("apellidoFace")); %>
+
+<% System.out.println(request.getParameter("direccionFace")); %>
+<% System.out.println(request.getParameter("emailFace")); %>
+<% System.out.println(request.getParameter("cumpleFace")); %>
+<% System.out.println(request.getParameter("fotoFace")); %>
 </html>
 
 

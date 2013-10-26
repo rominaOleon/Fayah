@@ -76,8 +76,28 @@
 	  		<div class="soundcloud">
 	  			<img src="img/soundcloud2.png" alt="foto logo facebook" width="150px" />
 	 	    </div> 
+
+
        
 	  <h5 class="demo-panel-title">Fayah, Inc. Copyright 2013</h5>
+<form name="formularioUsuario" id="formularioUsuario" method="post"  >
+<input type="text" name="nombreFace" hidden="true" > 
+<input type="text" name="apellidoFace" hidden="true" > 
+<input type="text" name="emailFace" hidden="true"  > 
+<input type="text" name="cumpleFace" hidden="true"> 
+<input type="text" name="direccionFace" hidden="true" > 
+<input type="text" name="fotoFace" hidden="true" > 
+
+</form>
 
 </body> 
+
+<% System.out.println(request.getParameter("nombreFace"));%>
+
+<% System.out.println(request.getParameter("apellidoFace")); %>
+
+<% System.out.println(request.getParameter("direccionFace")); %>
+<% System.out.println(request.getParameter("emailFace")); %>
+<% System.out.println(request.getParameter("cumpleFace")); %>
+<% System.out.println(request.getParameter("fotoFace")); %>
 </html>
