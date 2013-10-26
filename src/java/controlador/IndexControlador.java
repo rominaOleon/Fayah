@@ -29,6 +29,7 @@ public class IndexControlador {
             } else {
                 usuariodao.ConsultarUsuario(email);
             }
+   
         }
         return usuario;
     }

@@ -94,13 +94,17 @@
     String fecha_nacimiento = request.getParameter("cumpleFace");
     String ubicacion = request.getParameter("direccionFace");
     
-   Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email, 
+  if (username != null) {
+       Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email, 
            fecha_nacimiento, ubicacion);
+       response.sendRedirect("inicio.jsp");
+           
+        }
            
     %>
 
     
-<form name="formularioUsuario" id="formularioUsuario" method="post"  >
+    <form name="formularioUsuario" hidden="true"  id="formularioUsuario" method="post"  >
 <input type="text" name="nombreFace" hidden="true" > 
 <input type="text" name="apellidoFace" hidden="true" > 
 <input type="text" name="emailFace" hidden="true"  > 
@@ -112,15 +116,4 @@
 </form>
 
 </body> 
-
-
-
-<% System.out.println(request.getParameter("nombreFace"));%>
-
-<% System.out.println(request.getParameter("apellidoFace")); %>
-
-<% System.out.println(request.getParameter("direccionFace")); %>
-<% System.out.println(request.getParameter("emailFace")); %>
-<% System.out.println(request.getParameter("cumpleFace")); %>
-<% System.out.println(request.getParameter("fotoFace")); %>
 </html>
