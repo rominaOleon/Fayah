@@ -5,6 +5,10 @@
 package modelo;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,39 +17,40 @@ import java.sql.Date;
 public class Usuario {
     private int     usuario_id;
     private String  usuario_username;
-    private String  usuario_nombre;
-    private String  usuario_apellido;
-    private String  usuario_email;
-    private Date    usuario_fecha_nacimiento;
-    private String  usuario_ubicacion;
-    private String  usuario_privacidad;
+    private String usuario_nombre;
+    private String usuario_apellido;
+    private String usuario_email;
+    private String usuario_fecha_nacimiento;
+    private String usuario_ubicacion;
+    private String usuario_privacidad;
     private AlbumList usuario_albums;
     private AmigoList usuario_amigos;
-    
-    public Usuario(int id,String username, String nombre, String apellido, String email, Date fecha_nacimiento, String ubicacion, String privacidad) {
-        this.usuario_id = id;
-        this.usuario_username = username;
-        this.usuario_nombre = nombre;
-        this.usuario_apellido = apellido;
-        this.usuario_email = email;
-        this.usuario_fecha_nacimiento = fecha_nacimiento;
-        this.usuario_ubicacion = ubicacion;
-        this.usuario_privacidad = privacidad;
-        this.usuario_albums = new AlbumList();
-        this.usuario_amigos = new AmigoList();
+
+    public Usuario(int id, String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad) {
+            this.usuario_id = id;
+            this.usuario_username = username;
+            this.usuario_nombre = nombre;
+            this.usuario_apellido = apellido;
+            this.usuario_email = email;
+            this.usuario_fecha_nacimiento = fecha_nacimiento;
+            this.usuario_ubicacion = ubicacion;
+            this.usuario_privacidad = privacidad;
+            this.usuario_albums = new AlbumList();
+            this.usuario_amigos = new AmigoList();
     }
-    
-        public Usuario(String username, String nombre, String apellido, String email, Date fecha_nacimiento, String ubicacion, String privacidad) {
-        this.usuario_id = 0;
-        this.usuario_username = username;
-        this.usuario_nombre = nombre;
-        this.usuario_apellido = apellido;
-        this.usuario_email = email;
-        this.usuario_fecha_nacimiento = fecha_nacimiento;
-        this.usuario_ubicacion = ubicacion;
-        this.usuario_privacidad = privacidad;
-        this.usuario_albums = new AlbumList();
-        this.usuario_amigos = new AmigoList();
+
+    public Usuario(String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad) {
+            this.usuario_id = 0;
+            this.usuario_username = username;
+            this.usuario_nombre = nombre;
+            this.usuario_apellido = apellido;
+            this.usuario_email = email;
+            this.usuario_fecha_nacimiento = fecha_nacimiento;
+            this.usuario_ubicacion = ubicacion;
+            this.usuario_privacidad = privacidad;
+            this.usuario_albums = new AlbumList();
+            this.usuario_amigos = new AmigoList();
+       
     }
  
     public int getUsuario_id() {
@@ -88,11 +93,11 @@ public class Usuario {
         this.usuario_email = usuario_email;
     }
 
-    public Date getUsuario_fecha_nacimiento() {
+    public String getUsuario_fecha_nacimiento() {
         return usuario_fecha_nacimiento;
     }
 
-    public void setUsuario_fecha_nacimiento(Date usuario_fecha_nacimiento) {
+    public void setUsuario_fecha_nacimiento(String usuario_fecha_nacimiento) {
         this.usuario_fecha_nacimiento = usuario_fecha_nacimiento;
     }
 

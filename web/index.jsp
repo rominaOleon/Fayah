@@ -4,6 +4,12 @@
     Author     : admin
 --%>
 
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="persistencia.ConexionBaseDeDatos"%>
+<%@page import="persistencia.UsuarioDAO"%>
+<%@page import="persistencia.UsuarioDAOSQL"%>
+<%@page import="modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html> 
@@ -80,6 +86,37 @@
 
        
 	  <h5 class="demo-panel-title">Fayah, Inc. Copyright 2013</h5>
+          
+          
+          <%
+    String username = request.getParameter("usuarioFace");
+    String nombre = request.getParameter("nombreFace");
+    String apellido = request.getParameter("apellidoFace");
+    String email = request.getParameter("emailFace");
+    String fecha_nacimiento = request.getParameter("cumpleFace");
+    String ubicacion = request.getParameter("direccionFace");
+    
+    UsuarioDAO usuariodao = new UsuarioDAOSQL();
+
+    if (username != null) { //El usuario realizo un login
+
+            if (usuariodao.UsuarioExiste(email) == 0) { 
+                //El usuario no esta registrado, se procede a registrarlo.
+                Usuario usuario = new Usuario(username, nombre, apellido,
+                        email, fecha_nacimiento, ubicacion, "P");
+                usuariodao.InsertarUsuario(usuario);
+            } else{
+                //El usuario esta registrado, se procede a cargar sus datos.
+                usuariodao.ConsultarUsuario(email);
+            }
+
+
+        } else
+           
+    %>
+
+    
+    
 <form name="formularioUsuario" id="formularioUsuario" method="post"  >
 <input type="text" name="nombreFace" hidden="true" > 
 <input type="text" name="apellidoFace" hidden="true" > 
@@ -88,15 +125,12 @@
 <input type="text" name="direccionFace" hidden="true" > 
 <input type="text" name="fotoFace" hidden="true" > 
 <input type="text" name="usuarioFace" hidden="true" > 
+
 </form>
 
 </body> 
 
-<%
-    Usuario usuario = new Usuario (nombreFace,apellidoFace,
-            emailFace,cumpleFace,direccionFace,"P");
-           
-    %>
+
 
 <% System.out.println(request.getParameter("nombreFace"));%>
 
