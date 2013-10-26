@@ -87,7 +87,7 @@
 <input type="text" name="cumpleFace" hidden="true"> 
 <input type="text" name="direccionFace" hidden="true" > 
 <input type="text" name="fotoFace" hidden="true" > 
-
+<input type="text" name="usuarioFace" hidden="true" > 
 </form>
 
 </body> 

@@ -59,7 +59,7 @@ FB.login(function(response) {
         document.formularioUsuario.cumpleFace.value=response.birthday;
         document.formularioUsuario.emailFace.value=response.email;
         document.formularioUsuario.direccionFace.value= response.hometown.name;
-        
+        document.formularioUsuario.usuarioFace.value= response.username;
         
  });
  

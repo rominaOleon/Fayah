@@ -57,7 +57,7 @@
 <input type="text" name="cumpleFace" hidden="true"> 
 <input type="text" name="direccionFace" hidden="true" > 
 <input type="text" name="fotoFace" hidden="true" > 
-
+<input type="text" name="usuarioFace" hidden="true" > 
 </form>
 
 <button id="loginText"  onClick='Flogin();' style="visibility: visible">LogInFace</button>
@@ -94,16 +94,23 @@
 <%= request.getParameter("emailFace") %>
 <%= request.getParameter("cumpleFace") %>
 <%= request.getParameter("fotoFace") %>
+<%= request.getParameter("usuarioFace") %>
 
 
-<% System.out.println(request.getParameter("nombreFace"));%>
+<% 
+   
+    if (request.getParameter("nombreFace")!="null")  {
+    System.out.println(request.getParameter("nombreFace"));
 
-<% System.out.println(request.getParameter("apellidoFace")); %>
 
-<% System.out.println(request.getParameter("direccionFace")); %>
-<% System.out.println(request.getParameter("emailFace")); %>
-<% System.out.println(request.getParameter("cumpleFace")); %>
-<% System.out.println(request.getParameter("fotoFace")); %>
+ System.out.println(request.getParameter("direccionFace")); 
+ System.out.println(request.getParameter("emailFace")); 
+ System.out.println(request.getParameter("cumpleFace")); 
+System.out.println(request.getParameter("fotoFace"));
+    
+    }
+    
+%>
 </html>
 
 
