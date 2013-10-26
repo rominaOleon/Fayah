@@ -49,6 +49,7 @@
 
 <div id="informacion">
 
+
 <label id="nombreFace" >Nombre </label><br/>
 
 <label id="apellidoFace" >Apellido:</label><br/>
