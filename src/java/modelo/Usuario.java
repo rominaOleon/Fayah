@@ -34,6 +34,19 @@ public class Usuario {
         this.usuario_albums = new AlbumList();
         this.usuario_amigos = new AmigoList();
     }
+    
+        public Usuario(String username, String nombre, String apellido, String email, Date fecha_nacimiento, String ubicacion, String privacidad) {
+        this.usuario_id = 0;
+        this.usuario_username = username;
+        this.usuario_nombre = nombre;
+        this.usuario_apellido = apellido;
+        this.usuario_email = email;
+        this.usuario_fecha_nacimiento = fecha_nacimiento;
+        this.usuario_ubicacion = ubicacion;
+        this.usuario_privacidad = privacidad;
+        this.usuario_albums = new AlbumList();
+        this.usuario_amigos = new AmigoList();
+    }
  
     public int getUsuario_id() {
         return usuario_id;
