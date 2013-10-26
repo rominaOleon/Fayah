@@ -4,9 +4,9 @@
  */
 package persistencia;
 
-import modelo.AlbumList;
-import modelo.AmigoList;
-import modelo.Usuario;
+import negocio.AlbumList;
+import negocio.AmigoList;
+import negocio.Usuario;
 
 /**
  *

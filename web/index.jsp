@@ -4,12 +4,10 @@
     Author     : admin
 --%>
 
+<%@page import="util.Util"%>
+<%@page import="controlador.IndexControlador"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="persistencia.ConexionBaseDeDatos"%>
-<%@page import="persistencia.UsuarioDAO"%>
-<%@page import="persistencia.UsuarioDAOSQL"%>
-<%@page import="modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html> 
@@ -96,26 +94,11 @@
     String fecha_nacimiento = request.getParameter("cumpleFace");
     String ubicacion = request.getParameter("direccionFace");
     
-    UsuarioDAO usuariodao = new UsuarioDAOSQL();
-
-    if (username != null) { //El usuario realizo un login
-
-            if (usuariodao.UsuarioExiste(email) == 0) { 
-                //El usuario no esta registrado, se procede a registrarlo.
-                Usuario usuario = new Usuario(username, nombre, apellido,
-                        email, fecha_nacimiento, ubicacion, "P");
-                usuariodao.InsertarUsuario(usuario);
-            } else{
-                //El usuario esta registrado, se procede a cargar sus datos.
-                usuariodao.ConsultarUsuario(email);
-            }
-
-
-        } else
+   Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email, 
+           fecha_nacimiento, ubicacion);
            
     %>
 
-    
     
 <form name="formularioUsuario" id="formularioUsuario" method="post"  >
 <input type="text" name="nombreFace" hidden="true" > 

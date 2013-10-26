@@ -4,7 +4,7 @@
  */
 package persistencia;
 
-import modelo.Amigo;
+import negocio.Amigo;
 
 /**
  *

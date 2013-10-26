@@ -8,13 +8,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.AlbumList;
-import modelo.AmigoList;
-import modelo.Usuario;
+import negocio.AlbumList;
+import negocio.AmigoList;
+import negocio.Usuario;
 
 /**
  *
@@ -80,6 +78,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             }
             rs.close();
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
 
             usuario = new Usuario (id,username,nombre,apellido,email,fecha_nacimiento,
                     ubicacion,privacidad);
@@ -126,6 +125,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             }
             rs.close();
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
