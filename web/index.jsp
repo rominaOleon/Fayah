@@ -77,7 +77,7 @@
 	  			<img src="img/soundcloud2.png" alt="foto logo facebook" width="150px" />
 	 	    </div> 
        
-	  <h5 class="demo-panel-title">Fayah2, Inc. Copyright 2013</h5>
+	  <h5 class="demo-panel-title">Fayah, Inc. Copyright 2013</h5>
 
 </body> 
 </html>
