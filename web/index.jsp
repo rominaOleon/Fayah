@@ -110,8 +110,8 @@
                 usuariodao.ConsultarUsuario(email);
             }
 
-
-        } else
+response.sendRedirect("inicio.jsp");
+        }
            
     %>
 
