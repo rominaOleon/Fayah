@@ -19,9 +19,11 @@ import java.sql.Statement;
 public class ConexionBaseDeDatos {
     
 private static final String DRIVER_BD = "org.postgresql.Driver";   
-private static final String URL_BD = "jdbc:postgresql://ec2-107-22-186-169.compute-1.amazonaws.com:5432/d9is36sj7ndbtt?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-private static final String USERNAME_BD = "xpiahmvxfxfbyl";   
-private static final String PASSWORD_BD = "gGcD-MWZelTL_PS4uzNFKBFN0T"; 
+private static final String URL_BD = "jdbc:postgresql://ec2-54-235-83-5.compute-1.amazonaws.com:5432/d90thl54rosfe3?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+private static final String USERNAME_BD = "ezfrmsdwmxsdku";   
+private static final String PASSWORD_BD = "0LsDzLMI8KFNe-pkM6iQSHuAHI"; 
+
+
 
 public static Connection getConnection() throws SQLException{   
     try {
