@@ -92,6 +92,12 @@
 
 </body> 
 
+<%
+    Usuario usuario = new Usuario (nombreFace,apellidoFace,
+            emailFace,cumpleFace,direccionFace,"P");
+           
+    %>
+
 <% System.out.println(request.getParameter("nombreFace"));%>
 
 <% System.out.println(request.getParameter("apellidoFace")); %>

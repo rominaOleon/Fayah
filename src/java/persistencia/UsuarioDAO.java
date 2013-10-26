@@ -13,6 +13,7 @@ import modelo.Usuario;
  * @author romina
  */
 public interface UsuarioDAO {    
+    public int UsuarioExiste (String email);
     public void InsertarUsuario (Usuario usuario);
     public Usuario ConsultarUsuario (String email);
     public void ModificarUsuario (Usuario usuario);

@@ -5,6 +5,7 @@
 package persistencia;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,34 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     @Override
     public AlbumList TraerAlbums(Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int UsuarioExiste(String email) {
+        int id = 0;
+        try {
+
+            Connection connection = ConexionBaseDeDatos.getConnection();
+
+            String query = "SELECT usuario_id FROM usuario WHERE usuario_email='"
+                    + email + "'";
+
+            Statement st = connection.createStatement();
+
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+
+                id = Integer.parseInt(rs.getString("usuario_id"));
+            }
+            rs.close();
+            st.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return id;
     }
     
 }
