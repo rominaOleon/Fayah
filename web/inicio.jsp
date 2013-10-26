@@ -1,4 +1,5 @@
 
+<%@page import="util.Util"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="persistencia.ConexionBaseDeDatos"%>
@@ -89,7 +90,9 @@
 
     <div class="columnleft">
         <div class="usuariodefault">
-            <img src="http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png" width="175px" />
+            <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
+            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+            <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
         </div>
 
         <div class="photos">

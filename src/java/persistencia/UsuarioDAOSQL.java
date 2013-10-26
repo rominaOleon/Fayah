@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import negocio.Album;
 import negocio.AlbumList;
+import negocio.Amigo;
 import negocio.AmigoList;
 import negocio.Usuario;
 
@@ -99,13 +101,96 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
+    /*
+    *Metodo que trae de la base de datos los amigos de un usuario.
+    *@return null si el usuario no posee amigos. 
+    *amigos (AmigoList) la lista de amigos
+    */
     public AmigoList TraerAmigos(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        AmigoList amigos = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+
+            int id = usuario.getUsuario_id();
+            String idString = "";
+            idString = String.valueOf(id);
+
+            String query = "SELECT * FROM amigo WHERE fk_usuario1_id="
+                    + idString + " OR fk_usuario2_id="
+                    + idString;
+
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            int idamigo = 0;
+            int fkamigo1 = 0;
+            int fkamigo2 = 0;
+
+            while (rs.next()) {
+                idamigo = Integer.parseInt(rs.getString("amigo_id"));
+                fkamigo1 = Integer.parseInt(rs.getString("fk_usuario1_id"));
+                fkamigo2 = Integer.parseInt(rs.getString("fk_usuario2_id"));
+                Amigo amigo = new Amigo(idamigo, fkamigo1, fkamigo2);
+                amigos.addAmigo(amigo);
+            }
+
+            st.close();
+            rs.close();
+            connection.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return amigos;
     }
 
     @Override
     public AlbumList TraerAlbums(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+               AlbumList albums = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+
+            int id = usuario.getUsuario_id();
+            String idString = "";
+            idString = String.valueOf(id);
+            
+            String query = "SELECT * FROM album WHERE fk_usuario_id="
+                    + idString;
+
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            int idalbum = 0;
+            String nombre ="";
+            String descripcion = "";
+            String privacidad = "";
+            String fecha = "";
+            int likes =0;
+            int dislikes =0;
+
+            while (rs.next()) {
+                idalbum = Integer.parseInt(rs.getString("album_id"));
+                nombre = rs.getString("album_nombre");
+                descripcion = rs.getString("album_descripcion");
+                privacidad = rs.getString("album_privacidad");
+                fecha = rs.getString("album_fecha_creacion");
+                likes = Integer.parseInt(rs.getString("album_likes"));
+                dislikes = Integer.parseInt(rs.getString("album_dislikes"));
+
+                Album album = new Album(idalbum, nombre, descripcion,privacidad,fecha,likes,dislikes);
+                albums.addAlbum(album);
+            }
+
+            st.close();
+            rs.close();
+            connection.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return albums;
     }
 
     @Override
@@ -115,6 +200,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
      */
     public int UsuarioExiste(String email) {
         int id = 0;
+        if (email!=null){
+            if (email.compareTo("")!=0){
         try {
 
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -129,6 +216,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             while (rs.next()) {
 
                 id = Integer.parseInt(rs.getString("usuario_id"));
+                                       
             }
             rs.close();
             st.close();
@@ -136,6 +224,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
         }
 
         return id;

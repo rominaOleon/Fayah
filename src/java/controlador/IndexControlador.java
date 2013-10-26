@@ -25,9 +25,14 @@ public class IndexControlador {
         if ((email != null) || (email.compareTo("undefined") != 0)) {
             
                 if (email.compareTo("")!=0){
+                    System.out.println("usuario email!= vacio ");
+  
+                    
+                    if (usuariodao.UsuarioExiste(email)== 0){
                     usuario = new Usuario(username, nombre, apellido,
                             email, fecha_nacimiento, ubicacion, "P", foto);
                     usuariodao.InsertarUsuario(usuario);
+                    }
                 }
                 usuario = usuariodao.ConsultarUsuario(email);
      

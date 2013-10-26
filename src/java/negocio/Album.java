@@ -4,8 +4,6 @@
  */
 package negocio;
 
-import java.sql.Date;
-
 /**
  *
  * @author romina
@@ -15,12 +13,12 @@ public class Album {
     private String  album_nombre;
     private String  album_descripcion;
     private String  album_privacidad;
-    private Date    album_fecha_creacion;
+    private String    album_fecha_creacion;
     private int     album_likes;
     private int     album_dislikes;
     
     
-    public Album(int id,String nombre, String descripcion, String privacidad, Date fecha_creacion, int likes, int dislikes) {
+    public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes) {
         this.album_id = id;
         this.album_nombre = nombre;
         this.album_descripcion = descripcion;
@@ -62,11 +60,11 @@ public class Album {
         this.album_privacidad = album_privacidad;
     }
 
-    public Date getAlbum_fecha_creacion() {
+    public String getAlbum_fecha_creacion() {
         return album_fecha_creacion;
     }
 
-    public void setAlbum_fecha_creacion(Date album_fecha_creacion) {
+    public void setAlbum_fecha_creacion(String album_fecha_creacion) {
         this.album_fecha_creacion = album_fecha_creacion;
     }
 

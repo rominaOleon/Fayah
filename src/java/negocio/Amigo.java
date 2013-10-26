@@ -14,9 +14,12 @@ public class Amigo {
     private int Amigo;
 
     
-    public Amigo (int usuario, int amigo){
-        this.Amigo_usuario=usuario;
-        this.Amigo=amigo;
+
+
+    public Amigo(int idamigo, int fkamigo1, int fkamigo2) {
+        this.Amigo_id = idamigo;
+        this.Amigo_usuario = fkamigo1;
+        this.Amigo_usuario = fkamigo2;
     }
     
     public int getAmigo_usuario() {
