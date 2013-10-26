@@ -13,7 +13,7 @@ FB.Event.subscribe('auth.authResponseChange', function(response)
  if (response.status === 'connected') 
  {
 alert ('conectado');
-document.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
+//ocument.location.href='http://localhost:8080/WebApplication2/inicioFayah.jsp';
  getUserInfo();
  } 
 
