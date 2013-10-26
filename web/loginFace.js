@@ -1,7 +1,7 @@
 window.fbAsyncInit = function() {
 
  FB.init({
- appId : '171611049700442', // App ID
+ appId : '536309806449482', // App ID
  status : true, // check login status
  cookie : true, // enable cookies to allow the server to access the session
  xfbml : true // parse XFBML
@@ -13,6 +13,7 @@ FB.Event.subscribe('auth.authResponseChange', function(response)
  if (response.status === 'connected') 
  {
 getUserInfo();
+     
 if (document.formularioUsuario.nombreFace.value!==''){
  document.getElementById("formularioUsuario").submit();  
 }
@@ -28,7 +29,7 @@ FLogin();
 
 
   } else{
-      
+Flogin();     
  
  }
 
@@ -65,7 +66,6 @@ FB.login(function(response) {
  
   FB.api('/me/picture?width=180&height=180', function(response) {
 
-        document.getElementById("img").src= response.data.url;
         document.formularioUsuario.fotoFace.value=response.data.url;
 
  });

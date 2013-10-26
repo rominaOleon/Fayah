@@ -117,7 +117,7 @@
 
     
     
-<form name="formularioUsuario" id="formularioUsuario" method="post"  >
+    <form name="formularioUsuario" hidden="true"  id="formularioUsuario" method="post"  >
 <input type="text" name="nombreFace" hidden="true" > 
 <input type="text" name="apellidoFace" hidden="true" > 
 <input type="text" name="emailFace" hidden="true"  > 
@@ -129,15 +129,4 @@
 </form>
 
 </body> 
-
-
-
-<% System.out.println(request.getParameter("nombreFace"));%>
-
-<% System.out.println(request.getParameter("apellidoFace")); %>
-
-<% System.out.println(request.getParameter("direccionFace")); %>
-<% System.out.println(request.getParameter("emailFace")); %>
-<% System.out.println(request.getParameter("cumpleFace")); %>
-<% System.out.println(request.getParameter("fotoFace")); %>
 </html>
