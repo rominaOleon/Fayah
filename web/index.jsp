@@ -33,7 +33,12 @@
      
 
 <div class="contenedor">
-<h1 class="demo-panel-title">Fayah</h1>
+<h1 class="demo-panel-title">
+     <img src="img/losfayah.jpg" alt="foto logo facebook" width="70px" />
+    Fayah
+
+</h1>
+
 
 </div>
 
