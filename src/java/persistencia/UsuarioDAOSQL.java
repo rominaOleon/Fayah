@@ -97,7 +97,31 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
     @Override
     public void ModificarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+
+            int id = usuario.getUsuario_id();
+            String idString = "";
+            idString = String.valueOf(id);
+
+            String query = "UPDATE usuario SET "
+            + "usuario_username='" + usuario.getUsuario_username() +"', "
+            + "usuario_nombre='" + usuario.getUsuario_nombre() + "', "
+            + "usuario_apellido='" + usuario.getUsuario_apellido() + "', "
+            + "usuario_fecha_nacimiento='" + usuario.getUsuario_fecha_nacimiento() +"', "
+            + "usuario_ubicacion='" + usuario.getUsuario_ubicacion() + "', "
+            + "usuario_privacidad='" + usuario.getUsuario_privacidad() + "' "
+            + "WHERE usuario_id=" + idString;
+  
+            Statement st = connection.createStatement();
+            int rs = st.executeUpdate(query);
+
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
@@ -230,5 +254,58 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
         return id;
     }
+    
+    public Usuario[] BuscarUsuario(String nombre, String apellido) {
+        Usuario[] usuarios = null;
+        try {
+            Usuario usuario = new Usuario();
+
+            int cantidadusuarios = 0;
+
+            Connection connection = ConexionBaseDeDatos.getConnection();
+
+            String query = "SELECT * FROM usuario WHERE lower(usuario_nombre) LIKE "
+                    + "lower('%" + nombre + "% ') and lower(usuario_apellido) LIKE"
+                    + "lower('%" + apellido + "%')";
+
+
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            int id = 0;
+            String username = "";
+            String nombreusuario = "";
+            String apellidousuario = "";
+            String email = "";
+            String fecha_nacimiento = "";
+            String ubicacion = "";
+            String privacidad = "";
+            String foto = "";
+
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("usuario_id"));
+                username = rs.getString("usuario_username");
+                nombreusuario = rs.getString("usuario_nombre");
+                apellidousuario = rs.getString("usuario_apellido");
+                email = rs.getString("usuario_email");
+                fecha_nacimiento = rs.getString("usuario_fecha_nacimiento");
+                ubicacion = rs.getString("usuario_ubicacion");
+                privacidad = rs.getString("usuario_privacidad");
+                foto = rs.getString("usuario_foto");
+                usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
+                        ubicacion, privacidad, foto);
+                usuarios[cantidadusuarios] = usuario;
+                cantidadusuarios = cantidadusuarios + 1;
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarios;
+
+    }
+    
     
 }

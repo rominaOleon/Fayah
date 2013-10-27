@@ -29,6 +29,8 @@ public class IndexControlador {
   
                     
                     if (usuariodao.UsuarioExiste(email)== 0){
+                        System.out.println("usuario email no existe ");
+                        
                     usuario = new Usuario(username, nombre, apellido,
                             email, fecha_nacimiento, ubicacion, "P", foto);
                     usuariodao.InsertarUsuario(usuario);
