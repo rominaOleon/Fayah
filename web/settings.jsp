@@ -100,14 +100,14 @@
         </div>
                 </div>
 
-                
-  		
-  		
-  		
+             
 	    
 	    <div class="columnright">
 	    	<div class="titulo">
-	    		<h2 class="demo-panel-title">General Account Settings</h1>
+	    		<h2 class="demo-panel-title">General Account Settings</h1></b>
+                        
+  	
+  		
 	    	</div>
 	    
 	    
@@ -121,7 +121,7 @@
 			<li class="name" type="none"> 
 				
 			
-                            <form name="formularioUsuario" id="formularioNombre" method="post"  >  
+                            <form name="formularioUsuario" id="formularioUsuario" method="post"  >  
 			    <span>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -156,6 +156,7 @@
 			
 			
 			<li class="Username" type="none">
+                               <form name="cambiarUsuario" id="formularioNombre" method="post"  >  
 			<span class="h3">Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -169,15 +170,17 @@
                        <input type="text" name="newUsername" class="login-field" value placeholder="<%=Util.usuario.getUsuario_username()%>" id="login-name">
             	   </label>
             	   <div class="control-group">
-                       <a class="login-link" onclick="document.formularioUsuario.submit();" type="submit" href="#">Save Changes</a>
+                       <a class="login-link" onclick="document.cambiarUsuario.submit();" type="submit" href="#">Save Changes</a>
 				   </div> 
             </div></span> 
 				 
 			   </span>
+                               </form>
 			</li>
 			<HR width=639px align="left">
 			
 			<li class="Email" type="none">
+                               <form name="cambiarNombre"  method="post"  >  
 			<span>Hometown&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -191,15 +194,17 @@
                        <input type="text" name="newDireccion" class="login-field" value placeholder="<%=Util.usuario.getUsuario_ubicacion()%>" id="login-name">
             	   </label>
             	   <div class="control-group">
-                       <a class="login-link" onclick="document.formularioUsuario.submit();" type="submit" href="#">Save Changes</a>
+                       <a class="login-link" onclick="document.cambiarNombre.submit();" type="submit" href="#">Save Changes</a>
 				   </div> 
             </div></span> 
 				 
 			   </span>
+                               </form>
 			</li>
 			<HR width=639px align="left">
 			
 			<li class="BirthDay"type="none">
+                               <form name="cambiarCumple" id="formularioNombre" method="post"  >  
 			<span>Birthday&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -218,16 +223,19 @@
             </div><br><div class="control-group">
             
             	   <div class="control-group">
-                       <a class="login-link" onclick="document.formularioUsuario.submit();" type="submit" href="#">Save Changes</a>
+                       <a class="login-link" onclick="document.cambiarCumple.submit();" type="submit" href="#">Save Changes</a>
 				   </div> 
             </div></span> 
 				 
 			   </span>
+                               </form>
+                   
 			</li>
 			<HR width=639px align="left">
 		  </ul>
 		</div>
 
+  		
 	    </div>
 	   
 	   
@@ -237,7 +245,7 @@
 	  
 	  
 	   <div class="columnright2">
-	   
+	   	 
 	   </div>
 	
 	
@@ -253,6 +261,15 @@
 
                     
   </body>
-     <h1><%=request.getParameter("newNombre")%>   </h1>  
+  <%
+// newNombre
+// newApellido
+// newCumple
+// newDireccion
 
+
+
+%>  
+  
 </html>
+
