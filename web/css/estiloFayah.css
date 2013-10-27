@@ -3,7 +3,12 @@ display: block;
 background-color:#BDC3C7;
 			}
 			
-
+.contenedor .lupa {
+position:absolute;
+margin-left: 489px;
+margin-top: 6px;
+z-index:9;
+}
 
 .contenedor{
 

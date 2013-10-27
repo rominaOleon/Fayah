@@ -59,21 +59,29 @@
 
 
     <div class="contenedor"> 
+         <div class="lupa">
+            <a href="amigos.jsp">
+                <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
+        </div>
 
         <div class="home">
-            <img src="img/Home_icon.png" alt="home icon" width="35px" />
+            <a href="inicio.jsp">
+                <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
         </div>
         <div class="settings">
-            <img src="img/setting-icon3.png" alt="home icon" width="32px" />
+            <a href="settings.jsp">
+            <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
         </div>
         <div class="lock">
-            <img src="img/lock.png" alt="home icon" width="35px" />
+            <a href="index.jsp">
+          <img src="img/lock.png" alt="home icon" width="35px"  /></a>
         </div>	
         <div class="message">
             <img src="img/message.png" alt="home icon" width="37px" />
         </div>	
         <div class="friends">
-            <img src="img/friends.png" alt="home icon" width="31px" />
+            <a href="friends.jsp">
+            <img src="img/friends.png" alt="home icon" width="31px" /></a>
         </div>		
         <h1 class="demo-panel-title">Fayah
 
@@ -123,5 +131,7 @@
     <div class="columnright2">
 
     </div>
+        
+    
 </body>	
 </html>

@@ -8,6 +8,7 @@
 body {background-color: #ECF0F1;
 display: block;
 background-color:#BDC3C7;
+
 			}
 h4 {
     font-family: 'Share Tech', sans-serif;
@@ -106,6 +107,13 @@ position:absolute;
    margin-left:53px;
    margin-top:45px;
    
+}
+
+.contenedor .lupa {
+position:absolute;
+margin-left: 489px;
+margin-top: 6px;
+z-index:9;
 }
 	
 h1 {
