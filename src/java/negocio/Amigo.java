@@ -10,32 +10,35 @@ package negocio;
  */
 public class Amigo {
     private int Amigo_id;
-    private int Amigo_usuario;
-    private int Amigo;
-
-    
-
+    private int Amigo_fkusuario1;
+    private int Amigo_fkusuario2;
 
     public Amigo(int idamigo, int fkamigo1, int fkamigo2) {
         this.Amigo_id = idamigo;
-        this.Amigo_usuario = fkamigo1;
-        this.Amigo_usuario = fkamigo2;
+        this.Amigo_fkusuario1 = fkamigo1;
+        this.Amigo_fkusuario2 = fkamigo2;
     }
     
-    public int getAmigo_usuario() {
-        return Amigo_usuario;
+    public Amigo(int fkamigo1, int fkamigo2) {
+        this.Amigo_id = 0;
+        this.Amigo_fkusuario1 = fkamigo1;
+        this.Amigo_fkusuario2 = fkamigo2;
+    }
+    
+    public int getAmigo_fkusuario1() {
+        return Amigo_fkusuario1;
     }
 
-    public void setAmigo_usuario(int Amigo_usuario) {
-        this.Amigo_usuario = Amigo_usuario;
+    public void setAmigo_fkusuario1(int Amigo_usuario) {
+        this.Amigo_fkusuario1 = Amigo_usuario;
     }
 
-    public int getAmigo() {
-        return Amigo;
+    public int getAmigo_fkusuario2() {
+        return Amigo_fkusuario2;
     }
 
-    public void setAmigo(int Amigo) {
-        this.Amigo = Amigo;
+    public void setAmigo_fkusuario2(int Amigo) {
+        this.Amigo_fkusuario2 = Amigo;
     }
 
     public int getAmigo_id() {

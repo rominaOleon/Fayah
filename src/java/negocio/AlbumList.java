@@ -39,6 +39,7 @@ public class AlbumList implements Serializable {
     public Album get(int posicion) {
         ArrayList<Album> list = new ArrayList(this.albums);
         return list.get(posicion);
+       
     }
 
     public SortedSet<Album> getGroups() {

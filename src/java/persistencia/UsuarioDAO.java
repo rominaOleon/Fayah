@@ -7,6 +7,7 @@ package persistencia;
 import negocio.AlbumList;
 import negocio.AmigoList;
 import negocio.Usuario;
+import negocio.UsuariosList;
 
 /**
  *
@@ -19,4 +20,6 @@ public interface UsuarioDAO {
     public void ModificarUsuario (Usuario usuario);
     public AmigoList TraerAmigos (Usuario usuario);
     public AlbumList TraerAlbums (Usuario usuario);
+    public UsuariosList BuscarUsuario (String busqueda);
+    public Usuario ConsultarUsuario(int id);
 }

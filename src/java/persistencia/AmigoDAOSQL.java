@@ -26,11 +26,11 @@ public class AmigoDAOSQL extends Object implements AmigoDAO {
             String id = "";
             id = String.valueOf(idamigo);
             
-            int fkusuario1 = amigo.getAmigo();
+            int fkusuario1 = amigo.getAmigo_fkusuario2();
             String fk_usuario1 = "";
             fk_usuario1 = String.valueOf(fkusuario1);
             
-            int fkusuario2 = amigo.getAmigo_usuario();
+            int fkusuario2 = amigo.getAmigo_fkusuario1();
             String fk_usuario2 = "";
             fk_usuario2 = String.valueOf(fkusuario2);
             

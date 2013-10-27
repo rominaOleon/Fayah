@@ -16,9 +16,10 @@ public class Album {
     private String    album_fecha_creacion;
     private int     album_likes;
     private int     album_dislikes;
+    private String  album_miniatura;
     
     
-    public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes) {
+    public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
         this.album_id = id;
         this.album_nombre = nombre;
         this.album_descripcion = descripcion;
@@ -26,7 +27,20 @@ public class Album {
         this.album_fecha_creacion = fecha_creacion;
         this.album_likes = likes;
         this.album_dislikes = dislikes;
+        this.album_miniatura = miniatura;
     }
+    
+    public Album(String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
+        this.album_id = 0;
+        this.album_nombre = nombre;
+        this.album_descripcion = descripcion;
+        this.album_privacidad = privacidad;
+        this.album_fecha_creacion = fecha_creacion;
+        this.album_likes = likes;
+        this.album_dislikes = dislikes;
+        this.album_miniatura = miniatura;
+    }
+
 
     public int getAlbum_id() {
         return album_id;
@@ -83,5 +97,13 @@ public class Album {
     public void setAlbum_dislikes(int album_dislikes) {
         this.album_dislikes = album_dislikes;
     }
-  
+
+    public String getAlbum_miniatura() {
+        return album_miniatura;
+    }
+
+    public void setAlbum_miniatura(String album_miniatura) {
+        this.album_miniatura = album_miniatura;
+    }
+    
 }

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index3
-    Created on : 25/10/2013, 01:16:27 PM
-    Author     : admin
---%>
-
 <%@page import="util.Util"%>
 <%@page import="controlador.IndexControlador"%>
 <%@page import="java.sql.Statement"%>
@@ -49,8 +43,10 @@
         <div class="contenedor2">
             <div class="facebook">
                 <form name="formularioUsuario" id="formularioUsuario" method="post"  >
- <button  type="submit" id="fb-root"> 
-                        <fb:login-button size="xlarge" onlogin="document.formularioUsuario.submit();" scope="email,user_photos,user_hometown,user_birthday" width="200" max-rows="3"></fb:login-button>
+                    <button  type="submit" id="fb-root"> 
+                        <fb:login-button size="xlarge" onlogin="document.formularioUsuario.submit();" 
+                                         scope="email,user_photos,user_hometown,user_birthday" width="200" 
+                                         max-rows="3"></fb:login-button>
                     </button>
                     <input type="text" name="nombreFace" style="visibility: hidden"> 
                     <input type="text" name="apellidoFace" style="visibility: hidden" > 
@@ -111,16 +107,15 @@
             String ubicacion = request.getParameter("direccionFace");
             String foto = request.getParameter("fotoFace");
 
-            if (email != null)  {
-                if ((email.compareTo("undefined")!=0) && 
-                        (email.compareTo("")!=0)){
-                Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email,
-                        fecha_nacimiento, ubicacion, foto);
-                response.sendRedirect("inicio.jsp");
+            if (email != null) {
+                if ((email.compareTo("undefined") != 0)
+                        && (email.compareTo("") != 0)) {
+                    Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email,
+                            fecha_nacimiento, ubicacion, foto);
+                    response.sendRedirect("inicio.jsp");
                 }
             }
-            
-            
+         
         %>
 
     </body> 

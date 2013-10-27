@@ -1,4 +1,5 @@
 
+<%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -11,7 +12,7 @@
 <html>
     <body>
     <head>
-        <title>Inicio</title>
+        <title>Fayah</title>
 
 
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -59,42 +60,62 @@
 
 
     <div class="contenedor"> 
+         <form name="formularioBusqueda" id="formularioBusqueda" method="post">
+             
+              <div class="lupa">
+                  <a type="submit" onclick="document.formularioBusqueda.submit();">
+              
+                <img src="img/lupaicon.png"  width="25px" />
+      
+            </a>
+        </div>
 
         <div class="home">
-            <img src="img/Home_icon.png" alt="home icon" width="35px" />
+            <a href="inicio.jsp">
+                <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
         </div>
         <div class="settings">
-            <img src="img/setting-icon3.png" alt="home icon" width="32px" />
+            <a href="settings.jsp">
+            <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
         </div>
         <div class="lock">
-            <img src="img/lock.png" alt="home icon" width="35px" />
+            <a href="index.jsp">
+          <img src="img/logout.png" alt="home icon" width="29px"  /></a>
         </div>	
         <div class="message">
             <img src="img/message.png" alt="home icon" width="37px" />
         </div>	
         <div class="friends">
-            <img src="img/friends.png" alt="home icon" width="31px" />
+            <a href="friends.jsp">
+            <img src="img/friends.png" alt="home icon" width="31px" /></a>
         </div>		
         <h1 class="demo-panel-title">Fayah
 
         </h1>
+        
+        
+       
         <div class="todo-search">
 
-            <input class="todo-search-field" type="search" value="" placeholder="Search for people">
-
+            <input class="todo-search-field" type="text" name="newBusqueda"  placeholder="Search for people" id="labusqueda">
+     
         </div> 
 
-
+         </form>
     </div>
-
 
     <div class="columnleft">
         <div class="usuariodefault">
             <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
-            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
             <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
-        </div>
+            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+        </br>    
+        <h5><%=Util.usuario.getUsuario_username()%></h4>
+        <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
 
+        </div>
+        
+         
         <div class="photos">
 
 
@@ -108,10 +129,13 @@
 
 
 
-        </div>
-        <h10 class="h10">Album</h10>
-        <h10 class="h11">Find Friends</h10>
     </div>
+       
+        <a  href="album.jsp" class="h10">Album</a>
+        <a href="friends.jsp" class="h11">Friends</a>
+        
+    </div>
+    
 
 
 
@@ -123,5 +147,18 @@
     <div class="columnright2">
 
     </div>
+        
+    
 </body>	
+<%
+  if (request.getParameter("newBusqueda") != null) {
+          String busqueda = request.getParameter("newBusqueda");
+                    
+          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          
+          response.sendRedirect("resultFriends.jsp");
+      }
+%>
+
+
 </html>

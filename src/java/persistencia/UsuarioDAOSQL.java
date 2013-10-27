@@ -15,6 +15,7 @@ import negocio.AlbumList;
 import negocio.Amigo;
 import negocio.AmigoList;
 import negocio.Usuario;
+import negocio.UsuariosList;
 
 /**
  *
@@ -24,9 +25,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
     @Override
     public void InsertarUsuario(Usuario usuario) {
-        try {        
+        try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-
             String query = "INSERT INTO usuario VALUES (nextval('usuario_usuario_id_seq'),'"
                     + usuario.getUsuario_username() + "','"
                     + usuario.getUsuario_nombre() + "','"
@@ -36,32 +36,69 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                     + usuario.getUsuario_ubicacion() + "','"
                     + usuario.getUsuario_privacidad() + "','"
                     + usuario.getUsuario_foto() + "')";
-
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-          
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-       
-
     }
 
+    @Override
+    public Usuario ConsultarUsuario(int id) {
+        
+            String idString = "";
+            idString = String.valueOf(id);
+            
+        Usuario usuario = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM usuario WHERE usuario_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            String username = "";
+            String nombre = "";
+            String apellido = "";
+            String fecha_nacimiento = "";
+            String ubicacion = "";
+            String privacidad = "";
+            String foto = "";
+            String email = "";
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("usuario_id"));
+                username = rs.getString("usuario_username");
+                nombre = rs.getString("usuario_nombre");
+                apellido = rs.getString("usuario_apellido");
+                email = rs.getString("usuario_email");
+                fecha_nacimiento = rs.getString("usuario_fecha_nacimiento");
+                ubicacion = rs.getString("usuario_ubicacion");
+                privacidad = rs.getString("usuario_privacidad");
+                foto = rs.getString("usuario_foto");
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
+                    ubicacion, privacidad, foto);
+            return usuario;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuario;
+    }
+    
     @Override
     public Usuario ConsultarUsuario(String email) {
         Usuario usuario = null;
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-            
-             String query = "SELECT * FROM usuario WHERE usuario_email='"
+            String query = "SELECT * FROM usuario WHERE usuario_email='"
                     + email + "'";
-
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-       
             int id = 0;
             String username = "";
             String nombre = "";
@@ -70,7 +107,6 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             String ubicacion = "";
             String privacidad = "";
             String foto = "";
-
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("usuario_id"));
                 username = rs.getString("usuario_username");
@@ -84,115 +120,104 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             rs.close();
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
-
-            usuario = new Usuario (id,username,nombre,apellido,email,fecha_nacimiento,
-                    ubicacion,privacidad,foto);
-            
+            usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
+                    ubicacion, privacidad, foto);
             return usuario;
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return usuario;
+        return usuario;
     }
+
 
     @Override
     public void ModificarUsuario(Usuario usuario) {
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-
             int id = usuario.getUsuario_id();
             String idString = "";
             idString = String.valueOf(id);
-
             String query = "UPDATE usuario SET "
-            + "usuario_username='" + usuario.getUsuario_username() +"', "
-            + "usuario_nombre='" + usuario.getUsuario_nombre() + "', "
-            + "usuario_apellido='" + usuario.getUsuario_apellido() + "', "
-            + "usuario_fecha_nacimiento='" + usuario.getUsuario_fecha_nacimiento() +"', "
-            + "usuario_ubicacion='" + usuario.getUsuario_ubicacion() + "', "
-            + "usuario_privacidad='" + usuario.getUsuario_privacidad() + "' "
-            + "WHERE usuario_id=" + idString;
-  
+                    + "usuario_username='" + usuario.getUsuario_username() + "', "
+                    + "usuario_nombre='" + usuario.getUsuario_nombre() + "', "
+                    + "usuario_apellido='" + usuario.getUsuario_apellido() + "', "
+                    + "usuario_fecha_nacimiento='" + usuario.getUsuario_fecha_nacimiento() + "', "
+                    + "usuario_ubicacion='" + usuario.getUsuario_ubicacion() + "', "
+                    + "usuario_privacidad='" + usuario.getUsuario_privacidad() + "' "
+                    + "WHERE usuario_id=" + idString;
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @Override
     /*
-    *Metodo que trae de la base de datos los amigos de un usuario.
-    *@return null si el usuario no posee amigos. 
-    *amigos (AmigoList) la lista de amigos
-    */
+     *Metodo que trae de la base de datos los amigos de un usuario.
+     *@return null si el usuario no posee amigos. 
+     *amigos (AmigoList) la lista de amigos
+     */
     public AmigoList TraerAmigos(Usuario usuario) {
-        AmigoList amigos = null;
+        AmigoList amigos = new AmigoList();
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-
             int id = usuario.getUsuario_id();
             String idString = "";
             idString = String.valueOf(id);
-
             String query = "SELECT * FROM amigo WHERE fk_usuario1_id="
                     + idString + " OR fk_usuario2_id="
                     + idString;
-
+            
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-
-            int idamigo = 0;
-            int fkamigo1 = 0;
-            int fkamigo2 = 0;
-
+            int idamigo;
+            int fkamigo1;
+            int fkamigo2;
             while (rs.next()) {
-                idamigo = Integer.parseInt(rs.getString("amigo_id"));
+                idamigo  = Integer.parseInt(rs.getString("amigo_id"));
                 fkamigo1 = Integer.parseInt(rs.getString("fk_usuario1_id"));
                 fkamigo2 = Integer.parseInt(rs.getString("fk_usuario2_id"));
+                
                 Amigo amigo = new Amigo(idamigo, fkamigo1, fkamigo2);
                 amigos.addAmigo(amigo);
             }
-
             st.close();
             rs.close();
             connection.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return amigos;
     }
 
     @Override
+    /*
+     *Metodo que trae de la base de datos los album de un usuario.
+     *@return null si el usuario no posee ningun album. 
+     *albums (AlbumList) la lista de album
+     */
     public AlbumList TraerAlbums(Usuario usuario) {
-               AlbumList albums = null;
+        AlbumList albums = new AlbumList();
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-
             int id = usuario.getUsuario_id();
             String idString = "";
             idString = String.valueOf(id);
-            
             String query = "SELECT * FROM album WHERE fk_usuario_id="
                     + idString;
-
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-
             int idalbum = 0;
-            String nombre ="";
+            String nombre = "";
             String descripcion = "";
             String privacidad = "";
             String fecha = "";
-            int likes =0;
-            int dislikes =0;
-
+            int likes = 0;
+            int dislikes = 0;
+            String miniatura ="";
             while (rs.next()) {
                 idalbum = Integer.parseInt(rs.getString("album_id"));
                 nombre = rs.getString("album_nombre");
@@ -201,19 +226,16 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                 fecha = rs.getString("album_fecha_creacion");
                 likes = Integer.parseInt(rs.getString("album_likes"));
                 dislikes = Integer.parseInt(rs.getString("album_dislikes"));
-
-                Album album = new Album(idalbum, nombre, descripcion,privacidad,fecha,likes,dislikes);
+                miniatura = rs.getString("album_miniatura");
+                Album album = new Album(idalbum, nombre, descripcion, privacidad, fecha, likes, dislikes,miniatura);
                 albums.addAlbum(album);
             }
-
             st.close();
             rs.close();
             connection.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return albums;
     }
 
@@ -224,54 +246,47 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
      */
     public int UsuarioExiste(String email) {
         int id = 0;
-        if (email!=null){
-            if (email.compareTo("")!=0){
-        try {
-
-            Connection connection = ConexionBaseDeDatos.getConnection();
-
-            String query = "SELECT usuario_id FROM usuario WHERE usuario_email='"
-                    + email + "'";
-
-            Statement st = connection.createStatement();
-
-            ResultSet rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                id = Integer.parseInt(rs.getString("usuario_id"));
-                                       
+        if (email != null) {
+            if (email.compareTo("") != 0) {
+                try {
+                    Connection connection = ConexionBaseDeDatos.getConnection();
+                    String query = "SELECT usuario_id FROM usuario WHERE usuario_email='"
+                            + email + "'";
+                    Statement st = connection.createStatement();
+                    ResultSet rs = st.executeQuery(query);
+                    while (rs.next()) {
+                        id = Integer.parseInt(rs.getString("usuario_id"));
+                    }
+                    rs.close();
+                    st.close();
+                    ConexionBaseDeDatos.closeConnection(connection);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            rs.close();
-            st.close();
-            ConexionBaseDeDatos.closeConnection(connection);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-        }
-
         return id;
     }
-    
-    public Usuario[] BuscarUsuario(String nombre, String apellido) {
-        Usuario[] usuarios = null;
+
+    /*            
+     * Busca los usuarios que coincidan con los nombres y apellidos
+     * proporcionados.
+     * @return Usuario[] si se encontraron resultados.
+     * null si ningun usuario registrado coincide.
+     */
+    @Override
+    public UsuariosList BuscarUsuario(String busqueda) {
+        
+        UsuariosList usuarios= new UsuariosList();
+
         try {
-            Usuario usuario = new Usuario();
-
-            int cantidadusuarios = 0;
-
-            Connection connection = ConexionBaseDeDatos.getConnection();
-
-            String query = "SELECT * FROM usuario WHERE lower(usuario_nombre) LIKE "
-                    + "lower('%" + nombre + "% ') and lower(usuario_apellido) LIKE"
-                    + "lower('%" + apellido + "%')";
-
-
+    
+        Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM usuario WHERE lower(usuario_nombre ||"
+           +" ' ' || usuario_apellido) LIKE ('%"+busqueda+"%')";
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
 
+            ResultSet rs = st.executeQuery(query);
             int id = 0;
             String username = "";
             String nombreusuario = "";
@@ -281,7 +296,6 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             String ubicacion = "";
             String privacidad = "";
             String foto = "";
-
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("usuario_id"));
                 username = rs.getString("usuario_username");
@@ -292,10 +306,11 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                 ubicacion = rs.getString("usuario_ubicacion");
                 privacidad = rs.getString("usuario_privacidad");
                 foto = rs.getString("usuario_foto");
-                usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
-                        ubicacion, privacidad, foto);
-                usuarios[cantidadusuarios] = usuario;
-                cantidadusuarios = cantidadusuarios + 1;
+       
+                Usuario usuario = new Usuario(id, username, nombreusuario, apellidousuario, email, fecha_nacimiento,ubicacion, privacidad, foto);
+
+            usuarios.addUsuario(usuario);
+                
             }
             rs.close();
             st.close();
@@ -304,8 +319,5 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuarios;
-
     }
-    
-    
 }

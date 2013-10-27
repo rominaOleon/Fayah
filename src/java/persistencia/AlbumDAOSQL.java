@@ -43,7 +43,8 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
                     + album.getAlbum_fecha_creacion() + "',"
                     + likes + ","
                     + dislikes + ","
-                    + fkdueño + ")";
+                    + fkdueño + ", '"
+                    + album.getAlbum_miniatura() + "')";
             
 
 
@@ -66,6 +67,10 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
             
+            int albumid = album.getAlbum_id();
+            String id = "";
+            id = String.valueOf(albumid);
+            
             int albumlikes = album.getAlbum_likes();
             String likes = "";
             likes = String.valueOf(albumlikes);
@@ -81,7 +86,9 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             + "album_privacidad='" + album.getAlbum_privacidad() + "', "
             + "album_fecha_creacion='" + album.getAlbum_fecha_creacion() +"', "
             + "album_likes=" + likes + ", "
-            + "album_dislikes=" + dislikes;           
+            + "album_dislikes=" + dislikes + ", "
+            + "album_miniatura='" + album.getAlbum_miniatura() + "' " 
+            + "WHERE album_id=" + id;
            
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);

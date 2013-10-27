@@ -35,7 +35,9 @@ public class Usuario {
             this.usuario_foto = "";        
     }
     
-    public Usuario(int id, String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad, String foto) {
+    public Usuario(int id, String username, String nombre, String apellido, 
+            String email, String fecha_nacimiento, String ubicacion, 
+            String privacidad, String foto) {
             this.usuario_id = id;
             this.usuario_username = username;
             this.usuario_nombre = nombre;
@@ -49,7 +51,26 @@ public class Usuario {
             this.usuario_foto = foto;
     }
 
-    public Usuario(String username, String nombre, String apellido, String email, String fecha_nacimiento, String ubicacion, String privacidad,String foto) {
+        public Usuario(int id, String username, String nombre, String apellido,
+                String email, String fecha_nacimiento, String ubicacion, 
+                String privacidad,AlbumList albums,AmigoList amigos, 
+                String foto) {
+            this.usuario_id = id;
+            this.usuario_username = username;
+            this.usuario_nombre = nombre;
+            this.usuario_apellido = apellido;
+            this.usuario_email = email;
+            this.usuario_fecha_nacimiento = fecha_nacimiento;
+            this.usuario_ubicacion = ubicacion;
+            this.usuario_privacidad = privacidad;
+            this.usuario_albums = albums;
+            this.usuario_amigos = amigos;
+            this.usuario_foto = foto;
+    }
+        
+    public Usuario(String username, String nombre, String apellido, 
+            String email, String fecha_nacimiento, String ubicacion, 
+            String privacidad,String foto) {
             this.usuario_id = 0;
             this.usuario_username = username;
             this.usuario_nombre = nombre;
