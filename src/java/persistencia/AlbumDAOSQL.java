@@ -5,11 +5,16 @@
 package persistencia;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.Album;
+import negocio.Notificacion;
 import util.Util;
 
 /**
@@ -19,7 +24,7 @@ import util.Util;
 public class AlbumDAOSQL extends Object implements AlbumDAO {
 
     @Override
-    public void InsertarAlbum(Album album) {
+    public void insertarAlbum(Album album) {
            try {        
             Connection connection = ConexionBaseDeDatos.getConnection();
             
@@ -53,6 +58,29 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             int rs = st.executeUpdate(query);
           
             st.close();
+            
+            String querySelect = "SELECT last_value FROM album_album_id_seq";
+            int fk_id=0;      
+            Statement stSelect = connection.createStatement();
+            ResultSet rsSelect = st.executeQuery(querySelect);
+            
+            while (rsSelect.next()) {
+                fk_id = Integer.parseInt(rsSelect.getString("album_id"));
+            }
+            
+            Date date = new Date();
+            DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
+            String fecha = formatofecha.format(date);
+            
+            Notificacion notificacion = new Notificacion(fecha,"album",fk_id);
+            NotificacionDAO notificaciondao = new NotificacionDAOSQL();
+            notificaciondao.insertarNotificacion(notificacion);            
+            
+            stSelect.close();
+            rsSelect.close();
+            
+            
+            
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,7 +91,7 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
     }
 
     @Override
-    public void ModificarAlbum(Album album) {
+    public void modificarAlbum(Album album) {
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
             
@@ -99,6 +127,55 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @Override
+    public Album consultarAlbum(int id) {
+
+            String idString = String.valueOf(id);
+            
+            
+        Album album = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM album WHERE album_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+       
+            String nombre = "";
+            String descripcion = "";
+            String privacidad = "";
+            String fecha = "";
+            String miniatura ="";
+            int    likes = 0;
+            int    dislikes = 0;
+            int    fk_usuario = 0;
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("album_id"));
+                nombre = rs.getString("album_nombre");
+                descripcion = rs.getString("album_descripcion");
+                privacidad = rs.getString("album_privacidad");
+                fecha = rs.getString("album_fecha_creacion");
+                likes = Integer.parseInt(rs.getString("album_likes"));
+                dislikes = Integer.parseInt(rs.getString("album_dislikes"));
+                fk_usuario = Integer.parseInt(rs.getString("fk_usuario_id"));
+                miniatura = rs.getString("album_miniatura");
+                
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            album = new Album(id, nombre, descripcion, privacidad, fecha, likes,
+                    dislikes,miniatura, fk_usuario);
+            return album;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return album;
     }
     
 }

@@ -11,12 +11,12 @@ package negocio;
 public class Usuario {
     private int     usuario_id;
     private String  usuario_username;
-    private String usuario_nombre;
-    private String usuario_apellido;
-    private String usuario_email;
-    private String usuario_fecha_nacimiento;
-    private String usuario_ubicacion;
-    private String usuario_privacidad;
+    private String  usuario_nombre;
+    private String  usuario_apellido;
+    private String  usuario_email;
+    private String  usuario_fecha_nacimiento;
+    private String  usuario_ubicacion;
+    private String  usuario_privacidad;
     private AlbumList usuario_albums;
     private AmigoList usuario_amigos;
     private String usuario_foto;

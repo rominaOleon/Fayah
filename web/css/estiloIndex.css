@@ -1,0 +1,23 @@
+/* 
+    Document   : estilo
+    Created on : Oct 22, 2013, 12:05:27 PM
+    Author     : carlosromero
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    overflow-x: hidden;
+}
+
+.contenedor2 .lupa {
+position: absolute;
+top: 30%;
+left: 71%;
+}
+
+.contenedor2 .todo-search  {
+position: absolute;
+left: 4%;
+top: 30%;
+width: 100%;
+}

@@ -1,3 +1,4 @@
+<%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <%@page import="controlador.IndexControlador"%>
 <%@page import="java.sql.Statement"%>
@@ -7,6 +8,8 @@
 <html> 
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="css/estiloIndex.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
@@ -26,23 +29,19 @@
 
 
     </head> 
-    <body background="img/espacio.png">
+    <body>
         <SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
 
 
-        <div class="contenedor">
-            <h1 class="demo-panel-title">
-                <img src="img/losfayah.jpg" alt="foto logo facebook" width="70px" />
-                Fayah
+       <div class="contenedor">
+ 			
+<h1 class="demo-panel-title">Fayah</h1>
 
-            </h1>
-
-
-        </div>
+</div>
 
         <div class="contenedor2">
-            <div class="facebook">
-                <form name="formularioUsuario" id="formularioUsuario" method="post"  >
+	  <div class="facebook">
+                <form name="formularioUsuario"  id="formularioUsuario" method="post"style="width: 1px; height: 1px">
                     <button  type="submit" id="fb-root"> 
                         <fb:login-button size="xlarge" onlogin="document.formularioUsuario.submit();" 
                                          scope="email,user_photos,user_hometown,user_birthday" width="200" 
@@ -57,48 +56,64 @@
                     <input type="text" name="usuarioFace" style="visibility: hidden"> 
 
                 </form>
+              
+              
 
             </div> 
 
 
 
 
-            <h2 class="demo-panel-title">LogIn with:
+         
+            
+             <form name="formularioBusqueda" id="formularioBusqueda" method="post">
+
+                <div class="lupa">
+                    <a type="submit" onclick="document.formularioBusqueda.submit();">
+
+                        <img src="img/lupaicon.png"  width="25px" />
+
+                    </a>
+                </div>
+                <div class="todo-search">
+
+                    <input class="todo-search-field" type="text" style="width: 65%" name="newBusqueda"  placeholder="Search in Fayah" id="labusqueda">
+
+                </div>
+
+            </form>
+      
+</div>
+
+ 	
 
 
-            </h2>
-
-        </div>
-
-
-
-
-        <div class="separador">
-            <HR width=100% align="left">
-        </div>
-
-
-        <h4 class="demo-panel-title">Connect with your friends
-
-            and share the best of Youtube, Instagram and Soundcloud.</h4>
-
-        <div class="youtube">
-            <img src="img/youtube2.png" alt="foto logo facebook" width="150px" />
-        </div>
-        <div class="instagram">
-            <img src="img/instagram2.png" alt="foto logo facebook" width="150px" />
-        </div>
-        <div class="soundcloud">
-            <img src="img/soundcloud2.png" alt="foto logo facebook" width="150px" />
-        </div> 
-
-
-
-        <h5 class="demo-panel-title">Fayah, Inc. Copyright 2013</h5>
-
-
+				<div class="separador">
+					<HR width=100% align="left">
+				</div>
+				
+				
+		   <h4 class="demo-panel-title">Connect with your friends
+            
+            and share the best of Yotube, Instagram and Soundcloud.</h4>
+            
+            <div class="youtube">
+	  			<img src="img/youtube.png" alt="foto logo facebook" width="150px" />
+	  	    </div>
+	  	    <div class="instagram">
+	 			<img src="img/instagram.png" alt="foto logo facebook" width="150px" />
+	  		</div>
+	  		<div class="soundcloud">
+	  			<img src="img/soundcloud.png" alt="foto logo facebook" width="150px" />
+	 	    </div> 
+       
+	  <h5 class="demo-panel-title">Fayah, Inc. Copyright 2013</h5>
 
         <%
+            
+            System.out.println(request.getParameter("newBusqueda"));
+            
+            
             String username = request.getParameter("usuarioFace");
             String nombre = request.getParameter("nombreFace");
             String apellido = request.getParameter("apellidoFace");
@@ -112,6 +127,13 @@
                         && (email.compareTo("") != 0)) {
                     Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email,
                             fecha_nacimiento, ubicacion, foto);
+                    System.out.println("notificaciones: ");
+                    int posicion=0;
+                    while (posicion<=Util.notificaciones.size()-1){
+                    System.out.println(Util.notificaciones.get(posicion).getNotificacion_id());
+                    System.out.println(Util.notificaciones.get(posicion).getNotificacion_tipo());
+                    posicion=posicion+1;
+                    }
                     response.sendRedirect("inicio.jsp");
                 }
             }
@@ -119,4 +141,16 @@
         %>
 
     </body> 
+    
+    <%
+  if (request.getParameter("newBusqueda") != null) {
+          String busqueda = request.getParameter("newBusqueda");
+                    
+          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          
+          response.sendRedirect("resultFriendsOffline.jsp");
+      }
+  
+  
+%>
 </html>

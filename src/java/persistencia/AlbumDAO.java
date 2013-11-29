@@ -11,6 +11,7 @@ import negocio.Album;
  * @author romina
  */
 public interface AlbumDAO {    
-    public void InsertarAlbum (Album album);;
-    public void ModificarAlbum (Album album);
+    public void insertarAlbum (Album album);
+    public void modificarAlbum (Album album);
+    public Album consultarAlbum (int id);
 }

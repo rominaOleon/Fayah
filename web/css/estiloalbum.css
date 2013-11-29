@@ -5,15 +5,6 @@ background-color:#FFFFFF;
 			
 
 
-.contenedor{
-
-    position:absolute;
-	width: 100%;
-	height: 6%;
-	background-color:#3498DB;
-	
-	}
-	
 	
 .nombreAlbum{
 position:absolute;
@@ -21,24 +12,7 @@ margin-top: 316px;
 margin-left:0px;
 }
 
-.columnleft{
 
-	position:absolute;
-	width:  278px;
-	height: 720px;
-	background-color:white;
-	margin-top: 42px;
-	margin-left:0px;
-	}
-
-	
-.columnright{
-	position:absolute;
-	margin-top:42px;
-	width:100%;
-	height:100%;
-	background-color:#FFFFFF;
-}
 .columnright .cuadro{
     margin-top:25px;
     margin-left:52px;
@@ -92,63 +66,6 @@ margin-left:0px;
 	
 
 	
-h1 {
-font-family: 'Belleza', sans-serif;
-color: #2C3E50;
-position: absolute;
-font-size: 32px;
-font-weight: 700;
-margin-left:55px;
-margin-top:0;
-
-}
-
-
-h2 {
-font-family: 'Trykker', serif;
-color: black;
-position: absolute;
-font-size: 22px;
-font-weight: 700;
-margin-left:0px;
-margin-top:3px;
-
-}
-
-h3 {
-font-family: 'Trykker', serif;
-color: black;
-font-size: 14px;
-}
-
-.photos{
-
-margin-top:30px;
-font-family: 'Trykker', serif;
-color: black;
-margin-left:23px;
-font-size: 16px;
-}
-
-.h10{
-position:absolute;
-margin-top:3px;
-margin-left:76px;
-
-}
-.h11{
-position:absolute;
-margin-top:28px;
-margin-left:76px;
-
-}
-
-.photoicon {
-position:absolute;
-margin-top:0px;
-margin-left:30px;
-z-index:9;
-}
 
 .photoicon2 {
 position:absolute;
@@ -162,61 +79,7 @@ z-index:9;
 
 
 
-input.todo-search-field {
-font-family: 'Trykker', serif;
-background-color: white;
-border: none;
-color: #34495e;
-font-size: 16px;
-font-weight: 900;
-margin-left: 279px;
-margin-top:4px;
-line-height: 23px;
-padding: 5px 0;
-text-indent: 0;
--webkit-box-shadow: none;
--moz-box-shadow: none;
-box-shadow: none;
-}
 
-.contenedor .home {
-position:absolute;
-margin-left: 880px;
-margin-top: 2px;
-z-index:9;
-}
-.contenedor .settings {
-position:absolute;
-margin-left: 929px;
-margin-top: 4px;
-z-index:9;
-}
-.contenedor .lock {
-position:absolute;
-margin-left: 970px;
-margin-top: 2px;
-z-index:9;
-}
-.contenedor .message {
-position:absolute;
-margin-left: 146px;
-margin-top: 2px;
-z-index:9;
-}
-.contenedor .friends {
-position:absolute;
-margin-left: 198px;
-margin-top: 4px;
-z-index:9;
-}
-
-.login-link {
-color: #bfc9ca;
-display: block;
-font-size: 14px;
-margin-top: 10px;
-margin-left: 92px;
-}
 
 
 li .min	{
@@ -261,30 +124,8 @@ a:hover .max	{
 	}
 	
 	
-.login-link {
-position:absolute;
-color: #bfc9ca;
-display: block;
-font-size: 14px;
-margin-top: 10px;
-margin-left: 92px;
-}
-
-.photoicon2 {
-position:absolute;
-margin-top:22px;
-margin-left:17px;
-}
 
 
-.h10{
-font-size: 22px;
-color:black;
-position:absolute;
-margin-top:25px;
-margin-left:48px;
-
-}
 
 .separador{
 
@@ -330,10 +171,263 @@ margin-top:22px;
 margin-left: 420px;
 }
 
+
+body {background-color: #ECF0F1;
+display: block;
+background-color:#FFFFFF;
+}
+
+h4 {
+    font-family: 'Share Tech', sans-serif;
+    font-size: 24px;
+    font-weight: 400; 
+    color: #06C;
+}
+
+h5 {
+    font-family: 'Share Tech', sans-serif;
+    font-size: 16px;
+    font-weight: 100; 
+    color: #999
+}
+
+h2 {
+font-family: 'Share Tech', sans-serif;
+color: black;
+font-size: 22px;
+font-weight: 400;
+}
+
+
 .contenedor .lupa {
-position:absolute;      
-margin-left: 489px;
+position:absolute;
+margin-left: 47%;
 margin-top: 6px;
+z-index:9;
+}
+			
+
+
+.contenedor{
+        top:auto;
+        right: auto;
+        position:relative;
+	width: 100%;
+
+
+	background-color:#3498DB;
+	
+	}
+
+.columnleft{
+
+	position:absolute;
+	width:  278px;
+	height: 720px;
+	background-color:white;
+	margin-top: auto;
+	margin-left:0px;
+	}
+	
+.columnright{
+
+	position:absolute;
+	width:  720px;
+	margin-left:279px;
+	height: 720px;
+	background-color: white;
+	}
+	
+.titulo{
+
+    position:absolute;
+	width:  680px;
+	height: 42px;
+	background-color: black;
+	margin-top: 0px;
+	margin-left: 40px;
+	background-color:white;
+	}	
+	
+.separador{
+
+    position:absolute;
+	width:  800px;
+	height: 0px;
+	background-color: black;
+	margin-top: 25px;
+	margin-left: 40px;
+	background-color:white;
+	}	
+.columnright2{
+
+	position:absolute;
+	width:  279px;
+	margin-left:1000px;
+	height: 720px;
+	background-color: white;
+	}
+	
+.nombre{
+
+    position:absolute;
+	width:  680px;
+	height: 42px;
+	background-color: black;
+	margin-top: 60px;
+	margin-left: 18px;
+	background-color:white;
+	}
+	
+	
+	
+	
+	
+	
+.bloque-principal{
+
+position:absolute;
+	width:  80%;
+	margin-left:20%;
+	margin-top:39px;
+	height: 93%;
+	background-color: white;
+	}	
+	
+.columnleft .usuariodefault
+{
+   margin-left:53px;
+   margin-top:45px;
+   
+}
+	
+h1 {
+font-family: 'Belleza', sans-serif;
+color: #2C3E50;
+position: absolute;
+font-size: 32px;
+font-weight: 700;
+margin-left:55px;
+margin-top:0;
+
+}
+
+
+h3 {
+font-family: 'Trykker', serif;
+color: black;
+font-size: 14px;
+}
+
+.photos{
+
+margin-top:30px;
+font-family: 'Trykker', serif;
+color: black;
+margin-left:23px;
+font-size: 16px;
+}
+
+.h12{
+position:absolute;
+margin-top: 3px;
+margin-left: 76px;
+}
+.h11{
+position:absolute;
+margin-top:28px;
+margin-left:76px;
+
+}
+
+.photoicon {
+position:absolute;
+margin-top:0px;
+margin-left:30px;
+z-index:9;
+}
+
+.photoicon2 {
+position:absolute;
+margin-top:24px;
+margin-left:30px;
+z-index:9;
+}
+
+.h10 {
+font-size: 22px;
+color: black;
+position: absolute;
+margin-top:25px;
+margin-left: 10%;
+    
+    
+    
+}
+
+
+
+
+
+
+input.todo-search-field {
+background-color: white;
+border: none;
+color: #34495e;
+font-size: 16px;
+margin-left: 20%;
+margin-top:4px;
+line-height: 23px;
+width: 25%;
+text-indent: 0;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+
+.contenedor .lupa {
+position:absolute;
+margin-left: 47%;
+margin-top: 6px;
+z-index:9;
+}
+	
+
+.contenedor .home {
+position:absolute;
+margin-left: 91%;
+margin-top: 2px;
+z-index:9;
+}
+.contenedor .settings {
+position:absolute;
+margin-left: 94%;
+margin-top: 4px;
+z-index:9;
+}
+.contenedor .lock {
+position:absolute;
+margin-left: 97%;
+margin-top: 2px;
+z-index:9;
+}
+.contenedor .message {
+position:absolute;
+margin-left: 14%;
 
 z-index:9;
+}
+.contenedor .friends {
+position:absolute;
+margin-left: 198px;
+margin-top: 4px;
+z-index:9;
+}
+
+.login-link {
+color: #bfc9ca;
+display: block;
+font-size: 14px;
+margin-top: 10px;
+margin-left: 92px;
 }

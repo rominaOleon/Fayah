@@ -13,6 +13,7 @@
     <body>
     <head>
         <title>Fayah</title>
+         <SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
 
 
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -79,16 +80,13 @@
             <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
         </div>
         <div class="lock">
-            <a href="index.jsp">
+            <a href="index.jsp" onclick="FLogout();">
           <img src="img/logout.png" alt="home icon" width="29px"  /></a>
         </div>	
         <div class="message">
             <img src="img/message.png" alt="home icon" width="37px" />
         </div>	
-        <div class="friends">
-            <a href="friends.jsp">
-            <img src="img/friends.png" alt="home icon" width="31px" /></a>
-        </div>		
+        		
         <h1 class="demo-panel-title">Fayah
 
         </h1>

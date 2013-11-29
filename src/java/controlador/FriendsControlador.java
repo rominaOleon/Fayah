@@ -19,7 +19,7 @@ public class FriendsControlador {
         Usuario usuario = null;
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
 
-        usuario = usuariodao.ConsultarUsuario(id);
+        usuario = usuariodao.consultarUsuario(id);
 
         return usuario.getUsuario_foto();
 
@@ -30,7 +30,7 @@ public class FriendsControlador {
         Usuario usuario = null;
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
 
-        usuario = usuariodao.ConsultarUsuario(id);
+        usuario = usuariodao.consultarUsuario(id);
 
         String nombreAmigo = usuario.getUsuario_nombre() + " " + usuario.getUsuario_apellido();
 
@@ -43,7 +43,7 @@ public class FriendsControlador {
         Usuario usuario = null;
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
 
-        usuario = usuariodao.ConsultarUsuario(id);
+        usuario = usuariodao.consultarUsuario(id);
 
         String ubicacionAmigo = usuario.getUsuario_ubicacion();
 

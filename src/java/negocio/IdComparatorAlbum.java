@@ -14,7 +14,6 @@ import java.util.Comparator;
 public class IdComparatorAlbum implements Comparator, Serializable {
     
     @Override
-    //Retorna 0 si son iguales
     public int compare(Object firstObject,Object secondObject) {
         
         int firstID = ((Album)firstObject).getAlbum_id();

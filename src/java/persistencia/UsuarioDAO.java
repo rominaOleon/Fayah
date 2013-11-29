@@ -14,12 +14,12 @@ import negocio.UsuariosList;
  * @author romina
  */
 public interface UsuarioDAO {    
-    public int UsuarioExiste (String email);
-    public void InsertarUsuario (Usuario usuario);
-    public Usuario ConsultarUsuario (String email);
-    public void ModificarUsuario (Usuario usuario);
-    public AmigoList TraerAmigos (Usuario usuario);
-    public AlbumList TraerAlbums (Usuario usuario);
-    public UsuariosList BuscarUsuario (String busqueda);
-    public Usuario ConsultarUsuario(int id);
+    public int usuarioExiste (String email);
+    public void insertarUsuario (Usuario usuario);
+    public Usuario consultarUsuario (String email);
+    public void modificarUsuario (Usuario usuario);
+    public AmigoList traerAmigos (Usuario usuario);
+    public AlbumList traerAlbums (Usuario usuario);
+    public UsuariosList buscarUsuario (String busqueda);
+    public Usuario consultarUsuario(int id);
 }

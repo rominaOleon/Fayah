@@ -9,8 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import negocio.Album;
 import negocio.AlbumList;
+import negocio.Notificacion;
+import negocio.NotificacionList;
 import persistencia.AlbumDAO;
 import persistencia.AlbumDAOSQL;
+import persistencia.NotificacionDAO;
+import persistencia.NotificacionDAOSQL;
 import persistencia.UsuarioDAO;
 import persistencia.UsuarioDAOSQL;
 import util.Util;
@@ -25,15 +29,21 @@ public class NewAlbumControlador {
         Date date = new Date();
         DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
         String fecha_creacion = formatofecha.format(date);
+        
         Album album = new Album(nombre,descripcion,"A",fecha_creacion,0,0,Util.defaultAlbumCover);
         AlbumDAO albumdao = new AlbumDAOSQL();
-        albumdao.InsertarAlbum(album);
+        albumdao.insertarAlbum(album);
+        
+       
         
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
         
-        AlbumList albums = usuariodao.TraerAlbums(Util.usuario);
-        Util.usuario.setUsuario_albums(albums);
+        NotificacionDAO notificaciondao = new NotificacionDAOSQL();
+        NotificacionList notificaciones = notificaciondao.traerNotificaciones(Util.usuario);
         
+        AlbumList albums = usuariodao.traerAlbums(Util.usuario);
+        Util.usuario.setUsuario_albums(albums);
+        Util.notificaciones = notificaciones;
    }
     
 }

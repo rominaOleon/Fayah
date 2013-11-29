@@ -13,10 +13,11 @@ public class Album {
     private String  album_nombre;
     private String  album_descripcion;
     private String  album_privacidad;
-    private String    album_fecha_creacion;
+    private String  album_fecha_creacion;
     private int     album_likes;
     private int     album_dislikes;
     private String  album_miniatura;
+    private int     fk_usuario;
     
     
     public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
@@ -28,6 +29,20 @@ public class Album {
         this.album_likes = likes;
         this.album_dislikes = dislikes;
         this.album_miniatura = miniatura;
+        this.fk_usuario = 0;
+        
+    }
+    
+        public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura,int fk_usuario) {
+        this.album_id = id;
+        this.album_nombre = nombre;
+        this.album_descripcion = descripcion;
+        this.album_privacidad = privacidad;
+        this.album_fecha_creacion = fecha_creacion;
+        this.album_likes = likes;
+        this.album_dislikes = dislikes;
+        this.album_miniatura = miniatura;
+        this.fk_usuario = fk_usuario;
     }
     
     public Album(String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
@@ -39,9 +54,17 @@ public class Album {
         this.album_likes = likes;
         this.album_dislikes = dislikes;
         this.album_miniatura = miniatura;
+        this.fk_usuario = 0;
     }
 
+    public int getFk_usuario() {
+        return fk_usuario;
+    }
 
+    public void setFk_usuario(int fk_usuario) {
+        this.fk_usuario = fk_usuario;
+    }
+    
     public int getAlbum_id() {
         return album_id;
     }

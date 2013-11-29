@@ -1,3 +1,4 @@
+<%@page import="controlador.InicioControlador"%>
 <%@page import="controlador.ResultFriendControlador"%>
 <%@page import="util.Util"%>
 <!DOCTYPE html>
@@ -6,11 +7,12 @@
     <head>
         <title>Search Results:</title>
 
-
+<SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="css/estilografo.css" rel="stylesheet" media="screen">
+        <link href="css/estiloinicio.css" rel="stylesheet" media="screen">
         <link href='css/http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css'>
         <link href='css/http://fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
         <link href='css/http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
@@ -51,15 +53,12 @@
         </div>
         <div class="lock">
             <a href="index.jsp">
-          <img src="img/lock.png" alt="home icon" width="35px"  /></a>
+          <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();"  /></a>
         </div>	
         <div class="message">
             <img src="img/message.png" alt="home icon" width="37px" />
         </div>	
-        <div class="friends">
-            <a href="friends.jsp">
-            <img src="img/friends.png" alt="home icon" width="31px" /></a>
-        </div>		
+       		
         <h1 class="demo-panel-title">Fayah
         </h1>
         <div class="todo-search">
@@ -68,6 +67,39 @@
  </div> 
               </form>
     </div>
+    
+        <div class="columnleft">
+        <div class="usuariodefault">
+            <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
+            <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
+            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+        </br>    
+        <h5><%=Util.usuario.getUsuario_username()%></h4>
+        <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
+
+        </div>
+        
+         
+        <div class="photos">
+
+
+            <div class="photoicon">
+                <img src="img/photoicon.png" alt="photo icon" width="18px" />
+            </div>
+            <div class="photoicon2">
+                <img src="img/friends.png" alt="photo icon" width="18px" />
+            </div>
+
+
+
+
+    </div>
+       
+        <a  href="album.jsp" class="h12">Album</a>
+        <a href="friends.jsp" class="h11">Friends</a>
+        
+    </div>
+    
 
 
     <div class="columnright">
@@ -105,14 +137,39 @@
                 
                 <div class="photoicon2">
                     <img src=<%=fotoUsuario%> width="100px" />
-                    </br>                    </br>
+                    </br> 
+                    </br>
+                    </br>
                     </br>
                     </br>
                     </br>
                     </br>
 
                 </div>
-
+                    <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
+                    
+                    <div class="span3">
+                        <input name="posAmigo" style="visibility: hidden" value="<%=posicion%>">
+                        <input name="posPerfil" style="visibility: hidden" value="<%=posicion%>">
+                        <% 
+                             boolean esAmigo = ResultFriendControlador.esAmigo(Util.usuario.getUsuario_id(),Util.usuarios.get(posicion).getUsuario_id());
+                             
+                             if ((esAmigo!=true) && (Util.usuarios.get(posicion).getUsuario_id()!=Util.usuario.getUsuario_id())){
+                           
+                               %>
+                        <a type="submit" onclick="document.formAmigo<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">+ Add Friend</a>
+                        
+                        <%}
+                                 %>
+                                 
+                            <% 
+                            if ((Util.usuarios.get(posicion).getUsuario_privacidad().compareTo("A")==0) && (Util.usuarios.get(posicion).getUsuario_id()!=Util.usuario.getUsuario_id())) {
+                             %>     
+                         <a type="submit" onclick="document.formAmigo<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">View Profile</a>
+                          <%}
+                            %>
+                </div>
+                  
                 <div class="nombreUsu">
                     <a><%=nombreCompleto%></a>                    </br>
                     <a><%=ubicacionUsuario%></a>
@@ -120,24 +177,21 @@
                     </br>
                     </br>
                     </br>
+                                      </br>
                     </br>
+
 
                 </div>
                 
-                <div class="span3">
-                    <form name="formAmigo"  id="formAmigo" method="post">
-                        <input name="posAmigo" style="visibility: hidden" value="<%=posicion%>">
-                    <a type="submit" onclick="document.formAmigo.submit();" class="btn btn-large btn-block btn-primary">+ Add Friend</a>
-                    
-                </div>
-                  </form>  
+                </form>  
+
                     
                          <% posicion=posicion+1;
             }
             %>
                 
                 
-            <% System.out.println(request.getParameter("posAmigo")); %>
+            <% System.out.println("Posicion:" +request.getParameter("posAmigo")); %>
             </div>
 
             <div class="separador2">
@@ -154,19 +208,41 @@
             
             <%
          
+               
+             if (request.getParameter("newBusqueda") != null) {
+                     String busqueda = request.getParameter("newBusqueda");
+
+                     Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+
+                     response.sendRedirect("resultFriends.jsp");
+                 }
             
-        //    if (request.getParameter("posAmigo")!=null){
-          //      String pos = request.getParameter("posAmigo");
-            //    int posicionAmigo = Integer.parseInt(pos);
-             //   int idamigo = Util.usuarios.get(posicionAmigo).getUsuario_id();
+
+             
+                    
+            if (request.getParameter("posAmigo")!=null){
+                String pos = request.getParameter("posAmigo");
+                int posicionAmigo = Integer.parseInt(pos);
+                int idamigo = Util.usuarios.get(posicionAmigo).getUsuario_id();
                 
-             //   ResultFriendControlador.AgregarAmigo(id);
+                ResultFriendControlador.AgregarAmigo(idamigo);
                 
-               // response.sendRedirect("inicio.jsp");
+                response.sendRedirect("inicio.jsp");
                 
             }
-            %>
-
+            
+            if (request.getParameter("posPerfil")!=null){
+                String posicionPerfil = request.getParameter("posPerfil");
+                int posPerfil = Integer.parseInt(posicionPerfil);
+                int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
+                ResultFriendControlador.TraerAmigo(idAmigo);
+                                
+            }
+ 
+%>
 
 </body>	
+
+
 </html>
+

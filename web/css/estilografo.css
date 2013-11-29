@@ -142,48 +142,51 @@ margin-left:136px;
 
 
 
-
-
-
 input.todo-search-field {
-font-family: 'Trykker', serif;
 background-color: white;
 border: none;
 color: #34495e;
 font-size: 16px;
-font-weight: 900;
-margin-left: 279px;
+margin-left: 20%;
 margin-top:4px;
 line-height: 23px;
-padding: 5px 0;
+width: 25%;
 text-indent: 0;
 -webkit-box-shadow: none;
 -moz-box-shadow: none;
 box-shadow: none;
 }
 
+.contenedor .lupa {
+position:absolute;
+margin-left: 47%;
+margin-top: 6px;
+z-index:9;
+}
+	
+
 .contenedor .home {
 position:absolute;
-margin-left: 880px;
+margin-left: 91%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .settings {
 position:absolute;
-margin-left: 929px;
+margin-left: 94%;
 margin-top: 4px;
 z-index:9;
 }
 .contenedor .lock {
 position:absolute;
-margin-left: 970px;
+margin-left: 97%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .message {
 position:absolute;
-margin-left: 146px;
-margin-top: 2px;
+margin-left: 14%;
+
 z-index:9;
 }
 .contenedor .friends {
@@ -192,6 +195,8 @@ margin-left: 198px;
 margin-top: 4px;
 z-index:9;
 }
+
+
 
 .login-link {
 color: #bfc9ca;
@@ -319,13 +324,7 @@ transition: 0.25s;
 .span3{
 width: 146px;
 position:absolute;
-margin-top:22px;
-margin-left: 600px;
+
+margin-left: 90%;
 }
 
-.contenedor .lupa {
-position:absolute;
-margin-left: 489px;
-margin-top: 6px;
-z-index:9;
-}

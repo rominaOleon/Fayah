@@ -3,28 +3,15 @@ display: block;
 background-color:#FFFFFF;
 			}
 			
-h4 {
-    font-family: 'Share Tech', sans-serif;
-    font-size: 24px;
-    font-weight: 400; 
-    color: #06C;
-}
 
 .contenedor{
-        top:auto;
-        right: auto;
-        position:relative;
+
+    position:absolute;
 	width: 100%;
 
-	background-color:#3498DB;	
+	background-color:#3498DB;
+	
 	}
-        
-        .contenedor .lupa {
-position:absolute;
-margin-left: 489px;
-margin-top: 6px;
-z-index:9;
-}
 
 .columnleft{
 
@@ -32,7 +19,7 @@ z-index:9;
 	width:  278px;
 	height: 720px;
 	background-color:white;
-	margin-top: auto;
+	margin-top: 42px;
 	margin-left:0px;
 	}
 	
@@ -41,6 +28,7 @@ z-index:9;
 	position:absolute;
 	width:  720px;
 	margin-left:279px;
+	margin-top:42px;
 	height: 720px;
 	background-color: white;
 	}
@@ -71,6 +59,7 @@ z-index:9;
 	position:absolute;
 	width:  279px;
 	margin-left:1000px;
+	margin-top:42px;
 	height: 720px;
 	background-color: white;
 	}
@@ -102,6 +91,13 @@ position:absolute;
 	}	
 	
 .columnleft .usuariodefault
+{
+   margin-left:53px;
+   margin-top:45px;
+   
+}
+   
+   .columnright .usuariodefault2
 {
    margin-left:53px;
    margin-top:45px;
@@ -141,44 +137,52 @@ font-size: 14px;
 
 
 
+
 input.todo-search-field {
 background-color: white;
 border: none;
 color: #34495e;
 font-size: 16px;
-font-weight: 900;
-margin-left: 279px;
+margin-left: 20%;
 margin-top:4px;
 line-height: 23px;
-padding: 5px 0;
+width: 25%;
 text-indent: 0;
 -webkit-box-shadow: none;
 -moz-box-shadow: none;
 box-shadow: none;
 }
 
+.contenedor .lupa {
+position:absolute;
+margin-left: 47%;
+margin-top: 6px;
+z-index:9;
+}
+	
+
 .contenedor .home {
 position:absolute;
-margin-left: 880px;
+margin-left: 91%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .settings {
 position:absolute;
-margin-left: 929px;
+margin-left: 94%;
 margin-top: 4px;
 z-index:9;
 }
 .contenedor .lock {
 position:absolute;
-margin-left: 970px;
+margin-left: 97%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .message {
 position:absolute;
-margin-left: 146px;
-margin-top: 2px;
+margin-left: 14%;
+
 z-index:9;
 }
 .contenedor .friends {
@@ -196,3 +200,42 @@ margin-top: 10px;
 margin-left: 92px;
 }
 
+.radio.checked {
+color: black;
+}
+.checkbox, .radio {
+margin-bottom: 12px;
+padding-left: 32px;
+position: relative;
+-webkit-transition: color 0.25s linear;
+-moz-transition: color 0.25s linear;
+-o-transition: color 0.25s linear;
+transition: color 0.25s linear;
+-webkit-backface-visibility: hidden;
+}
+.radio, .checkbox {
+min-height: 20px;
+padding-left: 20px;
+}
+label {
+display: block;
+margin-bottom: 5px;
+}
+label, input, button, select, textarea {
+font-size: 14px;
+font-weight: normal;
+line-height: 20px;
+}
+label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+cursor: pointer;
+}
+user agent stylesheetlabel {
+cursor: default;
+}
+Inherited from body
+body {
+color: #34495e;
+font-family: "Lato", sans-serif;
+font-size: 14px;
+line-height: 1.231;
+}

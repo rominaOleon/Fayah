@@ -11,6 +11,7 @@ import negocio.Amigo;
  * @author romina
  */
 public interface AmigoDAO {
-    public void InsertarAmigo (Amigo amigo);
-    public void ModificarAmigo (Amigo amigo);
+    public void insertarAmigo (Amigo amigo);
+    public void modificarAmigo (Amigo amigo);
+    public boolean sonAmigos(int usuarioId, int amigoId);
 }

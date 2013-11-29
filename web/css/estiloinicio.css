@@ -6,8 +6,10 @@
         Purpose of the stylesheet follows.
 */
 body {background-color: #ECF0F1;
-display: block;
-background-color:#FFFFFF;
+    display: block;
+    background-color:#FFFFFF;
+    overflow-x: hidden;
+
 }
 
 h4 {
@@ -34,7 +36,7 @@ font-weight: 400;
 
 .contenedor .lupa {
 position:absolute;
-margin-left: 489px;
+margin-left:82%;
 margin-top: 6px;
 z-index:9;
 }
@@ -46,6 +48,7 @@ z-index:9;
         right: auto;
         position:relative;
 	width: 100%;
+
 
 	background-color:#3498DB;
 	
@@ -197,39 +200,39 @@ background-color: white;
 border: none;
 color: #34495e;
 font-size: 16px;
-font-weight: 900;
-margin-left: 279px;
+margin-left: 20%;
 margin-top:4px;
 line-height: 23px;
-padding: 5px 0;
+width: 60%;
 text-indent: 0;
 -webkit-box-shadow: none;
 -moz-box-shadow: none;
 box-shadow: none;
 }
+	
 
 .contenedor .home {
 position:absolute;
-margin-left: 880px;
+margin-left: 91%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .settings {
 position:absolute;
-margin-left: 929px;
+margin-left: 94%;
 margin-top: 4px;
 z-index:9;
 }
 .contenedor .lock {
 position:absolute;
-margin-left: 970px;
+margin-left: 97%;
 margin-top: 2px;
 z-index:9;
 }
 .contenedor .message {
 position:absolute;
-margin-left: 146px;
-margin-top: 2px;
+margin-left: 14%;
+
 z-index:9;
 }
 .contenedor .friends {
@@ -245,4 +248,10 @@ display: block;
 font-size: 14px;
 margin-top: 10px;
 margin-left: 92px;
+}
+
+.h12{
+position:absolute;
+margin-top: 3px;
+margin-left: 76px;
 }

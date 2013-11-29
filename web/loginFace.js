@@ -45,7 +45,7 @@ getUserInfo();
         document.formularioUsuario.emailFace.value=response.email;
         document.formularioUsuario.direccionFace.value= response.hometown.name;
         document.formularioUsuario.usuarioFace.value= response.username;
-        
+        document.formularioUsuario.submit();
  });
  
   FB.api('/me/picture?width=180&height=180', function(response) {
@@ -57,3 +57,8 @@ getUserInfo();
 
 
 };
+
+ function FLogout()
+{
+FB.logout();
+;}

@@ -1,3 +1,4 @@
+<%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <!DOCTYPE html>
 
@@ -6,11 +7,12 @@
     <head>
         <title>Album</title>
 
-
+        <SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="css/estiloalbum.css" rel="stylesheet" media="screen">
+        <link href="css/estiloinicio.css" rel="stylesheet" media="screen">
         <link href='http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
@@ -68,43 +70,72 @@
 
 
 
-        <div class="contenedor"> 
-          <form name="formularioBusqueda" id="formularioBusqueda" method="post">
-         <div class="lupa">
-             <a type="submit" onclick="document.formularioBusqueda.submit();">
-                <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
+    <div class="contenedor"> 
+        <form name="formularioBusqueda" id="formularioBusqueda" method="post">
+            <div class="lupa">
+                <a type="submit" onclick="document.formularioBusqueda.submit();">
+                    <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
+            </div>
+
+            <div class="home">
+                <a href="inicio.jsp">
+                    <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
+            </div>
+            <div class="settings">
+                <a href="settings.jsp">
+                    <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
+            </div>
+            <div class="lock">
+                <a href="index.jsp">
+                    <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();"  /></a>
+            </div>	
+            <div class="message">
+                <img src="img/message.png" alt="home icon" width="37px" />
+            </div>	
+            <h1 class="demo-panel-title">Fayah
+
+            </h1>
+            <div class="todo-search">
+
+                <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"
+
+
+
+            </div>  
+        </form>
+    </div>
+
+    
+ <div class="columnleft">
+        <div class="usuariodefault">
+            <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
+            <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
+            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+        </br>    
+        <h5><%=Util.usuario.getUsuario_username()%></h4>
+        <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
+
         </div>
+        
+         
+        <div class="photos">
 
-        <div class="home">
-            <a href="inicio.jsp">
-                <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
-        </div>
-        <div class="settings">
-            <a href="settings.jsp">
-            <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
-        </div>
-        <div class="lock">
-            <a href="index.jsp">
-          <img src="img/lock.png" alt="home icon" width="35px"  /></a>
-        </div>	
-        <div class="message">
-            <img src="img/message.png" alt="home icon" width="37px" />
-        </div>	
-        <div class="friends">
-            <a href="friends.jsp" onclick="">
-            <img src="img/friends.png" alt="home icon" width="31px" /></a>
-        </div>		
-        <h1 class="demo-panel-title">Fayah
 
-        </h1>
-        <div class="todo-search">
+            <div class="photoicon">
+                <img src="img/photoicon.png" alt="photo icon" width="18px" />
+            </div>
+            <div class="photoicon2">
+                <img src="img/friends.png" alt="photo icon" width="18px" />
+            </div>
 
-            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"
 
-      
 
- </div>  
-              </form>
+
+    </div>
+       
+        <a  href="album.jsp" class="h12">Album</a>
+        <a href="friends.jsp" class="h11">Friends</a>
+        
     </div>
 
 
@@ -154,53 +185,43 @@
 
                 </div>
                 
-          
+                
+                <table style="top: 15%; position: absolute">
+                
               <ul class="cat">
-                              
+                                            
                     <%
             int posicion=0;
-            int maximopagina = 4;
+            int contador=0;
+            int maximofila=5;
             int maximoalbums = Util.usuario.getUsuario_albums().size();
-            while ((posicion<=maximopagina) && 
-                  (posicion<=maximoalbums-1)){
-                System.out.println(Util.usuario.getUsuario_albums().get(posicion).getAlbum_miniatura());
-            %>               
-                    <li>
-                        <a href="#">
-                            <img class="min" src="<%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
-                            <img class="max" src="<%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
+            while (posicion<=maximoalbums-1){
+              
+            %>      
+            <td>
+            <li>
+                        <a href=#>
+                            <img  class="min" src="<%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
+                            
                             <label> <%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_nombre()%> </label>
                         </a>
-                    </li>
-      
-            <% posicion=posicion+1;
+            </li>    
+              </td>
+            <% contador=contador+1;
+                if (contador==maximofila){%>
+                
+              <tr>
+               <%
+                contador=0;
+                
+                }
+                
+                posicion=posicion+1;
             }
             %>
               </ul>
+                </table>
             
-            <ul class="cat">
-                
-            <%
-            if(maximoalbums>4){
-            
-            while ((posicion<=maximopagina) && 
-                  (posicion<=maximoalbums)){
-            %>      
-                        
-                
-                <li>
-                        <a href="#">
-                            <img class="min" src="/Users/carlosromero/Documents/galeria/img/chicas/8.jpg" alt="#" />
-                            <img class="max" src="/Users/carlosromero/Documents/galeria/img/grandes/8.jpg" alt="#" />
-                        </a>
-                    </li>
-                    
-            <% posicion=posicion+1;
-            }
-            }
-            %>      
-                    
-                </ul>
 
             </div>
  </div>
@@ -220,7 +241,14 @@
 
 
 
-
+<% if (request.getParameter("newBusqueda") != null) {
+          String busqueda = request.getParameter("newBusqueda");
+                    
+          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          
+          response.sendRedirect("resultFriends.jsp");
+      }
+  %> 
 
 
 

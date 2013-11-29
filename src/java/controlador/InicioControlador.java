@@ -19,7 +19,7 @@ public class InicioControlador {
     
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
 
-        UsuariosList usuarios = usuariodao.BuscarUsuario(busqueda);
+        UsuariosList usuarios = usuariodao.buscarUsuario(busqueda);
 
         return usuarios;
     }

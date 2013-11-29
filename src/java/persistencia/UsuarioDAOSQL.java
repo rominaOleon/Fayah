@@ -24,7 +24,7 @@ import negocio.UsuariosList;
 public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
     @Override
-    public void InsertarUsuario(Usuario usuario) {
+    public void insertarUsuario(Usuario usuario) {
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "INSERT INTO usuario VALUES (nextval('usuario_usuario_id_seq'),'"
@@ -46,7 +46,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
-    public Usuario ConsultarUsuario(int id) {
+    public Usuario consultarUsuario(int id) {
         
             String idString = "";
             idString = String.valueOf(id);
@@ -91,7 +91,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
     
     @Override
-    public Usuario ConsultarUsuario(String email) {
+    public Usuario consultarUsuario(String email) {
         Usuario usuario = null;
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -131,7 +131,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
 
 
     @Override
-    public void ModificarUsuario(Usuario usuario) {
+    public void modificarUsuario(Usuario usuario) {
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
             int id = usuario.getUsuario_id();
@@ -155,12 +155,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
-    /*
-     *Metodo que trae de la base de datos los amigos de un usuario.
-     *@return null si el usuario no posee amigos. 
-     *amigos (AmigoList) la lista de amigos
-     */
-    public AmigoList TraerAmigos(Usuario usuario) {
+    public AmigoList traerAmigos(Usuario usuario) {
         AmigoList amigos = new AmigoList();
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -194,12 +189,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
-    /*
-     *Metodo que trae de la base de datos los album de un usuario.
-     *@return null si el usuario no posee ningun album. 
-     *albums (AlbumList) la lista de album
-     */
-    public AlbumList TraerAlbums(Usuario usuario) {
+       public AlbumList traerAlbums(Usuario usuario) {
         AlbumList albums = new AlbumList();
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -240,11 +230,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     }
 
     @Override
-    /*            
-     *  Verifica la existencia de un usuario en la base de datos.
-     * @return int id si el usuario existe. 0 si el usuario no existe.
-     */
-    public int UsuarioExiste(String email) {
+    public int usuarioExiste(String email) {
         int id = 0;
         if (email != null) {
             if (email.compareTo("") != 0) {
@@ -268,14 +254,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
         return id;
     }
 
-    /*            
-     * Busca los usuarios que coincidan con los nombres y apellidos
-     * proporcionados.
-     * @return Usuario[] si se encontraron resultados.
-     * null si ningun usuario registrado coincide.
-     */
     @Override
-    public UsuariosList BuscarUsuario(String busqueda) {
+    public UsuariosList buscarUsuario(String busqueda) {
         
         UsuariosList usuarios= new UsuariosList();
 

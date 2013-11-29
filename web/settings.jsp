@@ -1,3 +1,4 @@
+<%@page import="controlador.InicioControlador"%>
 <%@page import="controlador.SettingsControlador"%>
 <%@page import="util.Util"%>
 <!DOCTYPE html>
@@ -8,11 +9,12 @@
 	<head>
 		<title>Configuracion del Perfil</title>
 		
-		
+		<SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/estiloFayah.css" rel="stylesheet" media="screen">
+                <link href="css/estiloinicio.css" rel="stylesheet" media="screen">
 		<link href='http://fonts.googleapis.com/css?family=Della+Respira' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Kotta+One' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
@@ -71,14 +73,10 @@
         </div>
         <div class="lock">
             <a href="index.jsp">
-          <img src="img/lock.png" alt="home icon" width="35px"  /></a>
+          <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();" /></a>
         </div>	
         <div class="message">
             <img src="img/message.png" alt="home icon" width="37px" />
-        </div>	
-        <div class="friends">
-            <a href="friends.jsp">
-            <img src="img/friends.png" alt="home icon" width="31px" /></a>
         </div>		
         <h1 class="demo-panel-title">Fayah
         </h1>
@@ -88,19 +86,41 @@
  </div> 
               </form>
     </div>
-
-		
-		
-		<div class="columnleft">
+        
+            <div class="columnleft">
         <div class="usuariodefault">
-             <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
-            
+            <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
             <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
             <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
-        </div>
-                </div>
+        </br>    
+        <h5><%=Util.usuario.getUsuario_username()%></h4>
+        <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
 
-             
+        </div>
+        
+         
+        <div class="photos">
+
+
+            <div class="photoicon">
+                <img src="img/photoicon.png" alt="photo icon" width="18px" />
+            </div>
+            <div class="photoicon2">
+                <img src="img/friends.png" alt="photo icon" width="18px" />
+            </div>
+
+
+
+
+    </div>
+       
+        <a  href="album.jsp" class="h10">Album</a>
+        <a href="friends.jsp" class="h11">Friends</a>
+        
+    </div>
+
+		
+		             
 	    
 	    <div class="columnright">
 	    	<div class="titulo">
@@ -247,8 +267,26 @@
 <span id="colors5" style="display:none"><br><div class="control-group">
             
               
-                       <input type="checkbox" name="newPrivate" class="login-field" value="P" id="login-name">    Private</br>
-                       <input type="checkbox" name="newPrivate" class="login-field" value="A" id="login-name">    Public</br>
+                   <label class="radio checked">
+				<span class="icons">
+					<span class="first-icon fui-radio-unchecked"></span>
+					<span class="second-icon fui-radio-checked"></span>
+				</span>
+				<input type="radio" name="newPrivate" id="optionsRadios1" value="A" data-toggle="radio" checked="checked">
+				
+							Public
+						
+			</label>				
+			<label class="radio checked">
+				<span class="icons">
+					<span class="first-icon fui-radio-unchecked"></span>
+					<span class="second-icon fui-radio-checked"></span>
+				</span>
+				<input type="radio" name="newPrivate" id="optionsRadios2" value="P" data-toggle="radio">
+				
+							Private
+						
+			</label>
             	   </label>
             </div><br><div class="control-group">
         
@@ -302,8 +340,19 @@
       String ubicacion = request.getParameter("newDireccion");
       String privacidad = request.getParameter("newPrivate");
       SettingsControlador.ModificarPerfil(username, nombre,apellido, 
-              fecha_nacimiento, ubicacion, privacidad);         
+          fecha_nacimiento, ubicacion, privacidad);  
+      
+      
+       
 %>  
-  
+
+<% if (request.getParameter("newBusqueda") != null) {
+          String busqueda = request.getParameter("newBusqueda");
+                    
+          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          
+          response.sendRedirect("resultFriends.jsp");
+      }
+  %> 
 </html>
 
