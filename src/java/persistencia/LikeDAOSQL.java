@@ -38,14 +38,18 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
             
-            String querySelect = "SELECT last_value FROM likes_likes_id_seq";
+            Connection connectionFk = ConexionBaseDeDatos.getConnection();
+            
+            
+            String querySelect = "SELECT last_value fk FROM likes_likes_id_seq";
             int fk_id=0;      
-            Statement stSelect = connection.createStatement();
-            ResultSet rsSelect = st.executeQuery(querySelect);
+            Statement stSelect = connectionFk.createStatement();
+            ResultSet rsSelect = stSelect.executeQuery(querySelect);
             
             while (rsSelect.next()) {
-                fk_id = Integer.parseInt(rsSelect.getString("likes_id"));
+                fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
             
             Date date = new Date();
@@ -60,7 +64,7 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             rsSelect.close();
             
             
-            ConexionBaseDeDatos.closeConnection(connection);
+            ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(LikeDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,6 +109,40 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return likes;
+    }
+
+    @Override
+    public Like consultarLike(int id) {
+        String idString = String.valueOf(id);
+            
+            
+        Like like = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM likes WHERE likes_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            int fk_usuario = 0;
+            int fk_album =0;
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("likes_id"));
+                fk_album = Integer.parseInt(rs.getString("fk_album_id"));
+                fk_usuario = Integer.parseInt(rs.getString("fk_usuario_id")); 
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            like = new Like(id,fk_album,fk_usuario);
+            return like;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return like;
+      
     }
     
 }

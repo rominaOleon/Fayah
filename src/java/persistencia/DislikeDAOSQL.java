@@ -38,14 +38,17 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
             
-            String querySelect = "SELECT last_value FROM dislikes_dislikes_id_seq";
+            Connection connectionFk = ConexionBaseDeDatos.getConnection();
+            
+            String querySelect = "SELECT last_value fk FROM dislikes_dislikes_id_seq";
             int fk_id=0;      
-            Statement stSelect = connection.createStatement();
-            ResultSet rsSelect = st.executeQuery(querySelect);
+            Statement stSelect = connectionFk.createStatement();
+            ResultSet rsSelect = stSelect.executeQuery(querySelect);
             
             while (rsSelect.next()) {
-                fk_id = Integer.parseInt(rsSelect.getString("dislikes_id"));
+                fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
             
             Date date = new Date();
@@ -59,7 +62,7 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
             stSelect.close();
             rsSelect.close();
             
-            ConexionBaseDeDatos.closeConnection(connection);
+            ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(DislikeDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,6 +110,39 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
         return dislikes;
         
         
+    }
+
+    @Override
+    public Dislike consultarDislike(int id) {
+                String idString = String.valueOf(id);
+            
+            
+        Dislike dislike = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM dislikes WHERE dislikes_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            int fk_usuario = 0;
+            int fk_album =0;
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("dislikes_id"));
+                fk_album = Integer.parseInt(rs.getString("fk_album_id"));
+                fk_usuario = Integer.parseInt(rs.getString("fk_usuario_id")); 
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            dislike = new Dislike(id,fk_album,fk_usuario);
+            return dislike;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dislike;
     }
     
 }

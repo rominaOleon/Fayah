@@ -43,14 +43,18 @@ public class AmigoDAOSQL extends Object implements AmigoDAO {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
             
-            String querySelect = "SELECT last_value FROM amigo_amigo_id_seq";
+            Connection connectionFk = ConexionBaseDeDatos.getConnection();
+            
+            
+            String querySelect = "SELECT last_value fk FROM amigo_amigo_id_seq";
             int fk_id=0;      
-            Statement stSelect = connection.createStatement();
-            ResultSet rsSelect = st.executeQuery(querySelect);
+            Statement stSelect = connectionFk.createStatement();
+            ResultSet rsSelect = stSelect.executeQuery(querySelect);
             
             while (rsSelect.next()) {
-                fk_id = Integer.parseInt(rsSelect.getString("amigo_id"));
+                fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
             
             Date date = new Date();
@@ -66,7 +70,7 @@ public class AmigoDAOSQL extends Object implements AmigoDAO {
             
             
             
-            ConexionBaseDeDatos.closeConnection(connection);
+            ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,6 +125,38 @@ public class AmigoDAOSQL extends Object implements AmigoDAO {
         
         return sonAmigos;
         
+    }
+
+    @Override
+    public Amigo consultarAmigo(int id) {
+         String idString = String.valueOf(id);
+            
+            
+        Amigo amigo = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM amigo WHERE amigo_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            int fk_usuario1 = 0;
+            int fk_usuario2 =0;
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("amigo_id"));
+                fk_usuario1 = Integer.parseInt(rs.getString("fk_usuario1_id"));
+                fk_usuario2 = Integer.parseInt(rs.getString("fk_usuario2_id")); 
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            amigo = new Amigo(id,fk_usuario1,fk_usuario2);
+            return amigo;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return amigo;
     }
     
 }

@@ -58,14 +58,17 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             int rs = st.executeUpdate(query);
           
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
             
-            String querySelect = "SELECT last_value FROM album_album_id_seq";
+            Connection connection2 = ConexionBaseDeDatos.getConnection();
+            
+            String querySelect = "SELECT last_value fk FROM album_album_id_seq";
             int fk_id=0;      
-            Statement stSelect = connection.createStatement();
-            ResultSet rsSelect = st.executeQuery(querySelect);
+            Statement stSelect = connection2.createStatement();
+            ResultSet rsSelect = stSelect.executeQuery(querySelect);
             
             while (rsSelect.next()) {
-                fk_id = Integer.parseInt(rsSelect.getString("album_id"));
+                fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
             
             Date date = new Date();
@@ -81,7 +84,7 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             
             
             
-            ConexionBaseDeDatos.closeConnection(connection);
+            ConexionBaseDeDatos.closeConnection(connection2);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }

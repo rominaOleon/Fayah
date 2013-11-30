@@ -7,7 +7,7 @@
     <head>
         <title>Search Results:</title>
 
-<SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
+
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -46,16 +46,18 @@
         
         <div class="lock">
             <a href="index.jsp">
-          <img src="img/Home_icon.png" alt="home icon" width="29px" onclick="FLogout();"  /></a>
+          <img src="img/Home_icon.png" alt="home icon" width="29px"  /></a>
         </div>	
-        	
+        	      <div class="lion" style="position: absolute; left: 1%;">
+            
+            <img src="img/lion.png" width="25px"/>
+            
+        </div>
        		
         <h1 class="demo-panel-title">Fayah
         </h1>
         <div class="todo-search">
-            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"
-      
- </div> 
+            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"> 
               </form>
     </div>
     
@@ -173,21 +175,38 @@
 
                      Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
 
-                     response.sendRedirect("resultFriendsOffline.jsp");
+%>
+                   
+                   
+                   <script>
+                       window.location = "resultFriendsOffline.jsp";
+                       
+                   </script>
+                   
+                   
+<%
                  }
+            
             
               if (request.getParameter("posPerfil")!=null){
                 String posicionPerfil = request.getParameter("posPerfil");
                 int posPerfil = Integer.parseInt(posicionPerfil);
                 int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
                 ResultFriendControlador.TraerAmigo(idAmigo);
-                                
-            }
-
-             
-      
- 
 %>
+                   
+                   
+                   <script>
+                       window.location = "perfilAmigo.jsp";
+                       
+                   </script>
+                   
+                   
+<%
+                 }
+            
+%>
+
 
 </body>	
 

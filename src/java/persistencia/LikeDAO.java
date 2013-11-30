@@ -15,4 +15,5 @@ import negocio.LikeList;
 public interface LikeDAO {
     public void insertarLike(Like like);
     public LikeList traerlikes (Album album);
+    public Like consultarLike(int id);
 }

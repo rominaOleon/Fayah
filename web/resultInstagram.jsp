@@ -3,8 +3,8 @@
 <%@page import="util.Util"%>
 <!DOCTYPE html>
 <html>
+    <body>
     <head>
-   
         <title>Search Results:</title>
         
          
@@ -32,7 +32,22 @@
          
     </head>
     
-     <body>
+     <script type="text/javascript" src="js/instafeed.min.js"></script>
+        
+        <script type="text/javascript">
+    var feed = new Instafeed({
+        get: 'tagged',
+        tagName: '<%=Util.instagramBusqueda%>',
+        clientId: '682b8fdda5a746ec834d87dc6d62dc66',
+        template: '   <form id="instaget" name="instaget{{id}}" method="post" style="position: relative;width: 160px;height: 150px;float: left;margin-right: 10px"><img src={{image}} onclick="document.instaget{{id}}.submit();" /><input name="instalink" value="{{image}}" style="visibility:hidden"></form>',
+        resolution: 'standard_resolution',
+        limit: 60
+            });
+    feed.run();
+</script>
+
+
+
 <div class="contenedor"> 
           <form name="formularioBusqueda" id="formularioBusqueda" method="post">
          <div class="lupa">
@@ -110,175 +125,23 @@
 
 
     <div class="columnright">
-        <div class="cuadro">
-
-            <h10 class="h10">Search Results:</h10>
-
-
-
-
-            <div class="separador">
-                <HR width=80% align="left">
-
-            </div>
-
-
-            <div class="fotoDefault">
                 
-                
-                <%
-            int posicion=0;
-           
-            int maximousuarios = Util.usuarios.size()-1;
-         
-            while (posicion<=maximousuarios) {
-                
-                String nombreUsuario = Util.usuarios.get(posicion).getUsuario_nombre();
-                String apellidoUsuario = Util.usuarios.get(posicion).getUsuario_apellido();
-                String ubicacionUsuario = Util.usuarios.get(posicion).getUsuario_ubicacion();
-                String fotoUsuario = Util.usuarios.get(posicion).getUsuario_foto();
-                
-                String nombreCompleto = nombreUsuario + " " + apellidoUsuario;
-            %>     
-                
-                
-                <div class="photoicon2">
-                    <img src=<%=fotoUsuario%> width="100px" />
-                    </br> 
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-
-                </div>
-                     <form name="formPerfil<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
-                               <input type="text"  name="posPerfil" style="visibility: hidden" value="<%=posicion%>"/></form>
-                    <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
-                       
-                    <div class="span3">
-                       
-                        <input name="posAmigo" style="visibility: hidden" value="<%=posicion%>">
-                     
-                        <% 
-                             boolean esAmigo = ResultFriendControlador.esAmigo(Util.usuario.getUsuario_id(),Util.usuarios.get(posicion).getUsuario_id());
-                             
-                             if ((esAmigo!=true) && (Util.usuarios.get(posicion).getUsuario_id()!=Util.usuario.getUsuario_id())){
-                           
-                               %>
-                        <a type="submit" onclick="document.formAmigo<%=posicion%>.submit(); " class="btn btn-large btn-block btn-primary">+ Add Friend</a>
-                        
-                        <%}
-                                 %>
-                                 
-                            <% 
-                            if ((Util.usuarios.get(posicion).getUsuario_privacidad().compareTo("A")==0) && (Util.usuarios.get(posicion).getUsuario_id()!=Util.usuario.getUsuario_id())) {
-                             %>     
-                         <a type="submit" onclick="document.formPerfil<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">View Profile</a>
-                          <%}
-                            %>
-                </div>
-                  
-                <div class="nombreUsu">
-                    <a><%=nombreCompleto%></a>                    </br>
-                    <a><%=ubicacionUsuario%></a>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                                      </br>
-                    </br>
-
-
-                </div>
-                
-                </form>  
-
-                    
-                         <% posicion=posicion+1;
-            }
-            %>
+                    <div id="instafeed">           
+                            
+                    </div>
             
-         
-    
-                
-                
-      
-            </div>
 
-            <div class="separador2">
- <HR width=80% align="left">
-               
-            </div>
+
+
         </div>
 
-    </div>
 
     <div class="columnright2">
 
         
     </div>
             
-            <%
-         
-               System.out.println("posperfil: " +request.getParameter("posPerfil"));
-               
-               System.out.println("posamigo: " +request.getParameter("posAmigo"));
-               
-               
-                if (request.getParameter("posPerfil") != null){
-              
-               String posicionPerfil = request.getParameter("posPerfil");
-               int posPerfil = Integer.parseInt(posicionPerfil);
-               int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
-               
-               int redirect = ResultFriendControlador.TraerAmigo(idAmigo);
-               %>
-               
-               
-                   <script>
-                       window.location = "perfilAmigo.jsp";
-                       
-                   </script>
-                   
-               
-               
-               
-               <%
-            }
-%>
-            
-            
-                   <%
-             
-                    
-            if (request.getParameter("posAmigo")!=null){
-                String pos = request.getParameter("posAmigo");
-                int posicionAmigo = Integer.parseInt(pos);
-                int idamigo = Util.usuarios.get(posicionAmigo).getUsuario_id();
-                
-                ResultFriendControlador.AgregarAmigo(idamigo);
-                
-                %>
-                   
-                   
-                   <script>
-                       window.location = "friends.jsp";
-                       
-                   </script>
-                   
-                   
-<%
-                 }
-            
-%>
-                
-            
-        
-
-
-<%
+          <%
     
     System.out.println(" opcion: " + request.getParameter("opcion"));
     System.out.println(" texto: " + request.getParameter("newBusqueda"));
@@ -323,7 +186,27 @@
       }
       
       }
+  
+if (request.getParameter("instalink")!=null){
+
+Util.contenidoLink= (String)request.getParameter("instalink");
+
+          %>
+          
+          
+          <script>
+                       window.location = "newContent.jsp";
+                       
+                   </script>
+          
+          
+          
+          
+<%
+        
+}
 %>
+
 
 </body>	
 

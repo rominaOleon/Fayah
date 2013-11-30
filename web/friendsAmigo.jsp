@@ -1,6 +1,5 @@
 <%@page import="controlador.InicioControlador"%>
 <%@page import="controlador.FriendsControlador"%>
-<%@page import="controlador.ResultFriendControlador"%>
 <%@page import="util.Util"%>
 <!DOCTYPE html>
 <html>
@@ -39,12 +38,13 @@
     </head>
 
     <div class="contenedor"> 
+        <form name="formularioBusqueda" id="formularioBusqueda" method="post">
             <div class="lupa">
                 <a type="submit" onclick="document.formularioBusqueda.submit();">
                     <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
             </div>
-        
-              <div class="lion" style="position: absolute; left: 1%;">
+            
+                  <div class="lion" style="position: absolute; left: 1%;">
             
             <img src="img/lion.png" width="25px"/>
             
@@ -69,28 +69,27 @@
 
             </h1>
             <div class="todo-search">
-<form name="formularioBusqueda" id="formularioBusqueda" method="post">
-                <input class="todo-search-field" type="text" name="newBusqueda"  placeholder="Search for people" id="labusqueda">
-                           <select class="select" name="opcion">
+
+                <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
+                <select class="select" name="opcion">
   <option value="friends">Friends</option>
   <option value="instagram">Instagram</option>
   <option value="youtube">Youtube</option>
   <option value="soundcloud">SoundCloud</option>
 </select>
-            </form>
             </div>  
-       
+        </form>
     </div>
 
 
     <div class="columnleft">
         <div class="usuariodefault">
             <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
-            <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
-            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+            <img src="<%=Util.amigoPerfil.getUsuario_foto()%>" width="175px" />
+            <h4><%=Util.amigoPerfil.getUsuario_nombre()%> <%=Util.amigoPerfil.getUsuario_apellido()%> </h4>
             </br>    
-            <h5><%=Util.usuario.getUsuario_username()%></h4>
-                <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
+            <h5><%=Util.amigoPerfil.getUsuario_username()%></h4>
+                <h5><%=Util.amigoPerfil.getUsuario_ubicacion()%></h4>
 
                     </div>
 
@@ -110,8 +109,8 @@
 
                     </div>
 
-                    <a  href="album.jsp" class="h12">Album</a>
-                    <a href="friends.jsp" class="h11">Friends</a>
+                    <a  href="albumAmigo.jsp" class="h12"><%=Util.amigoPerfil.getUsuario_nombre()%> Album</a>
+                    <a href="friendsAmigo.jsp" class="h11"><%=Util.amigoPerfil.getUsuario_nombre()%> Friends</a>
 
                     </div>
 
@@ -132,7 +131,7 @@
                                 <%
                                     int posicion = 0;
 
-                                    int maximoamigos = Util.usuario.getUsuario_amigos().size() - 1;
+                                    int maximoamigos = Util.amigoPerfil.getUsuario_amigos().size() - 1;
 
                                     while (posicion <= maximoamigos) {
 
@@ -140,10 +139,10 @@
                                         int idUsuario1;
                                         int idUsuario2;
 
-                                        idUsuario1 = Util.usuario.getUsuario_amigos().get(posicion).getAmigo_fkusuario1();
-                                        idUsuario2 = Util.usuario.getUsuario_amigos().get(posicion).getAmigo_fkusuario2();
+                                        idUsuario1 = Util.amigoPerfil.getUsuario_amigos().get(posicion).getAmigo_fkusuario1();
+                                        idUsuario2 = Util.amigoPerfil.getUsuario_amigos().get(posicion).getAmigo_fkusuario2();
 
-                                        if (idUsuario1 == Util.usuario.getUsuario_id()) {
+                                        if (idUsuario1 == Util.amigoPerfil.getUsuario_id()) {
                                             id = idUsuario2;
                                         } else {
                                             id = idUsuario1;
@@ -166,12 +165,9 @@
                                     </br>
 
                                 </div>
-                                    <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>"  method="post">
+                             
                                     <div class="span3">
 
-
-                                        <input name="posPerfil" style="visibility: hidden" value="<%=posicion%>">
-                                        <a type="submit"  onclick="document.formAmigo<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">View Profile</a>
                                     </div>  
 
 
@@ -190,8 +186,7 @@
 
                                     </div>
 
-                                </form> 
-
+                             
 
                                 <% posicion = posicion + 1;
                                     }
@@ -214,50 +209,7 @@
                     </div>
 
 <%
-           System.out.println(request.getParameter("posPerfil"));
-                 if (request.getParameter("posPerfil") != null){
-
-                     
-                     
-               String posicionPerfil = request.getParameter("posPerfil");
-               int posPerfil = Integer.parseInt(posicionPerfil);
-               
-                                        int id;
-                                        int idUsuario1;
-                                        int idUsuario2;
-
-                                        idUsuario1 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario1();
-                                        idUsuario2 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario2();
-
-                                        if (idUsuario1 == Util.usuario.getUsuario_id()) {
-                                            id = idUsuario2;
-                                        } else {
-                                            id = idUsuario1;
-                                        }
-               
-               
-               ResultFriendControlador.TraerAmigo(id);
-               %>
-               
-               
-                   <script>
-                       window.location = "perfilAmigo.jsp";
-                       
-                   </script>
-                   
-               
-               
-               
-               <%
-            }
-%>
-            
-<%
-    
-    System.out.println(" opcion: " + request.getParameter("opcion"));
-    System.out.println(" texto: " + request.getParameter("newBusqueda"));
-    
-    
+ 
   if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
      
       
@@ -298,9 +250,5 @@
       
       }
 %>
-                                    
-                                    
-                                    
-  
                     </body>	
                     </html>

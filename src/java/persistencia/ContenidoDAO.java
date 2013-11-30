@@ -16,5 +16,6 @@ public interface ContenidoDAO {
     public void insertarContenido (Contenido contenido);
     public ContenidoList traerContenidos (Album album);
     public void modificarContenido (Contenido contenido);
+    public Contenido consultarContenido (int id);
     
 }

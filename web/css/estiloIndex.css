@@ -13,6 +13,7 @@ body {
 position: absolute;
 top: 30%;
 left: 71%;
+z-index: 9;
 }
 
 .contenedor2 .todo-search  {

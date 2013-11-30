@@ -9,7 +9,7 @@
 	<head>
 		<title>Configuracion del Perfil</title>
 		
-		<SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
+		<SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -63,6 +63,12 @@
              <a type="submit" onclick="document.formularioBusqueda.submit();">
                 <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
         </div>
+              
+                    <div class="lion" style="position: absolute; left: 1%;">
+            
+            <img src="img/lion.png" width="25px"/>
+            
+        </div>
         <div class="home">
             <a href="inicio.jsp">
                 <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
@@ -81,8 +87,13 @@
         <h1 class="demo-panel-title">Fayah
         </h1>
         <div class="todo-search">
-            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"
-      
+            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
+          <select class="select" name="opcion">
+  <option value="friends">Friends</option>
+  <option value="instagram">Instagram</option>
+  <option value="youtube">Youtube</option>
+  <option value="soundcloud">SoundCloud</option>
+</select>
  </div> 
               </form>
     </div>
@@ -339,20 +350,65 @@
       String fecha_nacimiento = request.getParameter("newCumple");
       String ubicacion = request.getParameter("newDireccion");
       String privacidad = request.getParameter("newPrivate");
-      SettingsControlador.ModificarPerfil(username, nombre,apellido, 
+     int refresh=  SettingsControlador.ModificarPerfil(username, nombre,apellido, 
           fecha_nacimiento, ubicacion, privacidad);  
       
+     if (refresh==1){
+     
+     %>
+    
+     <script>
+                       window.location = "settings.jsp";
+                       
+                   </script>
+     
+     <%
+     }
       
        
 %>  
 
-<% if (request.getParameter("newBusqueda") != null) {
+<%
+ 
+  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
+     
+      
+      if (request.getParameter("opcion").equals("friends")){
+           System.out.println("por aqui");
           String busqueda = request.getParameter("newBusqueda");
                     
           Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          Util.instagramBusqueda= busqueda;
+          %>
+                   
+                  
+                   <script>
+                       window.location = "resultFriends.jsp";
+                       
+                   </script>
+                          
+                  
+                   
+<%
+                 }
+      if (request.getParameter("opcion").equals("instagram")){
           
-          response.sendRedirect("resultFriends.jsp");
+          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
+          
+          %>
+          
+                   <script>
+                       window.location = "resultInstagram.jsp";
+                       
+                   </script>
+          
+          
+          
+          <%
+          
       }
-  %> 
+      
+      }
+%>
 </html>
 

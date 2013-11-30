@@ -5,11 +5,23 @@
 package util;
 
 import negocio.Album;
+import negocio.Amigo;
+import negocio.Comentario;
+import negocio.Dislike;
+import negocio.Like;
 import negocio.NotificacionList;
 import negocio.Usuario;
 import negocio.UsuariosList;
 import persistencia.AlbumDAO;
 import persistencia.AlbumDAOSQL;
+import persistencia.AmigoDAO;
+import persistencia.AmigoDAOSQL;
+import persistencia.ComentarioDAO;
+import persistencia.ComentarioDAOSQL;
+import persistencia.DislikeDAO;
+import persistencia.DislikeDAOSQL;
+import persistencia.LikeDAO;
+import persistencia.LikeDAOSQL;
 import persistencia.UsuarioDAO;
 import persistencia.UsuarioDAOSQL;
 
@@ -36,9 +48,15 @@ public abstract class Util {
 //            liked
 //                    disliked
 //                    added a new album.
-                            
+                        
     
-    public static String notificacionAmigoMsg(int amigo1, int amigo2){
+    public static String notificacionAmigoMsg(int idAmistad){
+        
+        AmigoDAO amigodao = new AmigoDAOSQL();
+        Amigo amistad = amigodao.consultarAmigo(idAmistad);
+        
+        int amigo1=amistad.getAmigo_fkusuario1();
+        int amigo2=amistad.getAmigo_fkusuario2();
         
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
         Usuario usuario1 = usuariodao.consultarUsuario(amigo1);
@@ -57,8 +75,9 @@ public abstract class Util {
             nombre1 = usuario1.getUsuario_nombre() + " " + usuario1.getUsuario_apellido();
             nombre2= usuario2.getUsuario_nombre() + " " + usuario2.getUsuario_apellido();
         }
+
         
-        return nombre1 + " and " + nombre2 + "are now frineds.";
+        return nombre1 + " and " + nombre2 + " are now friends.";
         
     }
     
@@ -67,26 +86,113 @@ public abstract class Util {
         UsuarioDAO usuariodao = new UsuarioDAOSQL();
         
         Album album = albumdao.consultarAlbum(albumid);
-        Usuario usuario = usuariodao.consultarUsuario(album.getFk_usuario());
-        String nombre = usuario.getUsuario_nombre() + " " + usuario.getUsuario_apellido();
-        
-        
-        return nombre + " added a new album " + album.getAlbum_nombre();
+        Usuario dueñoAlbum = usuariodao.consultarUsuario(album.getFk_usuario());
+        String msg = dueñoAlbum.getUsuario_nombre() + " " 
+                + dueñoAlbum.getUsuario_apellido()+ " added a new album " 
+                + album.getAlbum_nombre();
+
+        return msg;
     }
     
     public static String notificacionComentarioMsg(int idComentario){
+        ComentarioDAO comentariodao = new ComentarioDAOSQL();
+        Comentario comentario = comentariodao.consultarComentario(idComentario);
+        
+        int idComentador = comentario.getFk_usuario_id();
+        int idAlbum = comentario.getFk_album_id();
         
         
+        UsuarioDAO usuariodao = new UsuarioDAOSQL();
+        Usuario comentador = usuariodao.consultarUsuario(idComentador);
         
-        return "";
+        AlbumDAO albumdao = new AlbumDAOSQL();
+        Album album = albumdao.consultarAlbum(idAlbum);
+        
+        int idDueñoAlbum = album.getFk_usuario();
+        Usuario dueñoAlbum = usuariodao.consultarUsuario(idDueñoAlbum);
+        
+        String nombreDueño ="";
+        if (dueñoAlbum.getUsuario_id()==Util.usuario.getUsuario_id())
+            nombreDueño = "Your";
+        else
+            nombreDueño = dueñoAlbum.getUsuario_nombre() + " " + dueñoAlbum.getUsuario_apellido()+"'s";
+            
+        
+        String msg = comentador.getUsuario_nombre() + " " 
+                + comentador.getUsuario_apellido() 
+                + " commented on " + nombreDueño 
+                + " album " + album.getAlbum_nombre();
+        
+
+        return msg;
+        
     }
     
     public static String notificacionLike(int idLike){
-        return "";
+        
+        LikeDAO likedao = new LikeDAOSQL();
+        Like like = likedao.consultarLike(idLike);
+        
+        int idComentador = like.getFk_usuario_id();
+        int idAlbum = like.getFk_album_id();
+        
+        
+        UsuarioDAO usuariodao = new UsuarioDAOSQL();
+        Usuario comentador = usuariodao.consultarUsuario(idComentador);
+        
+        AlbumDAO albumdao = new AlbumDAOSQL();
+        Album album = albumdao.consultarAlbum(idAlbum);
+        
+        int idDueñoAlbum = album.getFk_usuario();
+        Usuario dueñoAlbum = usuariodao.consultarUsuario(idDueñoAlbum);
+        
+        String nombreDueño ="";
+        if (dueñoAlbum.getUsuario_id()==Util.usuario.getUsuario_id())
+            nombreDueño = "Your";
+        else
+            nombreDueño = dueñoAlbum.getUsuario_nombre() + " " + dueñoAlbum.getUsuario_apellido() +"'s";
+        
+        String msg = comentador.getUsuario_nombre() + " " 
+                + comentador.getUsuario_apellido() 
+                + " liked " + nombreDueño
+                + " album " + album.getAlbum_nombre();
+
+        
+        return msg;
     }
     
     public static String notificacionDislike (int idDislike){
-        return "";
+        
+          
+        DislikeDAO dislikedao = new DislikeDAOSQL();
+        Dislike dislike = dislikedao.consultarDislike(idDislike);
+        
+        int idComentador = dislike.getFk_usuario_id();
+        int idAlbum = dislike.getFk_album_id();
+        
+        
+        UsuarioDAO usuariodao = new UsuarioDAOSQL();
+        Usuario comentador = usuariodao.consultarUsuario(idComentador);
+        
+        AlbumDAO albumdao = new AlbumDAOSQL();
+        Album album = albumdao.consultarAlbum(idAlbum);
+        
+        int idDueñoAlbum = album.getFk_usuario();
+        Usuario dueñoAlbum = usuariodao.consultarUsuario(idDueñoAlbum);
+        
+        String nombreDueño ="";
+        if (dueñoAlbum.getUsuario_id()==Util.usuario.getUsuario_id())
+            nombreDueño = "Your";
+        else
+            nombreDueño = dueñoAlbum.getUsuario_nombre() + " " + dueñoAlbum.getUsuario_apellido()+"'s";
+        
+        String msg = comentador.getUsuario_nombre() + " " 
+                + comentador.getUsuario_apellido() 
+                + " disliked " + nombreDueño
+                + " album " + album.getAlbum_nombre();
+
+        
+        return msg;
     }
     
     

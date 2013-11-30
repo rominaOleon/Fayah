@@ -17,5 +17,6 @@ public interface ComentarioDAO {
     public ComentarioList traerComentarios (Album album);
     public void modificarComentario (Comentario comentario);
     public void eliminarComentario(Comentario comentario);
+    public Comentario consultarComentario(int id);
     
 }

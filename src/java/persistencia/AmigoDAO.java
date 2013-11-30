@@ -14,4 +14,5 @@ public interface AmigoDAO {
     public void insertarAmigo (Amigo amigo);
     public void modificarAmigo (Amigo amigo);
     public boolean sonAmigos(int usuarioId, int amigoId);
+    public Amigo consultarAmigo(int id);
 }

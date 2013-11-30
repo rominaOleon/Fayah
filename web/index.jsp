@@ -30,13 +30,13 @@
 
     </head> 
     <body>
-        <SCRIPT Language=Javascript SRC="loginFace.js"></SCRIPT>
+        <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
 
 
        <div class="contenedor">
  			
 <h1 class="demo-panel-title">Fayah</h1>
-
+<img src="img/lion.png" width="50px" style="position: absolute; left: 19%;"/>
 </div>
 
         <div class="contenedor2">
@@ -127,30 +127,62 @@
                         && (email.compareTo("") != 0)) {
                     Util.usuario = IndexControlador.LogIn(username, nombre, apellido, email,
                             fecha_nacimiento, ubicacion, foto);
-                    System.out.println("notificaciones: ");
-                    int posicion=0;
-                    while (posicion<=Util.notificaciones.size()-1){
-                    System.out.println(Util.notificaciones.get(posicion).getNotificacion_id());
-                    System.out.println(Util.notificaciones.get(posicion).getNotificacion_tipo());
-                    posicion=posicion+1;
-                    }
-                    response.sendRedirect("inicio.jsp");
-                }
+                   %>
+                   
+                   
+                   <script>
+                       window.location = "inicio.jsp";
+                       
+                   </script>
+                   
+                   
+<%
+                 }
             }
-         
-        %>
 
+%>
     </body> 
     
-    <%
-  if (request.getParameter("newBusqueda") != null) {
+<%
+ 
+  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
+     
+      
+      if (request.getParameter("opcion").equals("friends")){
+           System.out.println("por aqui");
           String busqueda = request.getParameter("newBusqueda");
                     
           Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+          Util.instagramBusqueda= busqueda;
+          %>
+                   
+                  
+                   <script>
+                       window.location = "resultFriends.jsp";
+                       
+                   </script>
+                          
+                  
+                   
+<%
+                 }
+      if (request.getParameter("opcion").equals("instagram")){
           
-          response.sendRedirect("resultFriendsOffline.jsp");
+          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
+          
+          %>
+          
+                   <script>
+                       window.location = "resultInstagram.jsp";
+                       
+                   </script>
+          
+          
+          
+          <%
+          
       }
-  
-  
+      
+      }
 %>
 </html>

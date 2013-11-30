@@ -54,14 +54,17 @@ public class ComentarioDAOSQL extends Object implements ComentarioDAO  {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
             st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
             
-            String querySelect = "SELECT last_value FROM comentario_comentario_id_seq";
+            Connection connectionFk = ConexionBaseDeDatos.getConnection();
+            
+            String querySelect = "SELECT last_value fk FROM comentario_comentario_id_seq";
             int fk_id=0;      
-            Statement stSelect = connection.createStatement();
-            ResultSet rsSelect = st.executeQuery(querySelect);
+            Statement stSelect = connectionFk.createStatement();
+            ResultSet rsSelect = stSelect.executeQuery(querySelect);
             
             while (rsSelect.next()) {
-                fk_id = Integer.parseInt(rsSelect.getString("comentario_id"));
+                fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
             
             Date date = new Date();
@@ -77,7 +80,7 @@ public class ComentarioDAOSQL extends Object implements ComentarioDAO  {
             
             
             
-            ConexionBaseDeDatos.closeConnection(connection);
+            ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(DislikeDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -174,4 +177,52 @@ public class ComentarioDAOSQL extends Object implements ComentarioDAO  {
         }
 
     }
+
+    @Override
+    public Comentario consultarComentario(int id) {
+        
+            String idString = String.valueOf(id);
+            
+            
+        Comentario comentario = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM comentario WHERE comentario_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+             
+            String fecha ="";
+            int likes = 0;
+            int dislikes = 0;
+            String show ="";
+            int fk_usuario = 0;
+            int fk_album =0;
+            String texto="";
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("comentario_id"));
+                fecha = rs.getString("comentario_fecha");
+                likes = Integer.parseInt(rs.getString("comentario_likes"));
+                dislikes = Integer.parseInt(rs.getString("comentario_dislikes"));
+                show = rs.getString("comentario_show");
+                fk_usuario = Integer.parseInt(rs.getString("fk_usuario_id"));                
+                fk_album = Integer.parseInt(rs.getString("fk_album_id"));
+                texto = rs.getString("comentario_texto");
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            comentario = new Comentario(id,fecha,likes,dislikes,show,fk_usuario,fk_album,texto);
+            return comentario;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return comentario;
+      
+    }
+    
+    
 }

@@ -15,4 +15,5 @@ import negocio.DislikeList;
 public interface DislikeDAO {
     public void insertarDislike(Dislike dislike);
     public DislikeList traerDislikes (Album album);
+    public Dislike consultarDislike (int id);
 }

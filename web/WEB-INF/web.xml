@@ -13,8 +13,5 @@
             30
         </session-timeout>
     </session-config>
-    
     <!-- Linkeo entre los Servlet controladores y los archivos jsp que van a controlar-->
-    
-    
-    </web-app>
+</web-app>

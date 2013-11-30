@@ -5,7 +5,7 @@
 <html>
     <body>
     <head>
-        <title>Album</title>
+        <title><%=Util.amigoPerfil.getUsuario_nombre()%>  Album</title>
 
         <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -103,7 +103,7 @@
             <div class="todo-search">
 
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
-    <select class="select" name="opcion">
+                <select class="select" name="opcion">
   <option value="friends">Friends</option>
   <option value="instagram">Instagram</option>
   <option value="youtube">Youtube</option>
@@ -119,11 +119,11 @@
  <div class="columnleft">
         <div class="usuariodefault">
             <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
-            <img src="<%=Util.usuario.getUsuario_foto()%>" width="175px" />
-            <h4><%=Util.usuario.getUsuario_nombre()%> <%=Util.usuario.getUsuario_apellido()%> </h4>
+            <img src="<%=Util.amigoPerfil.getUsuario_foto()%>" width="175px" />
+            <h4><%=Util.amigoPerfil.getUsuario_nombre()%> <%=Util.amigoPerfil.getUsuario_apellido()%> </h4>
         </br>    
-        <h5><%=Util.usuario.getUsuario_username()%></h4>
-        <h5><%=Util.usuario.getUsuario_ubicacion()%></h4>
+        <h5><%=Util.amigoPerfil.getUsuario_username()%></h4>
+        <h5><%=Util.amigoPerfil.getUsuario_ubicacion()%></h4>
 
         </div>
         
@@ -143,8 +143,8 @@
 
     </div>
        
-        <a  href="album.jsp" class="h12">Album</a>
-        <a href="friends.jsp" class="h11">Friends</a>
+        <a  href="albumAmigo.jsp" class="h12"><%=Util.amigoPerfil.getUsuario_nombre()%> Album</a>
+        <a href="friendsAmigo.jsp" class="h11"><%=Util.amigoPerfil.getUsuario_nombre()%> Friends</a>
         
     </div>
 
@@ -171,9 +171,6 @@
             <h10 class="h10">Albums</h10>
 
 
-            <div class="span3">
-                <a href="newAlbum.jsp" class="btn btn-large btn-block btn-primary">+ Create Album</a>
-            </div>  
 
 
 
@@ -198,30 +195,27 @@
                 
                 <table style="top: 15%; position: absolute">
                 
-            
+              <ul class="cat">
                                             
                     <%
             int posicion=0;
             int contador=0;
             int maximofila=5;
-            int maximoalbums = Util.usuario.getUsuario_albums().size();
+            int maximoalbums = Util.amigoPerfil.getUsuario_albums().size();
             while (posicion<=maximoalbums-1){
               
             %>      
             <td>
-               
             <li>
-                <a href=# type="submit" onclick="document.formAlbum<%=posicion%>.submit();">
-                            <img  class="min" src="<%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
+                           <a href=# type="submit" onclick="document.formAlbum<%=posicion%>.submit();">
+                            <img  class="min" src="<%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
                             
-                            <label > <%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_nombre()%> </label>
-                           <form name="formAlbum<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
+                            <label> <%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_nombre()%> </label>
+                             <form name="formAlbum<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
                                <input type="radio" checked="true" name="posAlbum" style="visibility: hidden" value="<%=posicion%>"/></form>
                         </a>
-            </li> 
-           
+            </li>    
               </td>
-              
             <% contador=contador+1;
                 if (contador==maximofila){%>
                 
@@ -233,7 +227,6 @@
                 
                 posicion=posicion+1;
             }
-           
             %>
               </ul>
                 </table>
@@ -251,6 +244,7 @@
     <div class="columnright2">
 
     </div>
+
 
 
 
@@ -305,7 +299,7 @@ Util.posAlbum= Integer.parseInt(request.getParameter("posAlbum"));
                        
                        %>
                         <script>
-                       window.location = "albumContent.jsp";
+                       window.location = "albumAmigoContent.jsp";
                        
                    </script>
                        <%
@@ -318,6 +312,14 @@ Util.posAlbum= Integer.parseInt(request.getParameter("posAlbum"));
 
 
 %>
+
+
+
+
+
+
+
+
 
 
 </body>	

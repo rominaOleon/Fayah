@@ -27,7 +27,7 @@ public class ContenidoDAOSQL extends Object implements ContenidoDAO {
          try {
             Connection connection = ConexionBaseDeDatos.getConnection();
             
-            String fk_album = String.valueOf(contenido.getContenido_id());
+            String fk_album = String.valueOf(contenido.getFk_album_id());
             String query = "INSERT INTO contenido VALUES (nextval('contenido_contenido_id_seq'),'"
                     + contenido.getContenido_url() + "',"
                     + fk_album + ")";
@@ -92,6 +92,44 @@ public class ContenidoDAOSQL extends Object implements ContenidoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public Contenido consultarContenido(int id) {
+        
+            String idString = String.valueOf(id);
+            
+            
+        Contenido contenido = null;
+        try {
+            Connection connection = ConexionBaseDeDatos.getConnection();
+            String query = "SELECT * FROM contenido WHERE contenido_id="
+                    + idString;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+       
+            String url = "";
+            
+            int    fk_album = 0;
+            
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString("contenido_id"));
+                url = rs.getString("contenido_url");
+                fk_album = Integer.parseInt(rs.getString("fk_album_id"));
+                
+            }
+            rs.close();
+            st.close();
+            ConexionBaseDeDatos.closeConnection(connection);
+            contenido = new Contenido(id, url, fk_album);
+            return contenido;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return contenido;
+        
     }
     
 }
