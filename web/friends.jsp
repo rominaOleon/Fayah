@@ -235,8 +235,8 @@
                                             id = idUsuario1;
                                         }
                
-               
                ResultFriendControlador.TraerAmigo(id);
+
                %>
                
                
@@ -262,7 +262,7 @@
      
       
       if (request.getParameter("opcion").equals("friends")){
-           System.out.println("por aqui");
+
           String busqueda = request.getParameter("newBusqueda");
                     
           Util.usuarios = InicioControlador.BuscarUsuario(busqueda);

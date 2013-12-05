@@ -22,11 +22,13 @@ import negocio.Notificacion;
  *
  * @author romina
  */
+
 public class DislikeDAOSQL extends Object implements DislikeDAO {
 
     @Override
     public void insertarDislike(Dislike dislike) {
         try {
+            System.out.println("Insertando dislike del album: "+dislike.getFk_album_id()+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             int fk_usuario = dislike.getFk_usuario_id();
             String fk_usuario_id = String.valueOf(fk_usuario);
@@ -41,59 +43,45 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
             ConexionBaseDeDatos.closeConnection(connection);
             
             Connection connectionFk = ConexionBaseDeDatos.getConnection();
-            
             String querySelect = "SELECT last_value fk FROM dislikes_dislikes_id_seq";
             int fk_id=0;      
             Statement stSelect = connectionFk.createStatement();
             ResultSet rsSelect = stSelect.executeQuery(querySelect);
-            
             while (rsSelect.next()) {
                 fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
-            
             Date date = new Date();
-            DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
+            DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyyy");
             String fechaNotificacion = formatofecha.format(date);
-            
             Notificacion notificacion = new Notificacion(fechaNotificacion,"dislike",fk_id);
             NotificacionDAO notificaciondao = new NotificacionDAOSQL();
             notificaciondao.insertarNotificacion(notificacion);            
-            
             stSelect.close();
             rsSelect.close();
-            
+            System.out.println("Se ha insertado el dislike del album: "+dislike.getFk_album_id());
             ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(DislikeDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar insertar "
+                    +"el dislike del album: "+dislike.getFk_album_id()+". Error: "+ex.getMessage());    
         }
     }
 
     @Override
     public DislikeList traerDislikes(Album album) {
-        
-         
+        System.out.println("Consultando dislikes del album: "+album.getAlbum_nombre()+"...");
         DislikeList dislikes = new DislikeList();
-               
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-            
-            
             int albumId = album.getAlbum_id();
             String idString = String.valueOf(albumId);
-            
-            
             String query = "SELECT * FROM dislikes WHERE fk_album_id="
                     + idString;
-            
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
-        
-        
             int idDislike;
             int fk_album;
             int fk_usuario;
-            
             while (rs.next()) {
                 idDislike  = Integer.parseInt(rs.getString("dislikes_id"));
                 fk_album = Integer.parseInt(rs.getString("fk_album_id"));
@@ -104,8 +92,11 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
             st.close();
             rs.close();
             connection.close();
+            System.out.println("Se han cargado los dislikes del album: "+album.getAlbum_nombre());
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar"
+                    +" los dislikes del album:"+album.getAlbum_nombre()+". Error: "+ex.getMessage());    
         }
         return dislikes;
         
@@ -114,9 +105,8 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
 
     @Override
     public Dislike consultarDislike(int id) {
-                String idString = String.valueOf(id);
-            
-            
+        System.out.println("Consultando el dislike: "+id+"...");
+        String idString = String.valueOf(id);
         Dislike dislike = null;
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -124,10 +114,8 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
                     + idString;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
             int fk_usuario = 0;
             int fk_album =0;
-            
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("dislikes_id"));
                 fk_album = Integer.parseInt(rs.getString("fk_album_id"));
@@ -137,10 +125,12 @@ public class DislikeDAOSQL extends Object implements DislikeDAO {
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
             dislike = new Dislike(id,fk_album,fk_usuario);
-            return dislike;
-            
+            System.out.println("Se ha cargado la informacion del dislike: "+id);
+            return dislike;            
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar "
+                    +"consultar la informacion del dislike: "+id+". Error: "+ex.getMessage());    
         }
         return dislike;
     }

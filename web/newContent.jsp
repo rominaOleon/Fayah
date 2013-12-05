@@ -1,3 +1,4 @@
+<%@page import="controlador.NewContentControlador"%>
 <%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <%@page import="controlador.NewAlbumControlador"%>
@@ -90,7 +91,7 @@
             </h1>
             <div class="todo-search">
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
-                <select class="select" name="opcion">
+                <select class="select" name="opcion" >
   <option value="friends">Friends</option>
   <option value="instagram">Instagram</option>
   <option value="youtube">Youtube</option>
@@ -148,14 +149,15 @@
 top: 20%;
 width: inherit;
 right: -29%;">
-    <select name="posAlbum" >
+    <h style="position: relative;left: 84%;">Select Album</h>
+    <select name="posAlbum" style="position: relative;left: 90%;">
         <% for (int posicion = 0; posicion <= Util.usuario.getUsuario_albums().size() - 1; posicion++) {
         %>
         <option value="<%=posicion%>"><%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_nombre()%></option>
 
         <% }%>
     </select>
-    <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary" >+ Create Content</a>
+    <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary" >+ Add Content</a>
                             
                         </div>
 
@@ -175,8 +177,21 @@ right: -29%;">
 <% System.out.println("album:" + request.getParameter("posAlbum"));
 
     if (request.getParameter("posAlbum")!=null){
-    // guardar el contenido en el album
+        int posAlbum= Integer.parseInt(request.getParameter("posAlbum"));
+System.out.println(Util.usuario.getUsuario_albums().get(posAlbum).getAlbum_id());
+NewContentControlador.agregarContenido(Util.contenidoLink, Util.usuario.getUsuario_albums().get(posAlbum).getAlbum_id());
+
     
+   %>
+  
+   
+     <script>
+                       window.location = "resultInstagram.jsp";
+                       
+                   </script>
+   
+   <%
+   
     }
 
 

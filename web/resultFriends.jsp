@@ -233,7 +233,7 @@
                int posPerfil = Integer.parseInt(posicionPerfil);
                int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
                
-               int redirect = ResultFriendControlador.TraerAmigo(idAmigo);
+               ResultFriendControlador.TraerAmigo(idAmigo);
                %>
                
                

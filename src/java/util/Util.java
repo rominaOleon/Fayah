@@ -7,9 +7,12 @@ package util;
 import negocio.Album;
 import negocio.Amigo;
 import negocio.Comentario;
+import negocio.ComentarioList;
+import negocio.ContenidoList;
 import negocio.Dislike;
 import negocio.Like;
 import negocio.NotificacionList;
+import negocio.ReplyList;
 import negocio.Usuario;
 import negocio.UsuariosList;
 import persistencia.AlbumDAO;
@@ -25,10 +28,6 @@ import persistencia.LikeDAOSQL;
 import persistencia.UsuarioDAO;
 import persistencia.UsuarioDAOSQL;
 
-/**
- *
- * @author romina
- */
 public abstract class Util {
     public static Usuario usuario = new Usuario();
     public static final String DRIVER_BD = "org.postgresql.Driver";
@@ -43,12 +42,16 @@ public abstract class Util {
     public static int posAlbum = 0;
     public static String instagramBusqueda = "";
     public static String contenidoLink = "";
+    public static ContenidoList listaContenido = new ContenidoList();
+    public static ComentarioList listaComentario= new ComentarioList();
     
-//    commented on
-//            liked
-//                    disliked
-//                    added a new album.
-                        
+    public static boolean reply=false;
+    public static int posComentario =0;
+    public static ComentarioList listaReply = new ComentarioList();
+    public static NotificacionList notificacionesAmigo = new NotificacionList();
+    
+    
+    
     
     public static String notificacionAmigoMsg(int idAmistad){
         

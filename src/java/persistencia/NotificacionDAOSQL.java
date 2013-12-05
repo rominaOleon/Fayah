@@ -18,12 +18,12 @@ import negocio.Usuario;
  * @author romina
  */
 public class NotificacionDAOSQL extends Object implements NotificacionDAO {
-
+    
     @Override
     public void insertarNotificacion(Notificacion notificacion) {
-        try {        
-            Connection connection = ConexionBaseDeDatos.getConnection();
-        
+        try {   
+            System.out.println("Insertando notificacion de: "+notificacion.getNotificacion_tipo()+"...");
+            Connection connection = ConexionBaseDeDatos.getConnection();        
             int fk_amigo = notificacion.getFk_amigo_id();
             String fk_amigo_id = "null";
             int fk_comentario = notificacion.getFk_comentario_id();
@@ -68,11 +68,14 @@ public class NotificacionDAOSQL extends Object implements NotificacionDAO {
             
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-          
+            System.out.println("Se ha Insertado una notificacion de: "+notificacion.getNotificacion_tipo());
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar insertar la"
+                    +" notificacion de: "+notificacion.getNotificacion_tipo()
+                    +". Error: "+ex.getMessage());    
         }
 
     }
@@ -82,6 +85,9 @@ public class NotificacionDAOSQL extends Object implements NotificacionDAO {
 
         NotificacionList notificaciones = new NotificacionList();
         try {
+            
+            System.out.println("Consultando las notificaciones del usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido()+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
 
             int id = usuario.getUsuario_id();
@@ -126,7 +132,8 @@ public class NotificacionDAOSQL extends Object implements NotificacionDAO {
             +"(usuario_id in (select fk_usuario1_id from amigo where "
             +"fk_usuario1_id="+idString+" or fk_usuario2_id="+idString+") or usuario_id in "
             +"(select fk_usuario2_id from amigo where fk_usuario1_id="+idString+" "
-            +"or fk_usuario2_id="+idString+")) and usuario_id<>"+idString+")))";
+            +"or fk_usuario2_id="+idString+")) and usuario_id<>"+idString+")))"
+            +" order by n.notificacion_id desc";
             
                 
             Statement st = connection.createStatement();
@@ -173,8 +180,13 @@ public class NotificacionDAOSQL extends Object implements NotificacionDAO {
             st.close();
             rs.close();
             connection.close();
+            System.out.println("Se han cargado las notificaciones del usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar"+
+                    " las notificaciones del usuario: "+usuario.getUsuario_nombre()
+                    +" "+usuario.getUsuario_apellido()+". Error: "+ex.getMessage());
         }
         return notificaciones;
     }

@@ -1,4 +1,5 @@
 
+<%@page import="controlador.ResultFriendControlador"%>
 <%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <%@page import="java.sql.Statement"%>
@@ -193,7 +194,7 @@
         <div class="notificacion" style="left: 12%; position:relative">
             <form name="form<%=posicion%>" id="form<%=posicion%>" method="post">
                 <img src="<%=icono%>" width="20px" style="float: left"/>
-                <p style="float: left"><a onclick="document.form<%=posicion%>.submit();"><%=msg%></a></p> 
+                <p style="float: left"><a href="#" onclick="document.form<%=posicion%>.submit();"><%=msg%></a></p> 
                 <input type="text" name="notificacion" value="<%=posicion%>" style="width: 0;height: 0; visibility: hidden">
                 <hr>
             </form>
@@ -214,7 +215,61 @@
 </body>	
 <%
                 
-System.out.println(request.getParameter("notificacion"));
+if (request.getParameter("notificacion")!=null){
+int posicionNot = Integer.parseInt(request.getParameter("notificacion"));
+
+String tipo = Util.notificaciones.get(posicionNot).getNotificacion_tipo();
+
+if (tipo.compareTo("amigo")==0){
+    
+   int idTabla= Util.notificaciones.get(posicionNot).getFk_amigo_id();
+   int idAmigo = InicioControlador.idAmigo(idTabla);
+   ResultFriendControlador.TraerAmigo(idAmigo);
+   
+
+  %>
+                   
+                  
+                   <script>
+                       window.location = "perfilAmigo.jsp";
+                       
+                   </script>
+                          
+                  
+                   
+<%
+                 }
+
+if (tipo.compareTo("comentario")==0){
+    
+    int idComentario = Util.notificaciones.get(posicionNot).getFk_comentario_id();
+   int redirect =InicioControlador.idAlbum(idComentario);
+    if (redirect ==1){
+       %>
+                        <script>
+                       window.location = "albumContent.jsp";
+                       
+                   </script>
+                       <%
+    }
+    else{
+        
+         %>
+                        <script>
+                       window.location = "albumAmigoContent.jsp";
+                       
+                   </script>
+                       <%
+    }
+        
+        
+    }
+}
+
+
+
+
+
  
   if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
      

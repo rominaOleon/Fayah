@@ -18,9 +18,10 @@ public class Album {
     private int     album_dislikes;
     private String  album_miniatura;
     private int     fk_usuario;
+    private String  album_show;
     
     
-    public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
+    public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura,String show) {
         this.album_id = id;
         this.album_nombre = nombre;
         this.album_descripcion = descripcion;
@@ -30,10 +31,11 @@ public class Album {
         this.album_dislikes = dislikes;
         this.album_miniatura = miniatura;
         this.fk_usuario = 0;
+        this.album_show = show;
         
     }
     
-        public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura,int fk_usuario) {
+        public Album(int id,String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura,int fk_usuario,String show) {
         this.album_id = id;
         this.album_nombre = nombre;
         this.album_descripcion = descripcion;
@@ -43,9 +45,10 @@ public class Album {
         this.album_dislikes = dislikes;
         this.album_miniatura = miniatura;
         this.fk_usuario = fk_usuario;
+        this.album_show = show;
     }
     
-    public Album(String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura) {
+    public Album(String nombre, String descripcion, String privacidad, String fecha_creacion, int likes, int dislikes,String miniatura,String show) {
         this.album_id = 0;
         this.album_nombre = nombre;
         this.album_descripcion = descripcion;
@@ -55,6 +58,7 @@ public class Album {
         this.album_dislikes = dislikes;
         this.album_miniatura = miniatura;
         this.fk_usuario = 0;
+        this.album_show = show;
     }
 
     public int getFk_usuario() {
@@ -128,5 +132,15 @@ public class Album {
     public void setAlbum_miniatura(String album_miniatura) {
         this.album_miniatura = album_miniatura;
     }
+
+    public String getAlbum_show() {
+        return album_show;
+    }
+
+    public void setAlbum_show(String album_show) {
+        this.album_show = album_show;
+    }
+    
+    
     
 }

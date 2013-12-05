@@ -1,4 +1,5 @@
 
+<%@page import="controlador.PerfilAmigoControlador"%>
 <%@page import="controlador.InicioControlador"%>
 <%@page import="util.Util"%>
 <%@page import="java.sql.Statement"%>
@@ -148,9 +149,58 @@
 
 
 
-    <div class="columnright">
-        <div class="titulo">
+    <div class="columnright" style="top: 16%">
+ <%
+     PerfilAmigoControlador.traerNotificaciones();
+                int posicion=0;
+                int maximo = Util.notificacionesAmigo.size()-1;
+                String icono="";
+                String msg ="";
+                while (posicion<=maximo){
+                    
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("amigo")==0){
+                        icono="img/friend.png";
+                        msg = Util.notificacionAmigoMsg(Util.notificacionesAmigo.get(posicion).getFk_amigo_id());
+                    }
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("comentario")==0){
+                        icono="img/coments.png";
+                        msg = Util.notificacionComentarioMsg(Util.notificacionesAmigo.get(posicion).getFk_comentario_id());
+                    }
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("like")==0){
+                        icono="img/like.png";
+                        msg=Util.notificacionLike(Util.notificacionesAmigo.get(posicion).getFk_like_id());
+                    }
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("dislike")==0){
+                        icono="img/dislike.png";
+                        msg=Util.notificacionDislike(Util.notificacionesAmigo.get(posicion).getFk_dislike_id());
+                    }
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("reply")==0){
+                        icono="img/reply.png";
+                        msg = "reply your comment";
+                    }
+                    if (Util.notificacionesAmigo.get(posicion).getNotificacion_tipo().compareTo("album")==0){
+                        icono="img/album.png";
+                        msg=Util.notificacionAlbumMsg(Util.notificacionesAmigo.get(posicion).getFk_album_id());
+                    }
+                    
+                   
+                        
+                
+                %>
+      
+        <div class="notificacion" style="left: 12%; position:relative">
+            <form name="form<%=posicion%>" id="form<%=posicion%>" method="post">
+                <img src="<%=icono%>" width="20px" style="float: left"/>
+                <p style="float: left"><a href="#" onclick="document.form<%=posicion%>.submit();"><%=msg%></a></p> 
+                <input type="text" name="notificacion" value="<%=posicion%>" style="width: 0;height: 0; visibility: hidden">
+                <hr>
+            </form>
         </div>
+        <%posicion=posicion+1;}
+                    %>
+        
+        
+        
     </div>
     <div class="columnright2">
 

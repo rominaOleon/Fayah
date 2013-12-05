@@ -22,11 +22,13 @@ import negocio.Notificacion;
  *
  * @author romina
  */
+
 public class LikeDAOSQL extends Object implements LikeDAO {
 
     @Override
     public void insertarLike(Like like) {
         try {
+            System.out.println("Insertando like del album: "+like.getFk_album_id()+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             int fk_usuario = like.getFk_usuario_id();
             String fk_usuario_id = String.valueOf(fk_usuario);
@@ -39,6 +41,8 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             int rs = st.executeUpdate(query);
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
+            
+            System.out.println("Se ha insertado el like del album: "+like.getFk_album_id());
             
             Connection connectionFk = ConexionBaseDeDatos.getConnection();
             
@@ -53,7 +57,7 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             }
             
             Date date = new Date();
-            DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
+            DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyyy");
             String fechaNotificacion = formatofecha.format(date);
             
             Notificacion notificacion = new Notificacion(fechaNotificacion,"like",fk_id);
@@ -67,6 +71,8 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             ConexionBaseDeDatos.closeConnection(connectionFk);
         } catch (SQLException ex) {
             Logger.getLogger(LikeDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar insertar el like del album: "
+                    +like.getFk_album_id());    
         }
     }
 
@@ -76,25 +82,17 @@ public class LikeDAOSQL extends Object implements LikeDAO {
         LikeList likes = new LikeList();
                
         try {
+            System.out.println("Consultando likes del album: "+album.getAlbum_nombre()+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
-            
-            
             int albumId = album.getAlbum_id();
             String idString = String.valueOf(albumId);
-            
-            
             String query = "SELECT * FROM likes WHERE fk_album_id="
                     + idString;
-            
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
-        
-        
             int idLike;
             int fk_album;
             int fk_usuario;
-            
             while (rs.next()) {
                 idLike  = Integer.parseInt(rs.getString("likes_id"));
                 fk_album = Integer.parseInt(rs.getString("fk_album_id"));
@@ -105,8 +103,11 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             st.close();
             rs.close();
             connection.close();
+            System.out.println("Se han cargado los likes del album: "+album.getAlbum_nombre());
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar los likes"
+                    +" del album: "+album.getAlbum_nombre());    
         }
         return likes;
     }
@@ -114,19 +115,16 @@ public class LikeDAOSQL extends Object implements LikeDAO {
     @Override
     public Like consultarLike(int id) {
         String idString = String.valueOf(id);
-            
-            
         Like like = null;
         try {
+            System.out.println("Consultando el like: "+id+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "SELECT * FROM likes WHERE likes_id="
                     + idString;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
             int fk_usuario = 0;
             int fk_album =0;
-            
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("likes_id"));
                 fk_album = Integer.parseInt(rs.getString("fk_album_id"));
@@ -136,11 +134,14 @@ public class LikeDAOSQL extends Object implements LikeDAO {
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
             like = new Like(id,fk_album,fk_usuario);
+            System.out.println("Se ha cargado la informacion del like: "+id);
             return like;
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.err.println("Ocurrio un error de SQL al intentar consultar "
+                    +"el like: "+id+". Error: "+ex.getMessage());   
+        }         
         return like;
       
     }

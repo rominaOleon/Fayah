@@ -30,7 +30,7 @@ public class NewAlbumControlador {
         DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
         String fecha_creacion = formatofecha.format(date);
         
-        Album album = new Album(nombre,descripcion,"A",fecha_creacion,0,0,Util.defaultAlbumCover);
+        Album album = new Album(nombre,descripcion,"A",fecha_creacion,0,0,Util.defaultAlbumCover,"t");
         AlbumDAO albumdao = new AlbumDAOSQL();
         albumdao.insertarAlbum(album);
         

@@ -26,6 +26,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     @Override
     public void insertarUsuario(Usuario usuario) {
         try {
+            System.out.println("Agregando nuevo usuario a la base de datos: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
             Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "INSERT INTO usuario VALUES (nextval('usuario_usuario_id_seq'),'"
                     + usuario.getUsuario_username() + "','"
@@ -40,8 +42,13 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             int rs = st.executeUpdate(query);
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
+            System.out.println("Un nuevo usuario ha sido insertado: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar insertar el usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido()
+                    +". Error: "+ex.getMessage());
         }
     }
 
@@ -53,6 +60,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             
         Usuario usuario = null;
         try {
+            System.out.println("Consultando la informacion del usuario: "+id+" ...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "SELECT * FROM usuario WHERE usuario_id="
                     + idString;
@@ -83,9 +91,13 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             ConexionBaseDeDatos.closeConnection(connection);
             usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
                     ubicacion, privacidad, foto);
+            System.out.println("Se ha cargado la informacion del usuario: "
+                    +nombre+" "+apellido);
             return usuario;
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar el usuario: "
+                    +id+". Error: "+ex.getMessage());
         }
         return usuario;
     }
@@ -94,6 +106,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     public Usuario consultarUsuario(String email) {
         Usuario usuario = null;
         try {
+            System.out.println("Consultando la informacion del usuario: "+email+" ...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "SELECT * FROM usuario WHERE usuario_email='"
                     + email + "'";
@@ -122,17 +135,19 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             ConexionBaseDeDatos.closeConnection(connection);
             usuario = new Usuario(id, username, nombre, apellido, email, fecha_nacimiento,
                     ubicacion, privacidad, foto);
+            System.out.println("Se ha cargado la informacion del usuario: "+nombre+" "+apellido);
             return usuario;
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar el usuario: " +email+". Error: "+ex.getMessage());
         }
         return usuario;
     }
 
-
     @Override
     public void modificarUsuario(Usuario usuario) {
         try {
+            System.out.println("Modificando la informacion del usuario: "+usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido()+" ...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             int id = usuario.getUsuario_id();
             String idString = "";
@@ -148,9 +163,14 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
             st.close();
+            System.out.println("Se ha modificado la informacion del usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar modificar"
+                    +" el usuario: " +usuario.getUsuario_nombre()+" "
+                    +usuario.getUsuario_apellido()+". Error: "+ex.getMessage());
         }
     }
 
@@ -158,6 +178,9 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
     public AmigoList traerAmigos(Usuario usuario) {
         AmigoList amigos = new AmigoList();
         try {
+            System.out.println("Consultando el grafo social del usuario: "
+                    +usuario.getUsuario_nombre()+" "
+                    +usuario.getUsuario_apellido()+" ...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             int id = usuario.getUsuario_id();
             String idString = "";
@@ -181,9 +204,14 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             }
             st.close();
             rs.close();
+            System.out.println("Se ha cargado el grafo social del usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar cargar"+
+                    " el grafo social del usuario: " +usuario.getUsuario_nombre()
+                    +" "+usuario.getUsuario_apellido()+". Error: "+ex.getMessage());
         }
         return amigos;
     }
@@ -192,6 +220,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
        public AlbumList traerAlbums(Usuario usuario) {
         AlbumList albums = new AlbumList();
         try {
+            System.out.println("Consultando albums del usuario: "+usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido()+" ...");
             Connection connection = ConexionBaseDeDatos.getConnection();
             int id = usuario.getUsuario_id();
             String idString = "";
@@ -205,6 +234,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             String descripcion = "";
             String privacidad = "";
             String fecha = "";
+            String show = "";
             int likes = 0;
             int dislikes = 0;
             String miniatura ="";
@@ -217,14 +247,21 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                 likes = Integer.parseInt(rs.getString("album_likes"));
                 dislikes = Integer.parseInt(rs.getString("album_dislikes"));
                 miniatura = rs.getString("album_miniatura");
-                Album album = new Album(idalbum, nombre, descripcion, privacidad, fecha, likes, dislikes,miniatura);
+                show = rs.getString("album_show");
+                Album album = new Album(idalbum, nombre, descripcion, privacidad, fecha, likes, dislikes,miniatura,show);
                 albums.addAlbum(album);
             }
+            
+            System.out.println("Se han cargado los albums del usuario: "
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido());
             st.close();
             rs.close();
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar cargar los albums del usuario: " 
+                    +usuario.getUsuario_nombre()+" "+usuario.getUsuario_apellido()
+                    +". Error: "+ex.getMessage());
         }
         return albums;
     }
@@ -235,6 +272,7 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
         if (email != null) {
             if (email.compareTo("") != 0) {
                 try {
+                    System.out.println("Consultando la existencia del usuario: "+email+" ...");
                     Connection connection = ConexionBaseDeDatos.getConnection();
                     String query = "SELECT usuario_id FROM usuario WHERE usuario_email='"
                             + email + "'";
@@ -246,8 +284,10 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
                     rs.close();
                     st.close();
                     ConexionBaseDeDatos.closeConnection(connection);
+                    System.out.println("El usuario es: "+id);
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println("Ocurrio un error de SQL al intentar consultar el usuario: "+email+". Error: "+ex.getMessage());
                 }
             }
         }
@@ -260,8 +300,8 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
         UsuariosList usuarios= new UsuariosList();
 
         try {
-    
-        Connection connection = ConexionBaseDeDatos.getConnection();
+       System.out.println("Buscando a los usuarios que coincidan con: "+busqueda+" ...");
+       Connection connection = ConexionBaseDeDatos.getConnection();
             String query = "SELECT * FROM usuario WHERE lower(usuario_nombre ||"
            +" ' ' || usuario_apellido) LIKE ('%"+busqueda+"%')";
             Statement st = connection.createStatement();
@@ -294,9 +334,12 @@ public class UsuarioDAOSQL extends Object implements UsuarioDAO {
             }
             rs.close();
             st.close();
+            System.out.println("Se ha retornado la respuesta de la busqueda: "+busqueda);
             ConexionBaseDeDatos.closeConnection(connection);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar realizar la busqueda: "
+                    +busqueda+". Error: "+ex.getMessage());
         }
         return usuarios;
     }

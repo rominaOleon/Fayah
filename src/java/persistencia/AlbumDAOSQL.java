@@ -21,26 +21,23 @@ import util.Util;
  *
  * @author romina
  */
+
 public class AlbumDAOSQL extends Object implements AlbumDAO {
 
     @Override
     public void insertarAlbum(Album album) {
-           try {        
+        System.out.println("Insertando album: "+album.getAlbum_nombre()+"...");
+        try {        
             Connection connection = ConexionBaseDeDatos.getConnection();
-            
             int albumlikes = album.getAlbum_likes();
             String likes = "";
             likes = String.valueOf(albumlikes);
-            
             int albumdislikes = album.getAlbum_dislikes();
             String dislikes = "";
             dislikes = String.valueOf(albumdislikes);
-            
             int fk = Util.usuario.getUsuario_id();
             String fkdueño = "";
             fkdueño = String.valueOf(fk);
-
-
             String query = "INSERT INTO album VALUES (nextval('album_album_id_seq'),'"
                     + album.getAlbum_nombre() + "','"
                     + album.getAlbum_descripcion() + "','"
@@ -49,68 +46,53 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
                     + likes + ","
                     + dislikes + ","
                     + fkdueño + ", '"
-                    + album.getAlbum_miniatura() + "')";
-            
-
-
-
+                    + album.getAlbum_miniatura() + "','"
+                    + album.getAlbum_show() + "')";
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-          
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
+            System.out.println("Se ha insertado el album: "+album.getAlbum_nombre());
             
             Connection connection2 = ConexionBaseDeDatos.getConnection();
-            
             String querySelect = "SELECT last_value fk FROM album_album_id_seq";
             int fk_id=0;      
             Statement stSelect = connection2.createStatement();
             ResultSet rsSelect = stSelect.executeQuery(querySelect);
-            
             while (rsSelect.next()) {
                 fk_id = Integer.parseInt(rsSelect.getString("fk"));
             }
-            
             Date date = new Date();
             DateFormat formatofecha = new SimpleDateFormat("mm/dd/yyy");
             String fecha = formatofecha.format(date);
-            
             Notificacion notificacion = new Notificacion(fecha,"album",fk_id);
             NotificacionDAO notificaciondao = new NotificacionDAOSQL();
             notificaciondao.insertarNotificacion(notificacion);            
-            
             stSelect.close();
             rsSelect.close();
-            
-            
-            
             ConexionBaseDeDatos.closeConnection(connection2);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar insertar"
+                    +" el album: "+album.getAlbum_nombre()
+                    +". Error: "+ex.getMessage());    
         }
-
-       
-
     }
 
     @Override
     public void modificarAlbum(Album album) {
+        System.out.println("Actualizando el album: "+album.getAlbum_nombre()+"...");
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
-            
             int albumid = album.getAlbum_id();
             String id = "";
             id = String.valueOf(albumid);
-            
             int albumlikes = album.getAlbum_likes();
             String likes = "";
             likes = String.valueOf(albumlikes);
-            
             int albumdislikes = album.getAlbum_dislikes();
             String dislikes = "";
             dislikes = String.valueOf(albumdislikes);
-       
-
             String query = "UPDATE album SET "
             + "album_nombre='" + album.getAlbum_nombre() +"', "
             + "album_descripcion='" + album.getAlbum_descripcion() + "', "
@@ -118,26 +100,25 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
             + "album_fecha_creacion='" + album.getAlbum_fecha_creacion() +"', "
             + "album_likes=" + likes + ", "
             + "album_dislikes=" + dislikes + ", "
-            + "album_miniatura='" + album.getAlbum_miniatura() + "' " 
+            + "album_miniatura='" + album.getAlbum_miniatura() + "', " 
+            + "album_show='" + album.getAlbum_show() +"' "
             + "WHERE album_id=" + id;
-           
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
-
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
+            System.out.println("Se ha actualizado el contenido del album: "+album.getAlbum_nombre());
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar actualizar"
+                    +" el contenido del album: "+album.getAlbum_nombre()+". Error: "+ex.getMessage());    
         }
-
     }
 
     @Override
     public Album consultarAlbum(int id) {
-
-            String idString = String.valueOf(id);
-            
-            
+        System.out.println("Consultando el album: "+id+"...");
+        String idString = String.valueOf(id);
         Album album = null;
         try {
             Connection connection = ConexionBaseDeDatos.getConnection();
@@ -145,17 +126,15 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
                     + idString;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-
-       
             String nombre = "";
             String descripcion = "";
             String privacidad = "";
             String fecha = "";
             String miniatura ="";
+            String show="";
             int    likes = 0;
             int    dislikes = 0;
             int    fk_usuario = 0;
-            
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString("album_id"));
                 nombre = rs.getString("album_nombre");
@@ -166,19 +145,20 @@ public class AlbumDAOSQL extends Object implements AlbumDAO {
                 dislikes = Integer.parseInt(rs.getString("album_dislikes"));
                 fk_usuario = Integer.parseInt(rs.getString("fk_usuario_id"));
                 miniatura = rs.getString("album_miniatura");
-                
+                show = rs.getString("album_show");
             }
             rs.close();
             st.close();
             ConexionBaseDeDatos.closeConnection(connection);
             album = new Album(id, nombre, descripcion, privacidad, fecha, likes,
-                    dislikes,miniatura, fk_usuario);
+                    dislikes,miniatura, fk_usuario,show);
+            System.out.println("Se ha cargado la informacion del album: "+nombre);
             return album;
-            
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Ocurrio un error de SQL al intentar consultar "
+                    +"la informacion del album: "+id+". Error: "+ex.getMessage());    
         }
         return album;
     }
-    
 }
