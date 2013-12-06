@@ -7,7 +7,7 @@
     <body>
     <head>
         <title>Friends</title>
-<SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
+        <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
 
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -39,47 +39,47 @@
     </head>
 
     <div class="contenedor"> 
-            <div class="lupa">
-                <a type="submit" onclick="document.formularioBusqueda.submit();">
-                    <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
-            </div>
-        
-              <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
+        <div class="lupa">
+            <a type="submit" onclick="document.formularioBusqueda.submit();">
+                <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
         </div>
 
-            <div class="home">
-                <a href="inicio.jsp">
-                    <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
-            </div>
-            <div class="settings">
-                <a href="settings.jsp">
-                    <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
-            </div>
-            <div class="lock">
-                <a href="index.jsp">
-                    <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();" /></a>
-            </div>	
-            <div class="message">
-                <img src="img/message.png" alt="home icon" width="37px" />
-            </div>	
-            <h1 class="demo-panel-title">Fayah
+        <div class="lion" style="position: absolute; left: 1%;">
 
-            </h1>
-            <div class="todo-search">
-<form name="formularioBusqueda" id="formularioBusqueda" method="post">
+            <img src="img/lion.png" width="25px"/>
+
+        </div>
+
+        <div class="home">
+            <a href="inicio.jsp">
+                <img src="img/Home_icon.png" alt="home icon" width="35px" /></a>
+        </div>
+        <div class="settings">
+            <a href="settings.jsp">
+                <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
+        </div>
+        <div class="lock">
+            <a href="index.jsp">
+                <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();" /></a>
+        </div>	
+        <div class="message">
+            <img src="img/message.png" alt="home icon" width="37px" />
+        </div>	
+        <h1 class="demo-panel-title">Fayah
+
+        </h1>
+        <div class="todo-search">
+            <form name="formularioBusqueda" id="formularioBusqueda" method="post">
                 <input class="todo-search-field" type="text" name="newBusqueda"  placeholder="Search for people" id="labusqueda">
-                           <select class="select" name="opcion">
-  <option value="friends">Friends</option>
-  <option value="instagram">Instagram</option>
-  <option value="youtube">Youtube</option>
-  <option value="soundcloud">SoundCloud</option>
-</select>
+                <select class="select" name="opcion">
+                    <option value="friends">Friends</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="soundcloud">SoundCloud</option>
+                </select>
             </form>
-            </div>  
-       
+        </div>  
+
     </div>
 
 
@@ -166,7 +166,7 @@
                                     </br>
 
                                 </div>
-                                    <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>"  method="post">
+                                <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>"  method="post">
                                     <div class="span3">
 
 
@@ -213,94 +213,90 @@
 
                     </div>
 
-<%
-           System.out.println(request.getParameter("posPerfil"));
-                 if (request.getParameter("posPerfil") != null){
+                    <%
 
-                     
-                     
-               String posicionPerfil = request.getParameter("posPerfil");
-               int posPerfil = Integer.parseInt(posicionPerfil);
-               
-                                        int id;
-                                        int idUsuario1;
-                                        int idUsuario2;
+                        if (request.getParameter("posPerfil") != null) {
 
-                                        idUsuario1 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario1();
-                                        idUsuario2 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario2();
 
-                                        if (idUsuario1 == Util.usuario.getUsuario_id()) {
-                                            id = idUsuario2;
-                                        } else {
-                                            id = idUsuario1;
-                                        }
-               
-               ResultFriendControlador.TraerAmigo(id);
 
-               %>
-               
-               
-                   <script>
-                       window.location = "perfilAmigo.jsp";
-                       
-                   </script>
-                   
-               
-               
-               
-               <%
-            }
-%>
-            
-<%
-    
-    System.out.println(" opcion: " + request.getParameter("opcion"));
-    System.out.println(" texto: " + request.getParameter("newBusqueda"));
-    
-    
-  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
-     
-      
-      if (request.getParameter("opcion").equals("friends")){
+                            String posicionPerfil = request.getParameter("posPerfil");
+                            int posPerfil = Integer.parseInt(posicionPerfil);
 
-          String busqueda = request.getParameter("newBusqueda");
-                    
-          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
-          Util.instagramBusqueda= busqueda;
-          %>
-                   
-                  
-                   <script>
-                       window.location = "resultFriends.jsp";
-                       
-                   </script>
-                          
-                  
-                   
-<%
-                 }
-      if (request.getParameter("opcion").equals("instagram")){
-          
-          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
-          
-          %>
-          
-                   <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-          
-          
-          
-          <%
-          
-      }
-      
-      }
-%>
-                                    
-                                    
-                                    
-  
+                            int id;
+                            int idUsuario1;
+                            int idUsuario2;
+
+                            idUsuario1 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario1();
+                            idUsuario2 = Util.usuario.getUsuario_amigos().get(posPerfil).getAmigo_fkusuario2();
+
+                            if (idUsuario1 == Util.usuario.getUsuario_id()) {
+                                id = idUsuario2;
+                            } else {
+                                id = idUsuario1;
+                            }
+
+                            ResultFriendControlador.TraerAmigo(id);
+
+                    %>
+
+
+                    <script>
+            window.location = "perfilAmigo.jsp";
+
+                    </script>
+
+
+
+
+                    <%
+                        }
+                    %>
+
+                    <%
+
+                        if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion") != null)) {
+
+
+                            if (request.getParameter("opcion").equals("friends")) {
+
+                                String busqueda = request.getParameter("newBusqueda");
+
+                                Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+                                Util.instagramBusqueda = busqueda;
+                    %>
+
+
+                    <script>
+                        window.location = "resultFriends.jsp";
+
+                    </script>
+
+
+
+                    <%
+                        }
+                        if (request.getParameter("opcion").equals("instagram")) {
+
+                            Util.instagramBusqueda = (String) request.getParameter("newBusqueda");
+
+                    %>
+
+                    <script>
+                        window.location = "resultInstagram.jsp";
+
+                    </script>
+
+
+
+                    <%
+
+                            }
+
+                        }
+                    %>
+
+
+
+
                     </body>	
                     </html>

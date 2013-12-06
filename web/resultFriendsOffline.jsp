@@ -37,39 +37,39 @@
             }
         </script> 
     </head>
-<div class="contenedor"> 
-          <form name="formularioBusqueda" id="formularioBusqueda" method="post">
-         <div class="lupa">
-             <a type="submit" onclick="document.formularioBusqueda.submit();">
-                <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
-        </div>
-        
-        <div class="lock">
-            <a href="index.jsp">
-          <img src="img/Home_icon.png" alt="home icon" width="29px"  /></a>
-        </div>	
-        	      <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
-        </div>
-       		
-        <h1 class="demo-panel-title">Fayah
-        </h1>
-        <div class="todo-search">
-            <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"> 
-              </form>
-    </div>
-    
-        <div class="columnleft">
-        </div>
-        
-         
+    <div class="contenedor"> 
+        <form name="formularioBusqueda" id="formularioBusqueda" method="post">
+            <div class="lupa">
+                <a type="submit" onclick="document.formularioBusqueda.submit();">
+                    <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
+            </div>
 
-       
-        
+            <div class="lock">
+                <a href="index.jsp">
+                    <img src="img/Home_icon.png" alt="home icon" width="29px"  /></a>
+            </div>	
+            <div class="lion" style="position: absolute; left: 1%;">
+
+                <img src="img/lion.png" width="25px"/>
+
+            </div>
+
+            <h1 class="demo-panel-title">Fayah
+            </h1>
+            <div class="todo-search">
+                <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda"> 
+                </form>
+            </div>
+
+            <div class="columnleft">
+            </div>
+
+
+
+
+
     </div>
-    
+
 
 
     <div class="columnright">
@@ -87,24 +87,24 @@
 
 
             <div class="fotoDefault">
-                
-                
+
+
                 <%
-            int posicion=0;
-           
-            int maximousuarios = Util.usuarios.size()-1;
-            
-            while (posicion<=maximousuarios) {
-                
-                String nombreUsuario = Util.usuarios.get(posicion).getUsuario_nombre();
-                String apellidoUsuario = Util.usuarios.get(posicion).getUsuario_apellido();
-                String ubicacionUsuario = Util.usuarios.get(posicion).getUsuario_ubicacion();
-                String fotoUsuario = Util.usuarios.get(posicion).getUsuario_foto();
-                
-                String nombreCompleto = nombreUsuario + " " + apellidoUsuario;
-            %>     
-                
-                
+                    int posicion = 0;
+
+                    int maximousuarios = Util.usuarios.size() - 1;
+
+                    while (posicion <= maximousuarios) {
+
+                        String nombreUsuario = Util.usuarios.get(posicion).getUsuario_nombre();
+                        String apellidoUsuario = Util.usuarios.get(posicion).getUsuario_apellido();
+                        String ubicacionUsuario = Util.usuarios.get(posicion).getUsuario_ubicacion();
+                        String fotoUsuario = Util.usuarios.get(posicion).getUsuario_foto();
+
+                        String nombreCompleto = nombreUsuario + " " + apellidoUsuario;
+                %>     
+
+
                 <div class="photoicon2">
                     <img src=<%=fotoUsuario%> width="100px" />
                     </br> 
@@ -116,43 +116,43 @@
                     </br>
 
                 </div>
-                    <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
-                    
+                <form name="formAmigo<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
+
                     <div class="span3">
                         <input name="posAmigo" style="visibility: hidden" value="<%=posicion%>">
                         <input name="posPerfil" style="visibility: hidden" value="<%=posicion%>">
-                  
-                                 
-                            <% 
-                            if (Util.usuarios.get(posicion).getUsuario_privacidad().compareTo("A")==0) {
-                             %>     
-                         <a type="submit" onclick="document.formAmigo<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">View Profile</a>
-                          <%}
-                            %>
-                </div>
-                  
-                <div class="nombreUsu">
-                    <a><%=nombreCompleto%></a>                    </br>
-                    <a><%=ubicacionUsuario%></a>
-                    </br>
-                    </br>
-                    </br>
-                    </br>
-                                      </br>
-                    </br>
 
 
-                </div>
-                
+                        <%
+                            if (Util.usuarios.get(posicion).getUsuario_privacidad().compareTo("A") == 0) {
+                        %>     
+                        <a type="submit" onclick="document.formAmigo<%=posicion%>.submit();" class="btn btn-large btn-block btn-primary">View Profile</a>
+                        <%}
+                        %>
+                    </div>
+
+                    <div class="nombreUsu">
+                        <a><%=nombreCompleto%></a>                    </br>
+                        <a><%=ubicacionUsuario%></a>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+
+
+                    </div>
+
                 </form>  
 
-                    
-                         <% posicion=posicion+1;
-            }
-            %>
-                
-                
-           
+
+                <% posicion = posicion + 1;
+                    }
+                %>
+
+
+
             </div>
 
             <div class="separador2">
@@ -166,46 +166,46 @@
     <div class="columnright2">
 
     </div>
-            
-            <%
-         
-               
-             if (request.getParameter("newBusqueda") != null) {
-                     String busqueda = request.getParameter("newBusqueda");
 
-                     Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+    <%
 
-%>
-                   
-                   
-                   <script>
-                       window.location = "resultFriendsOffline.jsp";
-                       
-                   </script>
-                   
-                   
-<%
-                 }
-            
-            
-              if (request.getParameter("posPerfil")!=null){
-                String posicionPerfil = request.getParameter("posPerfil");
-                int posPerfil = Integer.parseInt(posicionPerfil);
-                int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
-                ResultFriendControlador.TraerAmigo(idAmigo);
-%>
-                   
-                   
-                   <script>
-                       window.location = "perfilAmigo.jsp";
-                       
-                   </script>
-                   
-                   
-<%
-                 }
-            
-%>
+
+        if (request.getParameter("newBusqueda") != null) {
+            String busqueda = request.getParameter("newBusqueda");
+
+            Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+
+    %>
+
+
+    <script>
+            window.location = "resultFriendsOffline.jsp";
+
+    </script>
+
+
+    <%
+        }
+
+
+        if (request.getParameter("posPerfil") != null) {
+            String posicionPerfil = request.getParameter("posPerfil");
+            int posPerfil = Integer.parseInt(posicionPerfil);
+            int idAmigo = Util.usuarios.get(posPerfil).getUsuario_id();
+            ResultFriendControlador.TraerAmigo(idAmigo);
+    %>
+
+
+    <script>
+        window.location = "perfilAmigo.jsp";
+
+    </script>
+
+
+    <%
+        }
+
+    %>
 
 
 </body>	

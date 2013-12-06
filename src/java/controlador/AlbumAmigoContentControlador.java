@@ -77,18 +77,36 @@ public class AlbumAmigoContentControlador {
         comentariodao.traerComentarios(delReply.getUsuario_albums().get(Util.posAlbum));
         
     }
+
+/**
+ * modificarRatingAlbum. 
+ * Modifica los valores del likes y dislikes de un album en especifico.
+ * 
+ * El entero like indica si el valor a modificar es un like o un dislike.
+ * El dueñoAlbum de tipo Usuario debe ser el dueño del album a modificar.
+ * El autorLike de tipo Usuario deber ser el usuario que esta haciendo
+ * like o dislike al album.
+ *
+ * @param  like  define tipo de rating 0=Like, 1=Dislike
+ * @param  dueñoAlbum dueño del album al que se le esta modificando el rating
+ * @param  autorLike usuario que esta realizando el like o dislike
+ * @see         negocio.Usuario
+ * @see         negocio.Album
+ * @see         negocio.Like
+ * @see         negocio.Dislike
+ */
     
- public static void modificarRatingAlbum(int like, Usuario delAlbum, Usuario quienFue){
+ public static void modificarRatingAlbum(int like, Usuario dueñoAlbum, Usuario autorLike){
  
  if (like==0){
-     int likeAcumulado= delAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_likes()+1;
+     int likeAcumulado= dueñoAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_likes()+1;
      
-     delAlbum.getUsuario_albums().get(Util.posAlbum).setAlbum_likes(likeAcumulado);
+     dueñoAlbum.getUsuario_albums().get(Util.posAlbum).setAlbum_likes(likeAcumulado);
      AlbumDAO albumdao = new AlbumDAOSQL();
-     albumdao.modificarAlbum(delAlbum.getUsuario_albums().get(Util.posAlbum));
+     albumdao.modificarAlbum(dueñoAlbum.getUsuario_albums().get(Util.posAlbum));
      UsuarioDAO usuario= new UsuarioDAOSQL();
-     delAlbum.setUsuario_albums(usuario.traerAlbums(delAlbum));
-     Like likes = new Like (delAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_id(),quienFue.getUsuario_id());
+     dueñoAlbum.setUsuario_albums(usuario.traerAlbums(dueñoAlbum));
+     Like likes = new Like (dueñoAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_id(),autorLike.getUsuario_id());
      LikeDAO likedao =new  LikeDAOSQL();
      likedao.insertarLike(likes);
  
@@ -96,14 +114,14 @@ public class AlbumAmigoContentControlador {
  
  if (like==1){
 
-          int dislikeAcumulado= delAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_dislikes()+1;
+          int dislikeAcumulado= dueñoAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_dislikes()+1;
      
-     delAlbum.getUsuario_albums().get(Util.posAlbum).setAlbum_dislikes(dislikeAcumulado);
+     dueñoAlbum.getUsuario_albums().get(Util.posAlbum).setAlbum_dislikes(dislikeAcumulado);
      AlbumDAO albumdao = new AlbumDAOSQL();
-     albumdao.modificarAlbum(delAlbum.getUsuario_albums().get(Util.posAlbum));
+     albumdao.modificarAlbum(dueñoAlbum.getUsuario_albums().get(Util.posAlbum));
      UsuarioDAO usuario= new UsuarioDAOSQL();
-     delAlbum.setUsuario_albums(usuario.traerAlbums(delAlbum));
-     Dislike dislikes = new Dislike (delAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_id(),quienFue.getUsuario_id());
+     dueñoAlbum.setUsuario_albums(usuario.traerAlbums(dueñoAlbum));
+     Dislike dislikes = new Dislike (dueñoAlbum.getUsuario_albums().get(Util.posAlbum).getAlbum_id(),autorLike.getUsuario_id());
      DislikeDAO dislikedao =new  DislikeDAOSQL();
      dislikedao.insertarDislike(dislikes);
      
@@ -116,16 +134,3 @@ public class AlbumAmigoContentControlador {
  
  
 }
-
-    
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author admin
- */
-

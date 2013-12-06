@@ -83,7 +83,7 @@ public class ContenidoDAOSQL extends Object implements ContenidoDAO {
         try {
             System.out.println("Eliminando el contenido: "+contenido.getContenido_id()+"...");
             Connection connection = ConexionBaseDeDatos.getConnection();
-            //delete from contenido where contenido_id=1;
+           
             String idContenido = String.valueOf(contenido.getContenido_id());
             String query = "DELETE FROM contenido WHERE contenido_id="
                     + idContenido;

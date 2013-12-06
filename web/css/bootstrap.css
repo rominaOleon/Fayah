@@ -6037,8 +6037,7 @@ a.badge:focus {
 
 .carousel-control {
   position: absolute;
-  top: 40%;
-  left: 15px;
+  top: 50%;
   width: 40px;
   height: 40px;
   margin-top: -20px;
@@ -6058,7 +6057,7 @@ a.badge:focus {
 
 .carousel-control.right {
   right: 15px;
-  left: auto;
+  left: 88%;
 }
 
 .carousel-control:hover,

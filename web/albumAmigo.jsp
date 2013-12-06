@@ -76,11 +76,11 @@
                 <a type="submit" onclick="document.formularioBusqueda.submit();">
                     <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
             </div>
-                  <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
-        </div>
+            <div class="lion" style="position: absolute; left: 1%;">
+
+                <img src="img/lion.png" width="25px"/>
+
+            </div>
 
             <div class="home">
                 <a href="inicio.jsp">
@@ -104,223 +104,119 @@
 
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
                 <select class="select" name="opcion">
-  <option value="friends">Friends</option>
-  <option value="instagram">Instagram</option>
-  <option value="youtube">Youtube</option>
-  <option value="soundcloud">SoundCloud</option>
-</select>
-
-
+                    <option value="friends">Friends</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="soundcloud">SoundCloud</option>
+                </select>
             </div>  
         </form>
     </div>
-
-    
- <div class="columnleft">
+    <div class="columnleft">
         <div class="usuariodefault">
             <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
             <img src="<%=Util.amigoPerfil.getUsuario_foto()%>" width="175px" />
             <h4><%=Util.amigoPerfil.getUsuario_nombre()%> <%=Util.amigoPerfil.getUsuario_apellido()%> </h4>
-        </br>    
-        <h5><%=Util.amigoPerfil.getUsuario_username()%></h4>
-        <h5><%=Util.amigoPerfil.getUsuario_ubicacion()%></h4>
-
-        </div>
-        
-         
-        <div class="photos">
-
-
-            <div class="photoicon">
-                <img src="img/photoicon.png" alt="photo icon" width="18px" />
-            </div>
-            <div class="photoicon2">
-                <img src="img/friends.png" alt="photo icon" width="18px" />
-            </div>
-
-
-
-
-    </div>
-       
-        <a  href="albumAmigo.jsp" class="h12"><%=Util.amigoPerfil.getUsuario_nombre()%> Album</a>
-        <a href="friendsAmigo.jsp" class="h11"><%=Util.amigoPerfil.getUsuario_nombre()%> Friends</a>
-        
-    </div>
-
-
-    
-
-
-
-
-
-
-
-
-    <div class="columnright">
-
-
-
-        <div class="cuadro">
-
-
-            <div class="photoicon2">
-                <img src="img/photoicon.png" alt="photo icon" width="25px" />
-            </div>
-            <h10 class="h10">Albums</h10>
-
-
-
-
-
-            <div class="separador">
-                <HR width=80% align="left">
-            </div>
-
-
-
-
-
-            <div id="central">
-                <div id="titulos">
-
-                </div>
-                <div id="borde">
-
-                    
-
-                </div>
-                
-                
-                <table style="top: 15%; position: absolute">
-                
-              <ul class="cat">
-                                            
-                    <%
-            int posicion=0;
-            int contador=0;
-            int maximofila=5;
-            int maximoalbums = Util.amigoPerfil.getUsuario_albums().size();
-            while (posicion<=maximoalbums-1){
-              
-            %>      
-            <td>
-            <li>
-                           <a href=# type="submit" onclick="document.formAlbum<%=posicion%>.submit();">
-                            <img  class="min" src="<%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
-                            
-                            <label> <%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_nombre()%> </label>
-                             <form name="formAlbum<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
-                               <input type="radio" checked="true" name="posAlbum" style="visibility: hidden" value="<%=posicion%>"/></form>
-                        </a>
-            </li>    
-              </td>
-            <% contador=contador+1;
-                if (contador==maximofila){%>
-                
-              <tr>
-               <%
-                contador=0;
-                
-                }
-                
-                posicion=posicion+1;
-            }
-            %>
-              </ul>
-                </table>
-            
-
-            </div>
- </div>
-
-    </div>
-
-
-
-
-
-    <div class="columnright2">
-
-    </div>
-
-
-
-
-
-
-<%
- 
-  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
-     
-      
-      if (request.getParameter("opcion").equals("friends")){
-           System.out.println("por aqui");
-          String busqueda = request.getParameter("newBusqueda");
-                    
-          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
-          Util.instagramBusqueda= busqueda;
-          %>
-                   
-                  
-                   <script>
-                       window.location = "resultFriends.jsp";
-                       
-                   </script>
-                          
-                  
-                   
-<%
-                 }
-      if (request.getParameter("opcion").equals("instagram")){
-          
-          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
-          
-          %>
-          
-                   <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-          
-          
-          
-          <%
-          
-      }
-      
-      }
-%>
-
-                   <% if (request.getParameter("posAlbum")!=null){
-
-Util.posAlbum= Integer.parseInt(request.getParameter("posAlbum"));
-                       
-                       %>
-                        <script>
-                       window.location = "albumAmigoContent.jsp";
-                       
-                   </script>
-                       <%
-}
-
-
-
-
- System.out.println("PosAlbum: " + request.getParameter("posAlbum")); //Posicion del Album
-
-
-%>
-
-
-
-
-
-
-
-
-
-
-</body>	
-</html>
+            </br>    
+            <h5><%=Util.amigoPerfil.getUsuario_username()%></h4>
+                <h5><%=Util.amigoPerfil.getUsuario_ubicacion()%></h4>
+                    </div>
+                    <div class="photos">
+                        <div class="photoicon">
+                            <img src="img/photoicon.png" alt="photo icon" width="18px" />
+                        </div>
+                        <div class="photoicon2">
+                            <img src="img/friends.png" alt="photo icon" width="18px" />
+                        </div>
+                    </div>
+                    <a  href="albumAmigo.jsp" class="h12"><%=Util.amigoPerfil.getUsuario_nombre()%> Album</a>
+                    <a href="friendsAmigo.jsp" class="h11"><%=Util.amigoPerfil.getUsuario_nombre()%> Friends</a>
+                    </div>
+                    <div class="columnright">
+                        <div class="cuadro">
+                            <div class="photoicon2">
+                                <img src="img/photoicon.png" alt="photo icon" width="25px" />
+                            </div>
+                            <h10 class="h10">Albums</h10>
+                            <div class="separador">
+                                <HR width=80% align="left">
+                            </div>
+                            <div id="central">
+                                <div id="titulos">
+                                </div>
+                                <div id="borde">
+                                </div>
+                                <table style="top: 15%; position: absolute">
+
+                                    <ul class="cat">
+
+                                        <%
+                                            int posicion = 0;
+                                            int contador = 0;
+                                            int eliminados = 0;
+                                            int maximofila = 5;
+                                            int maximoalbums = Util.amigoPerfil.getUsuario_albums().size();
+                                            while (posicion <= maximoalbums - 1) {
+
+                                                if (Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_show().compareTo("t") == 0) {
+
+                                        %>      
+                                        <td>
+                                        <li>
+                                            <a href=# type="submit" onclick="document.formAlbum<%=posicion%>.submit();">
+                                                <img  class="min" src="<%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_miniatura()%>" alt="#" />
+
+                                                <label> <%=Util.amigoPerfil.getUsuario_albums().get(posicion).getAlbum_nombre()%> </label>
+                                                <form name="formAlbum<%=posicion%>"  id="formAmigo<%=posicion%>" method="post">
+                                                    <input type="radio" checked="true" name="posAlbum" style="visibility: hidden" value="<%=posicion%>"/></form>
+                                            </a>
+                                        </li>    
+                                        </td>
+                                        <% } else {
+                                                eliminados++;
+                                            }
+                                            contador = contador + 1;
+                                            if (contador - eliminados == maximofila) {%>
+
+                                        <tr>
+                                            <%                                                        contador = 0;
+                                                    }
+                                                    posicion = posicion + 1;
+                                                }
+                                            %>
+                                    </ul>
+                                </table>
+                            </div>                        </div>
+                    </div> <div class="columnright2">
+                    </div>
+                    <%                        if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion") != null)) {
+                            if (request.getParameter("opcion").equals("friends")) {
+                                String busqueda = request.getParameter("newBusqueda");
+                                Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+                                Util.instagramBusqueda = busqueda;
+                    %>
+                    <script>
+            window.location = "resultFriends.jsp";
+
+                    </script>
+                    <%}
+                        if (request.getParameter("opcion").equals("instagram")) {
+                            Util.instagramBusqueda = (String) request.getParameter("newBusqueda");
+                    %>
+                    <script>
+                        window.location = "resultInstagram.jsp";
+
+                    </script>
+                    <%  }
+                        }
+                    %>
+
+                    <% if (request.getParameter("posAlbum") != null) {
+                            Util.posAlbum = Integer.parseInt(request.getParameter("posAlbum"));
+                    %>
+                    <script>
+                        window.location = "albumAmigoContent.jsp";
+                    </script>
+                    <% }
+                    %></body>	
+                    </html>

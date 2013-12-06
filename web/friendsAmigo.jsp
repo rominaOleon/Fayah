@@ -6,7 +6,7 @@
     <body>
     <head>
         <title>Friends</title>
-<SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
+        <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
 
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -43,12 +43,12 @@
                 <a type="submit" onclick="document.formularioBusqueda.submit();">
                     <img src="img/lupaicon.png" alt="home icon" width="25px" /></a>
             </div>
-            
-                  <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
-        </div>
+
+            <div class="lion" style="position: absolute; left: 1%;">
+
+                <img src="img/lion.png" width="25px"/>
+
+            </div>
 
             <div class="home">
                 <a href="inicio.jsp">
@@ -72,11 +72,11 @@
 
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
                 <select class="select" name="opcion">
-  <option value="friends">Friends</option>
-  <option value="instagram">Instagram</option>
-  <option value="youtube">Youtube</option>
-  <option value="soundcloud">SoundCloud</option>
-</select>
+                    <option value="friends">Friends</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="soundcloud">SoundCloud</option>
+                </select>
             </div>  
         </form>
     </div>
@@ -165,28 +165,28 @@
                                     </br>
 
                                 </div>
-                             
-                                    <div class="span3">
 
-                                    </div>  
+                                <div class="span3">
 
-
+                                </div>  
 
 
-                                    <div class="nombreUsu">
-                                        <a><%=nombreAmigo%></a>                    </br>
-                                        <a><%=ubicacion%></a>
-                                        </br>
-                                        </br>
-                                        </br>
-                                        </br>
-                                        </br>
-                                        </br>
 
 
-                                    </div>
+                                <div class="nombreUsu">
+                                    <a><%=nombreAmigo%></a>                    </br>
+                                    <a><%=ubicacion%></a>
+                                    </br>
+                                    </br>
+                                    </br>
+                                    </br>
+                                    </br>
+                                    </br>
 
-                             
+
+                                </div>
+
+
 
                                 <% posicion = posicion + 1;
                                     }
@@ -208,47 +208,47 @@
 
                     </div>
 
-<%
- 
-  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
-     
-      
-      if (request.getParameter("opcion").equals("friends")){
-           System.out.println("por aqui");
-          String busqueda = request.getParameter("newBusqueda");
-                    
-          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
-          Util.instagramBusqueda= busqueda;
-          %>
-                   
-                  
-                   <script>
-                       window.location = "resultFriends.jsp";
-                       
-                   </script>
-                          
-                  
-                   
-<%
-                 }
-      if (request.getParameter("opcion").equals("instagram")){
-          
-          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
-          
-          %>
-          
-                   <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-          
-          
-          
-          <%
-          
-      }
-      
-      }
-%>
+                    <%
+
+                        if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion") != null)) {
+
+
+                            if (request.getParameter("opcion").equals("friends")) {
+
+                                String busqueda = request.getParameter("newBusqueda");
+
+                                Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+                                Util.instagramBusqueda = busqueda;
+                    %>
+
+
+                    <script>
+            window.location = "resultFriends.jsp";
+
+                    </script>
+
+
+
+                    <%
+                        }
+                        if (request.getParameter("opcion").equals("instagram")) {
+
+                            Util.instagramBusqueda = (String) request.getParameter("newBusqueda");
+
+                    %>
+
+                    <script>
+                        window.location = "resultInstagram.jsp";
+
+                    </script>
+
+
+
+                    <%
+
+                            }
+
+                        }
+                    %>
                     </body>	
                     </html>

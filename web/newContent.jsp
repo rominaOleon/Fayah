@@ -8,7 +8,7 @@
     <head>
         <title>Add Content</title>
 
-<SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
+        <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -74,12 +74,12 @@
                 <a href="settings.jsp">
                     <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
             </div>
-            
-                  <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
-        </div>
+
+            <div class="lion" style="position: absolute; left: 1%;">
+
+                <img src="img/lion.png" width="25px"/>
+
+            </div>
             <div class="lock">
                 <a href="index.jsp">
                     <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();"  /></a>
@@ -92,11 +92,11 @@
             <div class="todo-search">
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
                 <select class="select" name="opcion" >
-  <option value="friends">Friends</option>
-  <option value="instagram">Instagram</option>
-  <option value="youtube">Youtube</option>
-  <option value="soundcloud">SoundCloud</option>
-</select>
+                    <option value="friends">Friends</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="soundcloud">SoundCloud</option>
+                </select>
             </div> 
         </form>
     </div>
@@ -137,32 +137,32 @@
 
 
                     <div class="columnright">
-                                <form name="formularioAlbum" id="formularioAlbum" method="post">
-       
-                                <div class="linkAlbum" style="position: absolute;left: 5%;">
-                                    <img src="<%=Util.contenidoLink%>"/>
-                                </div> 
+                        <form name="formularioAlbum" id="formularioAlbum" method="post">
+
+                            <div class="linkAlbum" style="position: absolute;left: 5%;">
+                                <img src="<%=Util.contenidoLink%>"/>
+                            </div> 
 
 
-                        
-<div class="span9" style="position: absolute;
-top: 20%;
-width: inherit;
-right: -29%;">
-    <h style="position: relative;left: 84%;">Select Album</h>
-    <select name="posAlbum" style="position: relative;left: 90%;">
-        <% for (int posicion = 0; posicion <= Util.usuario.getUsuario_albums().size() - 1; posicion++) {
-        %>
-        <option value="<%=posicion%>"><%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_nombre()%></option>
 
-        <% }%>
-    </select>
-    <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary" >+ Add Content</a>
-                            
-                        </div>
+                            <div class="span9" style="position: absolute;
+                                 top: 20%;
+                                 width: inherit;
+                                 right: -29%;">
+                                <h style="position: relative;left: 84%;">Select Album</h>
+                                <select name="posAlbum" style="position: relative;left: 90%;">
+                                    <% for (int posicion = 0; posicion <= Util.usuario.getUsuario_albums().size() - 1; posicion++) {
+                                    %>
+                                    <option value="<%=posicion%>"><%=Util.usuario.getUsuario_albums().get(posicion).getAlbum_nombre()%></option>
+
+                                    <% }%>
+                                </select>
+                                <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary" >+ Add Content</a>
+
+                            </div>
 
 
-</form>
+                        </form>
 
 
 
@@ -174,61 +174,61 @@ right: -29%;">
 
 
 
-<% System.out.println("album:" + request.getParameter("posAlbum"));
+                    <%
 
-    if (request.getParameter("posAlbum")!=null){
-        int posAlbum= Integer.parseInt(request.getParameter("posAlbum"));
-System.out.println(Util.usuario.getUsuario_albums().get(posAlbum).getAlbum_id());
-NewContentControlador.agregarContenido(Util.contenidoLink, Util.usuario.getUsuario_albums().get(posAlbum).getAlbum_id());
+                        if (request.getParameter("posAlbum") != null) {
+                            int posAlbum = Integer.parseInt(request.getParameter("posAlbum"));
 
-    
-   %>
-  
-   
-     <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-   
-   <%
-   
-    }
+                            NewContentControlador.agregarContenido(Util.contenidoLink, Util.usuario.getUsuario_albums().get(posAlbum).getAlbum_id());
 
 
- 
-  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
-     
-      
-      if (request.getParameter("opcion").equals("friends")){
-           System.out.println("por aqui");
-          String busqueda = request.getParameter("newBusqueda");
-                    
-          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
-          Util.instagramBusqueda= busqueda;
-          %>
-   
-                   <script>
-                       window.location = "resultFriends.jsp";
-                       
-                   </script>
-       
-<%
-                 }
-      if (request.getParameter("opcion").equals("instagram")){
-          
-          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
-          
-          %>
-            <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-              <%
-          
-      }
-      
-      }
-%>
+                    %>
 
-    </body>	
-</html>
+
+                    <script>
+            window.location = "resultInstagram.jsp";
+
+                    </script>
+
+                    <%
+
+                        }
+
+
+
+                        if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion") != null)) {
+
+
+                            if (request.getParameter("opcion").equals("friends")) {
+
+                                String busqueda = request.getParameter("newBusqueda");
+
+                                Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+                                Util.instagramBusqueda = busqueda;
+                    %>
+
+                    <script>
+                        window.location = "resultFriends.jsp";
+
+                    </script>
+
+                    <%
+                        }
+                        if (request.getParameter("opcion").equals("instagram")) {
+
+                            Util.instagramBusqueda = (String) request.getParameter("newBusqueda");
+
+                    %>
+                    <script>
+                        window.location = "resultInstagram.jsp";
+
+                    </script>
+                    <%
+
+                            }
+
+                        }
+                    %>
+
+                    </body>	
+                    </html>

@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import negocio.Album;
 import negocio.AlbumList;
-import negocio.Notificacion;
 import negocio.NotificacionList;
 import persistencia.AlbumDAO;
 import persistencia.AlbumDAOSQL;

@@ -7,7 +7,7 @@
     <head>
         <title>New Album</title>
 
-<SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
+        <SCRIPT Language=Javascript SRC="js/loginFace.js"></SCRIPT>
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -73,12 +73,12 @@
                 <a href="settings.jsp">
                     <img src="img/setting-icon3.png" alt="home icon" width="32px" /></a>
             </div>
-            
-                  <div class="lion" style="position: absolute; left: 1%;">
-            
-            <img src="img/lion.png" width="25px"/>
-            
-        </div>
+
+            <div class="lion" style="position: absolute; left: 1%;">
+
+                <img src="img/lion.png" width="25px"/>
+
+            </div>
             <div class="lock">
                 <a href="index.jsp">
                     <img src="img/logout.png" alt="home icon" width="29px" onclick="FLogout();"  /></a>
@@ -90,12 +90,12 @@
             </h1>
             <div class="todo-search">
                 <input class="todo-search-field" type="text" name="newBusqueda" placeholder="Search for people" id="laBusqueda">
-          <select class="select" name="opcion">
-  <option value="friends">Friends</option>
-  <option value="instagram">Instagram</option>
-  <option value="youtube">Youtube</option>
-  <option value="soundcloud">SoundCloud</option>
-</select>
+                <select class="select" name="opcion">
+                    <option value="friends">Friends</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="soundcloud">SoundCloud</option>
+                </select>
             </div> 
         </form>
     </div>
@@ -186,27 +186,27 @@
                                 <div class="formu2">
                                     <label style="color: black; float: left" class="letracolor2">Description:</label>  
                                     <textarea style="resize: none; position: absolute; left:80px" cols="20" rows="5" name="descriptionAlbum" class="login-field" value placeholder="" id="login-lastname"></textarea>
-                                        </form>
-
-                                  
-
-                                </div>	
-
-<% if (Util.msgError==true){ %>
+                            </form>
 
 
-   <p style="position: absolute;
-top: 43%;
-left: 55%;
-color: red">You must fill in all of the fields.</p>
-<%}%>
+
+                        </div>	
+
+                        <% if (Util.msgError == true) {%>
 
 
-                        </div>
-                        
-                        <div class="span3">
-                                        <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary">+ Create</a>
-                        </div>
+                        <p style="position: absolute;
+                           top: 43%;
+                           left: 55%;
+                           color: red">You must fill in all of the fields.</p>
+                        <%}%>
+
+
+                    </div>
+
+                    <div class="span3">
+                        <a href="#fakelink" type="submit" onclick="document.formularioAlbum.submit();" class="btn btn-large btn-block btn-primary">+ Create</a>
+                    </div>
 
 
 
@@ -228,68 +228,67 @@ color: red">You must fill in all of the fields.</p>
 
                         if ((request.getParameter("descriptionAlbum") != null)
                                 && (request.getParameter("nameAlbum") != null)) {
-                            
-                            
-                            if ((request.getParameter("descriptionAlbum")!="") || 
-                                    (request.getParameter("nameAlbum")!="" )){
+
+
+                            if ((request.getParameter("descriptionAlbum") != "")
+                                    || (request.getParameter("nameAlbum") != "")) {
                                 String nombreAlbum = request.getParameter("nameAlbum");
                                 String descripcionAlbum = request.getParameter("descriptionAlbum");
                                 NewAlbumControlador.NuevoAlbum(nombreAlbum, descripcionAlbum);
                                 response.sendRedirect("album.jsp");
-                                Util.msgError=false;
-                            }
-                            else {
+                                Util.msgError = false;
+                            } else {
                                 Util.msgError = true;
-                                response.sendRedirect("newAlbum.jsp");                                
-                             }
+                                response.sendRedirect("newAlbum.jsp");
+                            }
 
-                          }
+                        }
 
 
                     %>	  
 
- <%
- 
-  if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion")!=null )) {
-     
-      
-      if (request.getParameter("opcion").equals("friends")){
-           System.out.println("por aqui");
-          String busqueda = request.getParameter("newBusqueda");
-                    
-          Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
-          Util.instagramBusqueda= busqueda;
-          %>
-                   
-                  
-                   <script>
-                       window.location = "resultFriends.jsp";
-                       
-                   </script>
-                          
-                  
-                   
-<%
-                 }
-      if (request.getParameter("opcion").equals("instagram")){
-          
-          Util.instagramBusqueda=(String)request.getParameter("newBusqueda");
-          
-          %>
-          
-                   <script>
-                       window.location = "resultInstagram.jsp";
-                       
-                   </script>
-          
-          
-          
-          <%
-          
-      }
-      
-      }
-%>
+                    <%
+
+                        if (request.getParameter("newBusqueda") != null & (request.getParameter("opcion") != null)) {
+
+
+                            if (request.getParameter("opcion").equals("friends")) {
+
+                                String busqueda = request.getParameter("newBusqueda");
+
+                                Util.usuarios = InicioControlador.BuscarUsuario(busqueda);
+                                Util.instagramBusqueda = busqueda;
+                    %>
+
+
+                    <script>
+            window.location = "resultFriends.jsp";
+
+                    </script>
+
+
+
+                    <%
+                        }
+                        if (request.getParameter("opcion").equals("instagram")) {
+
+                            Util.instagramBusqueda = (String) request.getParameter("newBusqueda");
+
+                    %>
+
+                    <script>
+                        window.location = "resultInstagram.jsp";
+
+                    </script>
+
+
+
+                    <%
+
+                            }
+
+                        }
+                    %>
 
 
 
