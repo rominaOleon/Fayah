@@ -114,13 +114,13 @@
             
             
             
-            String username = request.getParameter("usuarioFace");
-            String nombre = request.getParameter("nombreFace");
-            String apellido = request.getParameter("apellidoFace");
-            String email = request.getParameter("emailFace");
-            String fecha_nacimiento = request.getParameter("cumpleFace");
-            String ubicacion = request.getParameter("direccionFace");
-            String foto = request.getParameter("fotoFace");
+            String username = "elMasTroll";
+            String nombre = "Kennelth";
+            String apellido = "Kovac";
+            String email = "turboken169@gmail.com";
+            String fecha_nacimiento = "06/01/1990";
+            String ubicacion = "Caracas, Venezuela";
+            String foto = "https://www.facebook.com/photo.php?fbid=10153391599351749&set=a.426855806748.216651.636721748&type=3&source=11&referrer_profile_id=636721748";
 
             if (email != null) {
                 if ((email.compareTo("undefined") != 0)

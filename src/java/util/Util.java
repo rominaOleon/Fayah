@@ -31,9 +31,9 @@ import persistencia.UsuarioDAOSQL;
 public abstract class Util {
     public static Usuario usuario = new Usuario();
     public static final String DRIVER_BD = "org.postgresql.Driver";
-    public static final String URL_BD = "jdbc:postgresql://ec2-54-235-83-5.compute-1.amazonaws.com:5432/d90thl54rosfe3?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-    public static final String USERNAME_BD = "ezfrmsdwmxsdku";
-    public static final String PASSWORD_BD = "0LsDzLMI8KFNe-pkM6iQSHuAHI";
+    public static final String URL_BD = "jdbc:postgresql://ec2-54-235-84-244.compute-1.amazonaws.com:5432/d74ogi4fh4npdn?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+    public static final String USERNAME_BD = "rxldlgfshukogg";
+    public static final String PASSWORD_BD = "c83cc8ee4d7256475e71055a3b159fdc64257155a4897451104b4310f8fcb4be";
     public static UsuariosList usuarios;
     public static String defaultAlbumCover = "img/defaultalbum.jpg";
     public static boolean msgError = false;
